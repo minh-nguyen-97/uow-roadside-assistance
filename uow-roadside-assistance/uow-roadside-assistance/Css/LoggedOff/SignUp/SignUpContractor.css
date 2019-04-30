@@ -1,0 +1,28 @@
+﻿#contractorSignUpLogoText {
+    background: red;
+    background: -webkit-linear-gradient(left, orange, yellow, green, cyan, blue, violet);
+    background: -o-linear-gradient(right, orange, yellow, green, cyan, blue, violet);
+    background: -moz-linear-gradient(right, orange, yellow, green, cyan, blue, violet);
+    background: linear-gradient(to right, orange, yellow, green, cyan, blue, violet);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 50px;
+    font-family: 'Courier New';
+    font-weight: 900;
+    margin-top: 5%;
+}
+
+.signUpButton {
+    height: 1.3cm;
+    width: 5cm;
+}
+
+#accordion .container-fluid {
+    margin-top: 0.75cm;
+}
+
+.ErrorMessage {
+    color: red;
+    font-size: 0.5cm;
+    margin-left: 18px;
+}

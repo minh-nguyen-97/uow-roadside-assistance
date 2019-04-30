@@ -23,6 +23,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -44,6 +45,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -67,10 +71,117 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Web.config" />
+    <Content Include="Css\LoggedOff\NavBar.css" />
+    <Content Include="Css\LoggedOff\SignIn.css" />
+    <Content Include="Css\LoggedOff\SignUp\SignUpContractor.css" />
+    <Content Include="Css\LoggedOff\SignUp\SignUpCustomer.css" />
+    <Content Include="Css\LoggedOff\SlideShow.css" />
+    <Content Include="Css\LoggedOn\Customer\CustomerNavBar.css" />
+    <Content Include="Images\cropped_tick.gif" />
+    <Content Include="Images\official_logo.gif" />
+    <Content Include="Images\slide_show\fifth.jpg" />
+    <Content Include="Images\slide_show\first.jpg" />
+    <Content Include="Images\slide_show\forth.jpg" />
+    <Content Include="Images\slide_show\second.jpg" />
+    <Content Include="Images\slide_show\seventh.jpg" />
+    <Content Include="Images\slide_show\sixth.jpg" />
+    <Content Include="Images\slide_show\third.jpg" />
+    <Content Include="Scripts\LoggedOn\Customer\CustomerNavBar.js" />
+    <Content Include="Scripts\SignIn.js" />
+    <Content Include="Scripts\SignUp\SignUpContractor.js" />
+    <Content Include="Scripts\SignUp\SignUpCustomer.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="WebPages\LoggedOff\Home.aspx" />
+    <Content Include="WebPages\LoggedOff\LoggedOffService.svc" />
+    <Content Include="WebPages\LoggedOff\Master.aspx" />
+    <Content Include="WebPages\LoggedOff\SignIn.aspx" />
+    <Content Include="WebPages\LoggedOff\SignUpContractor.aspx" />
+    <Content Include="WebPages\LoggedOff\SignUpCustomer.aspx" />
+    <Content Include="WebPages\LoggedOff\SuccessfulRegistration.aspx" />
+    <Content Include="WebPages\LoggedOn\Contractor\ContractorHomepage.aspx" />
+    <Content Include="WebPages\LoggedOn\Customer\CustomerHomepage.aspx" />
+    <Content Include="WebPages\LoggedOn\Customer\CustomerService.svc" />
+    <Content Include="WebPages\LoggedOn\Customer\Master.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\Contractor.cs" />
+    <Compile Include="Classes\Customer.cs" />
+    <Compile Include="Classes\User.cs" />
+    <Compile Include="DBData\ContractorDBData.cs" />
+    <Compile Include="DBData\CustomerDBData.cs" />
+    <Compile Include="DBData\UserDBData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebPages\LoggedOff\Home.aspx.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPages\LoggedOff\Home.aspx.designer.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPages\LoggedOff\LoggedOffService.svc.cs">
+      <DependentUpon>LoggedOffService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="WebPages\LoggedOff\Master.aspx.cs">
+      <DependentUpon>Master.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPages\LoggedOff\Master.aspx.designer.cs">
+      <DependentUpon>Master.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPages\LoggedOff\SignIn.aspx.cs">
+      <DependentUpon>SignIn.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPages\LoggedOff\SignIn.aspx.designer.cs">
+      <DependentUpon>SignIn.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPages\LoggedOff\SignUpContractor.aspx.cs">
+      <DependentUpon>SignUpContractor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPages\LoggedOff\SignUpContractor.aspx.designer.cs">
+      <DependentUpon>SignUpContractor.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPages\LoggedOff\SignUpCustomer.aspx.cs">
+      <DependentUpon>SignUpCustomer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPages\LoggedOff\SignUpCustomer.aspx.designer.cs">
+      <DependentUpon>SignUpCustomer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPages\LoggedOff\SuccessfulRegistration.aspx.cs">
+      <DependentUpon>SuccessfulRegistration.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPages\LoggedOff\SuccessfulRegistration.aspx.designer.cs">
+      <DependentUpon>SuccessfulRegistration.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPages\LoggedOn\Contractor\ContractorHomepage.aspx.cs">
+      <DependentUpon>ContractorHomepage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPages\LoggedOn\Contractor\ContractorHomepage.aspx.designer.cs">
+      <DependentUpon>ContractorHomepage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPages\LoggedOn\Customer\CustomerHomepage.aspx.cs">
+      <DependentUpon>CustomerHomepage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPages\LoggedOn\Customer\CustomerHomepage.aspx.designer.cs">
+      <DependentUpon>CustomerHomepage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPages\LoggedOn\Customer\CustomerService.svc.cs">
+      <DependentUpon>CustomerService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="WebPages\LoggedOn\Customer\Master.aspx.cs">
+      <DependentUpon>Master.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPages\LoggedOn\Customer\Master.aspx.designer.cs">
+      <DependentUpon>Master.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -81,6 +192,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
