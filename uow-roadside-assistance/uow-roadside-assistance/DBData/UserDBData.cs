@@ -67,8 +67,9 @@ namespace uow_roadside_assistance.DBData
                 String email = Convert.ToString(reader["email"]).TrimEnd();
                 String password = Convert.ToString(reader["password"]).TrimEnd();
                 String userType = Convert.ToString(reader["userType"]).TrimEnd();
+                String fullName = Convert.ToString(reader["fullName"]).TrimEnd();
 
-                res = new User(userID, userName, email, password, userType);
+                res = new User(userID, userName, email, password, userType, fullName);
             }
 
             conn.Close();
@@ -93,8 +94,9 @@ namespace uow_roadside_assistance.DBData
                 String email = Convert.ToString(reader["email"]).TrimEnd();
                 String password = Convert.ToString(reader["password"]).TrimEnd();
                 String userType = Convert.ToString(reader["userType"]).TrimEnd();
+                String fullName = Convert.ToString(reader["fullName"]).TrimEnd();
 
-                res = new User(userID, userName, email, password, userType);
+                res = new User(userID, userName, email, password, userType, fullName);
             }
 
             conn.Close();
@@ -141,18 +143,19 @@ namespace uow_roadside_assistance.DBData
 
         // INSERT
 
-        public static void insertNewUser(String username, String email, String password, String userType)
+        public static void insertNewUser(String username, String email, String password, String userType, String fullName)
         {
             SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
             conn.Open();
-            String insertQuery = "INSERT INTO dbo.USERS(username, email, password, userType)" +
-                                    "VALUES (@username, @email, @password, @userType)";
+            String insertQuery = "INSERT INTO dbo.USERS(username, email, password, userType, fullName)" +
+                                    "VALUES (@username, @email, @password, @userType, @fullName)";
             SqlCommand cmd = new SqlCommand(insertQuery, conn);
 
             cmd.Parameters.AddWithValue("@username", username);
             cmd.Parameters.AddWithValue("@email", email);
             cmd.Parameters.AddWithValue("@password", password);
             cmd.Parameters.AddWithValue("@userType", userType);
+            cmd.Parameters.AddWithValue("@fullName", fullName);
             cmd.ExecuteNonQuery();
 
             conn.Close();

@@ -22,22 +22,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
     <%-- Page Scripts --%>
-    <script type="text/javascript">
-        window.onload = function (e) {
-            LoggedOffService.getSession(function (session) {
-                if (session != null) {
-                    LoggedOffService.getUserTypeFromSession(function (userType) {
-                        if (userType == 'Customer') {
-                            window.location.href = '../LoggedOn/Customer/CustomerHomepage.aspx';
-                        } else {
-                            window.location.href = '../LoggedOn/Contractor/ContractorHomepage.aspx';
-                        }
-                        alert("You are already logged in !!!");
-                    });
-                }
-            });
-        };
-    </script>
+    <script type="text/javascript" src="../../Scripts/OnLoadLoggedOff.js"></script>
 
     <%-- Page CSS --%>
     <link rel="stylesheet" href="../../Css/LoggedOff/SlideShow.css" />
@@ -45,11 +30,11 @@
 </head>
 <body>
 
-     <%-- Service --%>
+    <%-- Service --%>
     <form id="form1" runat="server">
         <asp:ScriptManager ID="ScriptManager1" runat="server">
             <Services>
-                <asp:ServiceReference Path="~/WebPages/LoggedOff/LoggedOffService.svc" />
+               <asp:ServiceReference Path="~/WebPages/LoggedOff/LoggedOffService.svc" />
             </Services>
         </asp:ScriptManager>
     </form>
@@ -66,7 +51,7 @@
             <div id="navbarNavDropdown" class="navbar-collapse collapse">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="Home">Home <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="Home.aspx">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Services</a>
@@ -95,7 +80,6 @@
             </div>
         </nav>
     </div>
-
     <%-- Page Content --%>
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
         <!-- Indicators -->

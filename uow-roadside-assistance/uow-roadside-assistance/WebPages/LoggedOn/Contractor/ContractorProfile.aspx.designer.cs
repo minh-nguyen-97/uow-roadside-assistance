@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace uow_roadside_assistance.WebPages.LoggedOn.Customer {
+namespace uow_roadside_assistance.WebPages.LoggedOn.Contractor {
     
     
-    public partial class Master {
+    public partial class ContractorProfile {
         
         /// <summary>
         /// form1 control.

@@ -28,20 +28,27 @@
         if (!validateThirdFields())
             return;
 
+        // first tab
         var username = $('#Username').val();
         var email = $('#Email').val();
         var password = $('#Password').val();
+        var fullName = 'test';
         //var userType = 'Customer';
+        var fullName = $('#FirstName').val() + ' ' + $('#LastName').val();
+
+        // Second tab
         var regNo = $('#RegistrationNo').val();
         var color = $('#Color').val();
         var make = $('#Make').val();
         var model = $('#Model').val();
+
+        // third tab
         var cardHolder = $('#CardHolder').val();
         var expDate = $('#ExpiryDate').val();
         var cardNo = $('#CardNumber').val();
         var CVV = $('#CVV').val();
 
-        LoggedOffService.createNewCustomer(username, email, password, regNo, make, model, color, cardHolder, cardNo, expDate, CVV, onCustomerRegister);
+        LoggedOffService.createNewCustomer(username, email, password, fullName, regNo, make, model, color, cardHolder, cardNo, expDate, CVV, onCustomerRegister);
     });
 
     function onCustomerRegister(res) {
@@ -122,6 +129,8 @@ function checkFirstFields() {
     check = checkRequiredField('Email') && check;
     check = checkRequiredField('Password') && check;
     check = checkRequiredField('ConfirmedPassword') && check;
+    check = checkRequiredField('FirstName') && check;
+    check = checkRequiredField('LastName') && check;
 
     if (check) {
         var same = ($('#Password').val() == $('#ConfirmedPassword').val());

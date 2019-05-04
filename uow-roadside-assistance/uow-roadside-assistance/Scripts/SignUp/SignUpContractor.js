@@ -14,14 +14,18 @@
         if (validateSecondFields() == false)
             return;
 
+        // first tab
         var username = $('#Username').val();
         var email = $('#Email').val();
         var password = $('#Password').val();
         var userType = 'Contractor';
+        var fullName = $('#FirstName').val() + ' ' + $('#LastName').val();
+
+        // second tab
         var accountName = $('#AccountName').val();
         var accountNumber = $('#AccountNumber').val();
         var BSB = $('#BSB').val();
-        LoggedOffService.createNewContractor(username, email, password, accountName, accountNumber, BSB, onContractorRegister);
+        LoggedOffService.createNewContractor(username, email, password, fullName, accountName, accountNumber, BSB, onContractorRegister);
     });
 
     function onContractorRegister(res) {
@@ -79,6 +83,8 @@ function checkFirstFields() {
     check = checkRequiredField('Email') && check;
     check = checkRequiredField('Password') && check;
     check = checkRequiredField('ConfirmedPassword') && check;
+    check = checkRequiredField('FirstName') && check;
+    check = checkRequiredField('LastName') && check;
 
     if (check) {
         var same = ($('#Password').val() == $('#ConfirmedPassword').val());
