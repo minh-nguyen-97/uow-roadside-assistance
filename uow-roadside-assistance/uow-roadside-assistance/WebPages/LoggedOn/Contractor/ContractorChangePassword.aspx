@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CustomerHomepage.aspx.cs" Inherits="uow_roadside_assistance.WebPages.LoggedOn.Customer.CustomerHomepage" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ContractorChangePassword.aspx.cs" Inherits="uow_roadside_assistance.WebPages.LoggedOn.Contractor.ContractorChangePassword" %>
 
 <!DOCTYPE html>
 
@@ -6,7 +6,7 @@
 <head runat="server">
 
     <%--title--%>
-    <title>Customer Homepage</title>
+    <title>Contractor Master</title>
     
      <%-- jquery and jquery ui --%>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
@@ -23,15 +23,15 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     
     <%--Page CSS--%>
-    <link rel="stylesheet" href="../../../Css/LoggedOn/Customer/CustomerNavBar.css" />
-
-    <link rel="stylesheet" href="../../../Css/LoggedOn/Customer/CustomerHomepage.css" />
+    <link rel="stylesheet" href="../../../Css/LoggedOn/Contractor/ContractorNavBar.css" />
+    <link rel="stylesheet" href="../../../Css/LoggedOn/Contractor/ContractorChangePassword.css" />
 
     <%--Nav Bar Scripts--%>
-    <script type="text/javascript" src="../../../Scripts/LoggedOn/Customer/CustomerNavBar.js"></script>
+    <script type="text/javascript" src="../../../Scripts/LoggedOn/Contractor/ContractorNavBar.js"></script>
 
     <%-- Page Scripts --%>
-    <script type="text/javascript" src="../../../Scripts/LoggedOn/Customer/OnLoadCustomer.js"></script>
+    <script type="text/javascript" src="../../../Scripts/LoggedOn/Contractor/OnLoadContractor.js"></script>
+    <script type="text/javascript" src="../../../Scripts/LoggedOn/Contractor/ContractorChangePassword.js"></script>
 
 </head>
 <body>
@@ -40,7 +40,7 @@
     <form id="form1" runat="server">
         <asp:ScriptManager ID="ScriptManager1" runat="server">
             <Services>
-               <asp:ServiceReference Path="~/WebPages/LoggedOn/Customer/CustomerService.svc" />
+               <asp:ServiceReference Path="~/WebPages/LoggedOn/Contractor/ContractorService.svc" />
             </Services>
         </asp:ScriptManager>
     </form>
@@ -55,7 +55,7 @@
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
                         <a class="navbar-brand" href="#">
-                            <img src="../../../Images/official_logo.gif" width="60" height="60"/><span id="logoText">Daedalus Customer</span>
+                            <img src="../../../Images/official_logo.gif" width="60" height="60"/><span id="logoText">Daedalus Contractor</span>
                         </a>
                     </li>
                 </ul>
@@ -67,9 +67,9 @@
                             <i class="fas fa-user-circle fa-2x"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right text-right" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="CustomerHomepage.aspx">Dashboard</a>
+                            <a class="dropdown-item" href="ContractorHomepage.aspx">Dashboard</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="CustomerProfile.aspx">Profile</a>
+                            <a class="dropdown-item" href="ContractorProfile.aspx">Profile</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#">Past transactions</a>
                             <div class="dropdown-divider"></div>
@@ -82,43 +82,46 @@
     </div>
 
     <%-- Page Content --%>
-    <br />
-    <br />
-    <table style="width: 80%;" border="0" id="topTable">
-        <tbody>
-            <tr>
-                <td id="update-details-image" style="background-color:#172547; cursor:pointer " onclick="window.location.href = './CustomerProfile.aspx'">
-                    <span class="icon"><i class='fas fa-user-edit' style='font-size:55px; color:lightgray;'></i></span>
-                </td>
-                <td style="width:5%; height:50px;"></td>
-                <td id="manage-subscription-image" style=" background-color:#172547; ">
-                <span class="icon"><i class="fas fa-toolbox" style='font-size:55px; color:lightgray;'></i></span>
-                </td>
-            </tr>
-                <tr></tr>
-            <tr>
-                <td id="update-details-text" style="cursor:pointer" onclick="window.location.href = './CustomerProfile.aspx'"> 
-                    <h4>Update My Details</h4>
-                </td>
-                <td style="width:5%"></td>
-                <td id="manage-subscription-text"> 
-                    <h4>Manage Subscription</h4>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table id="middleTable" style="width: 60%; text-align: center" border="0">
-        <tr>
-            <td id="request-service-image">
-            <span class="icon"><i class="fas fa-tools" style="font-size:55px; color:lightgray;"></i></span>
-            </td>
-        </tr>
-        <tr>
-            <td id="request-service-text" style="width:70%; text-align: center; background-color:lightgray;">   <h4>Request Service</h4> 
-            </td>
-        </tr>
-    </table>
+        <div class="container" style="width:50%; margin-left:20%;">
+        <br /><br />
+        <div class="headerDetails">
+            <h2><span class="underlinedText" style="text-align:center">Change Password</span><span class="icon"><i class='far fa-edit' style='font-size:36px'></i></span></h2>
+        </div>
+        <br /><br />
+        <div class="container">
+            <div class="row">
+                <div class="col col-lg-4 text-right">Old Password: </div>
+                <div class="col text-left">
+                    <input id="OldPassword" type="password" class="form-control"/>
+                    <span id="OldPasswordErrMess" class="ErrorMessage"></span>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col col-lg-4 text-right">New Password:</div>
+                <div class="col text-left">
+                    <input id="NewPassword" type="password" class="form-control"/>
+                    <span id="NewPasswordErrMess" class="ErrorMessage"></span>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col col-lg-4 text-right">Confirm Password:</div>
+                <div class="col text-left">
+                    <input id="ConfirmedPassword" type="password" class="form-control" />
+                    <span id="ConfirmedPasswordErrMess" class="ErrorMessage"></span>
+                </div>
+            </div>
+            <br />
+        </div>
+        <br />
+        <div class="container" style="text-align:center">
+            <button id="SaveChanges" class="btn btn-primary">Save Changes</button>
+        </div>
+    </div>
 
 </body>
 </html>
+
+
 

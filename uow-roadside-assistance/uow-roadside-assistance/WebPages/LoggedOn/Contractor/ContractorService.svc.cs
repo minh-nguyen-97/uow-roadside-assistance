@@ -11,11 +11,11 @@ using System.Web.Script.Serialization;
 using uow_roadside_assistance.Classes;
 using uow_roadside_assistance.DBData;
 
-namespace uow_roadside_assistance.WebPages.LoggedOn.Customer
+namespace uow_roadside_assistance.WebPages.LoggedOn.Contractor
 {
     [ServiceContract(Namespace = "")]
     [AspNetCompatibilityRequirements(RequirementsMode = AspNetCompatibilityRequirementsMode.Allowed)]
-    public class CustomerService
+    public class ContractorService
     {
         // To use HTTP GET, add [WebGet] attribute. (Default ResponseFormat is WebMessageFormat.Json)
         // To create an operation that returns XML,
@@ -47,7 +47,7 @@ namespace uow_roadside_assistance.WebPages.LoggedOn.Customer
                 if (curUser.UserType.Equals("Customer"))
                 {
                     curUser = (uow_roadside_assistance.Classes.Customer)(HttpContext.Current.Session["New"]);
-                } 
+                }
                 else
                 {
                     curUser = (uow_roadside_assistance.Classes.Contractor)(HttpContext.Current.Session["New"]);
@@ -57,33 +57,29 @@ namespace uow_roadside_assistance.WebPages.LoggedOn.Customer
         }
 
         [OperationContract]
-        public void UpdateCustomerProfile(String email, String regNo, String make, String model, String color, String cardHolder, String cardNo, String expDate, String cvv )
+        public void UpdateContractorProfile(String email, String accountName, String accountNumber, String bsb)
         {
-            uow_roadside_assistance.Classes.Customer curCust = (uow_roadside_assistance.Classes.Customer)(HttpContext.Current.Session["New"]);
-            int userID = curCust.UserID;
+            Classes.Contractor curContractor = (Classes.Contractor)(HttpContext.Current.Session["New"]);
+            int userID = curContractor.UserID;
 
             UserDBData.updateUserEmailByID(userID, email);
 
-            int CVV = Convert.ToInt32(cvv);
-            String[] mmyy = expDate.Split('/');
-            int expMonth = Convert.ToInt32(mmyy[0]);
-            int expYear = Convert.ToInt32(mmyy[1]);
+            int BSB = Convert.ToInt32(bsb);
+            ContractorDBData.updateContractor(userID, accountName, accountNumber, BSB);
 
-            CustomerDBData.updateCustomer(userID, regNo, make, model, color, cardHolder, cardNo, expMonth, expYear, CVV);
-
-            HttpContext.Current.Session["New"] = CustomerDBData.getCustomerByID(userID);
+            HttpContext.Current.Session["New"] = ContractorDBData.getContractorByID(userID);
         }
 
         [OperationContract]
-        public Boolean UpdateCustomerPassword(String oldPass, String newPass)
+        public Boolean UpdateContractorPassword(String oldPass, String newPass)
         {
-            uow_roadside_assistance.Classes.Customer curCust = (uow_roadside_assistance.Classes.Customer)(HttpContext.Current.Session["New"]);
-            
+            Classes.Contractor curCust = (Classes.Contractor)(HttpContext.Current.Session["New"]);
+
             if (curCust.Password.Equals(oldPass))
             {
                 int userID = curCust.UserID;
                 UserDBData.updateUserPasswordByID(userID, newPass);
-                HttpContext.Current.Session["New"] = CustomerDBData.getCustomerByID(userID);
+                HttpContext.Current.Session["New"] = ContractorDBData.getContractorByID(userID);
                 return true;
             }
             else
@@ -91,6 +87,6 @@ namespace uow_roadside_assistance.WebPages.LoggedOn.Customer
                 return false;
             }
         }
-
     }
+
 }

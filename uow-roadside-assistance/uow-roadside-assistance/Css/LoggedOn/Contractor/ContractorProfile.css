@@ -1,0 +1,37 @@
+﻿
+.headerDetails {
+    text-align: center;
+}
+
+.underlinedText {
+    border-bottom: 1px solid gray;
+}
+
+
+.icon {
+    float: right;
+    color: #172547;
+}
+
+#SaveChanges {
+    background-color: #172547;
+    width: 30%;
+    height: 1.5cm;
+}
+
+.detailsFields {
+    width: 100%;
+}
+
+.ui-datepicker-calendar {
+    display: none;
+}
+
+input[type="text"] {
+    width: 90%;
+}
+
+.ErrorMessage {
+    color: red;
+    display: inline-block;
+}

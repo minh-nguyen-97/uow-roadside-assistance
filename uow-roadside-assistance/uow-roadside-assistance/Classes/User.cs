@@ -38,14 +38,21 @@ namespace uow_roadside_assistance.Classes
         {
             get { return _userType; }
         }
-        
-        public User(int userID, String username, String email, String password, String userType)
+
+        protected String _fullName;
+        public String FullName
+        {
+            get { return _fullName; }
+        }
+
+        public User(int userID, String username, String email, String password, String userType, String fullName)
         {
             _userID = userID;
             _userName = username;
             _email = email;
             _password = password;
             _userType = userType;
+            _fullName = fullName;
         }
     }
 }

@@ -9,6 +9,7 @@ using System.ServiceModel.Activation;
 using System.ServiceModel.Web;
 using System.Text;
 using System.Web;
+using System.Web.Script.Serialization;
 using uow_roadside_assistance.Classes;
 using uow_roadside_assistance.DBData;
 
@@ -32,11 +33,11 @@ namespace uow_roadside_assistance.WebPages.LoggedOff
 
         // Add more operations here and mark them with [OperationContract]
         [OperationContract]
-        public Boolean createNewCustomer(String username, String email, String password, String regNo, String make, String model, String color, String cardHolder, String cardNo, String expDate, String cvv)
+        public Boolean createNewCustomer(String username, String email, String password, String fullName, String regNo, String make, String model, String color, String cardHolder, String cardNo, String expDate, String cvv)
         {
             if (UserDBData.IsExist(username))
                 return false;
-            UserDBData.insertNewUser(username, email, password, "Customer");
+            UserDBData.insertNewUser(username, email, password, "Customer", fullName);
 
             int userID = UserDBData.getUserIDFromName(username);
 
@@ -52,14 +53,14 @@ namespace uow_roadside_assistance.WebPages.LoggedOff
 
         //
         [OperationContract]
-        public Boolean createNewContractor(String username, String email, String password, String accountName, String accountNumber, String bsb)
+        public Boolean createNewContractor(String username, String email, String password, String fullName, String accountName, String accountNumber, String bsb)
         {
             if (UserDBData.IsExist(username))
             {
                 return false;
             }
 
-            UserDBData.insertNewUser(username, email, password, "Contractor");
+            UserDBData.insertNewUser(username, email, password, "Contractor", fullName);
 
             int userID = UserDBData.getUserIDFromName(username);
             int BSB = Convert.ToInt32(bsb);
@@ -79,21 +80,35 @@ namespace uow_roadside_assistance.WebPages.LoggedOff
         [OperationContract]
         public void setSession(String username)
         {
-            HttpContext.Current.Session["New"] = username;
+            User curUser = UserDBData.getUserByName(username);
+            if (curUser.UserType.Equals("Customer"))
+            {
+                HttpContext.Current.Session["New"] = CustomerDBData.getCustomerByID(curUser.UserID);
+            }
+            else
+            {
+                HttpContext.Current.Session["New"] = ContractorDBData.getContractorByID(curUser.UserID);
+            }
         }
 
         [OperationContract]
-        public String getSession()
+        public String getUserFromSession()
         {
-            return (String) HttpContext.Current.Session["New"];
-        }
-
-        [OperationContract]
-        public String getUserTypeFromSession()
-        {
-            String username = (String)HttpContext.Current.Session["New"];
-            User user = UserDBData.getUserByName(username);
-            return user.UserType;
+            if (HttpContext.Current.Session["New"] == null)
+                return null;
+            else
+            {
+                User curUser = (User)HttpContext.Current.Session["New"];
+                if (curUser.UserType.Equals("Customer"))
+                {
+                    curUser = (Customer)(HttpContext.Current.Session["New"]);
+                } 
+                else
+                {
+                    curUser = (Contractor)(HttpContext.Current.Session["New"]);
+                }
+                return new JavaScriptSerializer().Serialize(curUser);
+            }
         }
     }
 }

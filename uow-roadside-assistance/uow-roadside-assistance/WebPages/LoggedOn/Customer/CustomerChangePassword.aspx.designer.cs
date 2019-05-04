@@ -10,7 +10,7 @@
 namespace uow_roadside_assistance.WebPages.LoggedOn.Customer {
     
     
-    public partial class Master {
+    public partial class CustomerChangePassword {
         
         /// <summary>
         /// form1 control.

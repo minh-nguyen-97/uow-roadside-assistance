@@ -24,22 +24,7 @@
 
     <%-- Page Scripts --%>
     <script type="text/javascript" src="../../Scripts/SignUp/SignUpCustomer.js"></script>
-    <script type="text/javascript">
-        window.onload = function (e) {
-            LoggedOffService.getSession(function (session) {
-                if (session != null) {
-                    LoggedOffService.getUserTypeFromSession(function (userType) {
-                        if (userType == 'Customer') {
-                            window.location.href = '../LoggedOn/Customer/CustomerHomepage.aspx';
-                        } else {
-                            window.location.href = '../LoggedOn/Contractor/ContractorHomepage.aspx';
-                        }
-                        alert("You are already logged in !!!");
-                    });
-                }
-            });
-        };
-    </script>
+    <script type="text/javascript" src="../../Scripts/OnLoadLoggedOff.js"></script>
 
     <%-- Page CSS --%>
     <link rel="stylesheet" href="../../Css/LoggedOff/SignUp/SignUpCustomer.css"/>
@@ -128,6 +113,12 @@
                                         <div class="row">
                                             <div class="col">
                                                 <div class="input-group input-group-lg">
+                                                    <input id="FirstName" type="text" class="form-control" placeholder="First Name" />
+                                                </div>
+                                                <span id="FirstNameErrMess" class="ErrorMessage"></span>
+                                                <br /><br />
+
+                                                <div class="input-group input-group-lg">
                                                     <input id="Username" type="text" class="form-control" placeholder="Username" />
                                                 </div>
                                                 <span id="UsernameErrMess" class="ErrorMessage"></span>
@@ -140,6 +131,11 @@
                                                 <br />
                                             </div>
                                             <div class="col">
+                                                <div class="input-group input-group-lg">
+                                                    <input id="LastName" type="text" class="form-control" placeholder="Last Name" />
+                                                </div>
+                                                <span id="LastNameErrMess" class="ErrorMessage"></span>
+                                                <br /><br />
 
                                                 <div class="input-group input-group-lg">
                                                     <input id="Password" type="password" class="form-control" placeholder="Password" />

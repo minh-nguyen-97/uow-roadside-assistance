@@ -25,22 +25,11 @@
     <%--Page CSS--%>
     <link rel="stylesheet" href="../../../Css/LoggedOn/Customer/CustomerNavBar.css" />
 
-    <%--Page Scripts--%>
+    <%--Nav Bar Scripts--%>
     <script type="text/javascript" src="../../../Scripts/LoggedOn/Customer/CustomerNavBar.js"></script>
-    <script>
-        window.onload = function () {
-            CustomerService.getSession(function (session) {
-                if (session == null) {
-                    window.location.href = '../../LoggedOff/Home.aspx'
-                } else {
-                    CustomerService.getUserTypeFromSession(function (userType) {
-                        if (userType != 'Customer')
-                            window.history.back();
-                    });
-                }
-            });
-        }
-    </script>
+
+    <%-- Page Scripts --%>
+    <script type="text/javascript" src="../../../Scripts/LoggedOn/Customer/OnLoadCustomer.js"></script>
 </head>
 <body>
 
@@ -60,7 +49,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div id="navbarNavDropdown" class="navbar-collapse collapse">
-                <ul class="navbar-nav mx-auto">
+                <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
                         <a class="navbar-brand" href="#">
                             <img src="../../../Images/official_logo.gif" width="60" height="60"/><span id="logoText">Daedalus Customer</span>
@@ -71,7 +60,7 @@
                         
                     <li class="nav-item dropdown">
                         <a id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <asp:Label ID="UserNameLabel" runat="server"></asp:Label>
+                            <span id="UserNameLabel"></span>
                             <i class="fas fa-user-circle fa-2x"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right text-right" aria-labelledby="dropdownMenuButton">

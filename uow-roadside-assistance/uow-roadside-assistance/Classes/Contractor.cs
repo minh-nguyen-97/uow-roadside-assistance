@@ -25,7 +25,7 @@ namespace uow_roadside_assistance.Classes
             get { return _BSB; }
         }
 
-        public Contractor(int userID, String username, String email, String password, String userType, String accountName, String accountNumber, int bsb) : base(userID, username, email, password, userType)
+        public Contractor(int userID, String username, String email, String password, String userType, String fullName, String accountName, String accountNumber, int bsb) : base(userID, username, email, password, userType, fullName)
         {
             _accountName = accountName;
             _accountNumber = accountNumber;

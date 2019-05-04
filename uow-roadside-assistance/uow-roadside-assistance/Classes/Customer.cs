@@ -40,7 +40,7 @@ namespace uow_roadside_assistance.Classes
         }
 
         private String _cardNo;
-        public String CardNumber
+        public String CardNo
         {
             get { return _cardNo; }
         }
@@ -76,7 +76,7 @@ namespace uow_roadside_assistance.Classes
             get { return _CVV; }
         }
 
-        public Customer(int userID, String username, String email, String password, String userType, String regNo, String make, String model, String color, String cardHolder, String cardNo, int expMonth, int expYear, int CVV) : base(userID, username, email, password, userType)
+        public Customer(int userID, String username, String email, String password, String userType, String fullName, String regNo, String make, String model, String color, String cardHolder, String cardNo, int expMonth, int expYear, int CVV) : base(userID, username, email, password, userType, fullName)
         {
             _regNo = regNo;
             _make = make;

@@ -24,22 +24,7 @@
 
     <%-- Page Scripts --%>
     <script type="text/javascript" src="../../Scripts/SignIn.js"></script>
-    <script type="text/javascript">
-        window.onload = function (e) {
-            LoggedOffService.getSession(function (session) {
-                if (session != null) {
-                    LoggedOffService.getUserTypeFromSession(function (userType) {
-                        if (userType == 'Customer') {
-                            window.location.href = '../LoggedOn/Customer/CustomerHomepage.aspx';
-                        } else {
-                            window.location.href = '../LoggedOn/Contractor/ContractorHomepage.aspx';
-                        }
-                        alert("You are already logged in !!!");
-                    });
-                }
-            });
-        };
-    </script>
+    <script type="text/javascript" src="../../Scripts/OnLoadLoggedOff.js"></script>
 
     <%-- Page CSS --%>
     <link rel="stylesheet" href="../../Css/LoggedOff/SignIn.css" />

@@ -9,13 +9,14 @@
         if (res) {
             var username = $('#Username').val();
             LoggedOffService.setSession(username);
-            LoggedOffService.getUserTypeFromSession(function (userType) {
-                if (userType == 'Customer')
+            LoggedOffService.getUserFromSession(function (session) {
+                var curUser = JSON.parse(session);
+                if (curUser.UserType == 'Customer') {
                     window.location.href = '../LoggedOn/Customer/CustomerHomepage.aspx';
-                else
+                } else {
                     window.location.href = '../LoggedOn/Contractor/ContractorHomepage.aspx';
-            })
-            
+                }
+            });
         }
         else {
             alert('Username or password is wrong!!!')
