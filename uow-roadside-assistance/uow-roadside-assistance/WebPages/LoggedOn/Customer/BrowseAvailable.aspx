@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CustomerHomepage.aspx.cs" Inherits="uow_roadside_assistance.WebPages.LoggedOn.Customer.CustomerHomepage" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="BrowseAvailable.aspx.cs" Inherits="uow_roadside_assistance.WebPages.LoggedOn.Customer.BrowseAvailable" %>
 
 <!DOCTYPE html>
 
@@ -6,7 +6,7 @@
 <head runat="server">
 
     <%--title--%>
-    <title>Customer Homepage</title>
+    <title>Customer Master</title>
     
      <%-- jquery and jquery ui --%>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
@@ -24,15 +24,14 @@
     
     <%--Page CSS--%>
     <link rel="stylesheet" href="../../../Css/LoggedOn/Customer/CustomerNavBar.css" />
-
-    <link rel="stylesheet" href="../../../Css/LoggedOn/Customer/CustomerHomepage.css" />
+    <link rel="stylesheet" href="../../../Css/LoggedOn/Customer/BrowseAvailable.css" />
 
     <%--Nav Bar Scripts--%>
     <script type="text/javascript" src="../../../Scripts/LoggedOn/Customer/CustomerNavBar.js"></script>
 
     <%-- Page Scripts --%>
     <script type="text/javascript" src="../../../Scripts/LoggedOn/Customer/OnLoadCustomer.js"></script>
-
+    <script type="text/javascript" src="../../../Scripts/LoggedOn/Customer/BrowseAvailable.js"></script>
 </head>
 <body>
 
@@ -82,44 +81,54 @@
     </div>
 
     <%-- Page Content --%>
-    <br />
-    <br />
-    <table style="width: 80%;" border="0" id="topTable">
-        <tbody>
-            <tr>
-                <td id="update-details-image" style="background-color:#172547; cursor:pointer " onclick="window.location.href = './CustomerProfile.aspx'">
-                    <span class="icon"><i class='fas fa-user-edit' style='font-size:55px; color:lightgray;'></i></span>
-                </td>
-                <td style="width:5%; height:50px;"></td>
-                <td id="manage-subscription-image" style=" background-color:#172547; ">
-                <span class="icon"><i class="fas fa-toolbox" style='font-size:55px; color:lightgray;'></i></span>
-                </td>
-            </tr>
-                <tr></tr>
-            <tr>
-                <td id="update-details-text" style="cursor:pointer" onclick="window.location.href = './CustomerProfile.aspx'"> 
-                    <h4>Update My Details</h4>
-                </td>
-                <td style="width:5%"></td>
-                <td id="manage-subscription-text"> 
-                    <h4>Manage Subscription</h4>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table id="middleTable" style="width: 60%; text-align: center" border="0">
-        <tr>
-            <td id="request-service-image" style="cursor:pointer" onclick="window.location.href = './MakeRequest.aspx'">
-            <span class="icon"><i class="fas fa-tools" style="font-size:55px; color:lightgray;"></i></span>
-            </td>
-        </tr>
-        <tr>
-            <td id="request-service-text" onclick="window.location.href = './MakeRequest.aspx'" style="width:70%; text-align: center; background-color:lightgray;cursor:pointer">
-                <h4>Request Service</h4> 
-            </td>
-        </tr>
-    </table>
+
+    <div class="container">
+        <br /><br />
+        <div class="headerDetails">
+            <h2>
+                <span class="underlinedText" style="text-align:center">
+                    Available Contractors
+                </span>
+                <span class="icon"><i class="fas fa-list-ul" style='font-size:36px'></i></span>
+            </h2>
+        </div>
+
+        <br /><br />
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Contractor</th>
+                    <th scope="col">Consultation Fee</th>
+                    <th scope="col">Distance</th>
+                    <th scope="col">Average Rating</th>
+                    <th scope="col">Reviews</th>
+                    <th scope="col">Status</th>
+                </tr>
+            </thead>
+            <tbody id="availableContractorsTable">
+                <tr>
+                    <th scope="row">Mark Otto</th>
+                    <td>$100</td>
+                    <td>500 meters</td>
+                    <td>5 <i class="fas fa-star" style="color: greenyellow"></i></td>
+                    <td><button class="btn btn-primary" data-toggle="popover" title="Popover title" data-content="TESTER">View Reviews</button></td>
+                    <td>Waiting for responses...</td>
+                </tr>
+                <tr>
+                    <th scope="row">Jacob Thotton</th>
+                    <td>$80</td>
+                    <td>1000 meters</td>
+                    <td>4.5 <i class="fas fa-star" style="color:greenyellow"></i></td>
+                    <td><button class="btn btn-primary">View Reviews</button></td>
+                    <td>Waiting for responses...</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div style="text-align:center">
+            <button id="CancelRequestButton" class="btn btn-danger" style="width:30%; height:1.5cm">Cancel Request</button>
+        </div>
+    </div>
 
 </body>
 </html>
-

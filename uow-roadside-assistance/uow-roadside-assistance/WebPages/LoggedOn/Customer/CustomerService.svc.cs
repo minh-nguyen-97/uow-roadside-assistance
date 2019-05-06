@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
@@ -47,7 +50,7 @@ namespace uow_roadside_assistance.WebPages.LoggedOn.Customer
                 if (curUser.UserType.Equals("Customer"))
                 {
                     curUser = (uow_roadside_assistance.Classes.Customer)(HttpContext.Current.Session["New"]);
-                } 
+                }
                 else
                 {
                     curUser = (uow_roadside_assistance.Classes.Contractor)(HttpContext.Current.Session["New"]);
@@ -57,7 +60,7 @@ namespace uow_roadside_assistance.WebPages.LoggedOn.Customer
         }
 
         [OperationContract]
-        public void UpdateCustomerProfile(String email, String regNo, String make, String model, String color, String cardHolder, String cardNo, String expDate, String cvv )
+        public void UpdateCustomerProfile(String email, String regNo, String make, String model, String color, String cardHolder, String cardNo, String expDate, String cvv)
         {
             uow_roadside_assistance.Classes.Customer curCust = (uow_roadside_assistance.Classes.Customer)(HttpContext.Current.Session["New"]);
             int userID = curCust.UserID;
@@ -78,7 +81,7 @@ namespace uow_roadside_assistance.WebPages.LoggedOn.Customer
         public Boolean UpdateCustomerPassword(String oldPass, String newPass)
         {
             uow_roadside_assistance.Classes.Customer curCust = (uow_roadside_assistance.Classes.Customer)(HttpContext.Current.Session["New"]);
-            
+
             if (curCust.Password.Equals(oldPass))
             {
                 int userID = curCust.UserID;
@@ -92,5 +95,70 @@ namespace uow_roadside_assistance.WebPages.LoggedOn.Customer
             }
         }
 
+        [OperationContract]
+        public String getAllContractorsAddresses()
+        {
+            ArrayList contractorsAddresses = AddressDBData.getAddressByUserType("Contractor");
+            return new JavaScriptSerializer().Serialize(contractorsAddresses);
+        }
+
+        [OperationContract]
+        public void MakeRequest(Boolean tyreProblem, Boolean carBatteryProblem, Boolean engineProblem, Boolean generalProblem, String problemDescription, String customerLatitude, String customerLongitude, int[] contractorIDs)
+        {
+            Classes.Customer customer = (Classes.Customer)(HttpContext.Current.Session["New"]);
+
+            int customerID = customer.UserID;
+
+            RequestDBData.insertNewRequest(customerID, tyreProblem, carBatteryProblem, engineProblem, generalProblem, problemDescription, customerLatitude, customerLongitude);
+
+
+            Request req = RequestDBData.getRequestByCustomerID(customerID);
+            int requestID = req.RequestID;
+
+            // Insert query for RESPONSES
+
+            for (int i = 0; i < contractorIDs.Length; i++)
+            {
+                ResponseDBData.insertNewResponse(requestID, contractorIDs[i], "Waiting");
+            }
+        }
+
+
+        [OperationContract]
+        public String getSessionRequest()
+        {
+            Classes.Customer customer = (Classes.Customer)(HttpContext.Current.Session["New"]);
+            if (RequestDBData.IsExist(customer.UserID))
+            {
+                Request req = RequestDBData.getRequestByCustomerID(customer.UserID);
+                return new JavaScriptSerializer().Serialize(req);
+            }
+            return null;
+        }
+
+        [OperationContract]
+        public String getContratorsResponses()
+        {
+            Classes.Customer customer = (Classes.Customer)(HttpContext.Current.Session["New"]);
+            if (RequestDBData.IsExist(customer.UserID))
+            {
+                Request req = RequestDBData.getRequestByCustomerID(customer.UserID);
+                ArrayList responses = ResponseDBData.getResponseList(req.RequestID);
+                return new JavaScriptSerializer().Serialize(responses);
+            }
+            return null;
+        }
+
+        [OperationContract]
+        public void cancelRequest()
+        {
+            Classes.Customer customer = (Classes.Customer)(HttpContext.Current.Session["New"]);
+            if (RequestDBData.IsExist(customer.UserID))
+            {
+                Request req = RequestDBData.getRequestByCustomerID(customer.UserID);
+                RequestDBData.deleteRequest(req.RequestID);
+                ResponseDBData.deleteResponse(req.RequestID);
+            }
+        }
     }
 }

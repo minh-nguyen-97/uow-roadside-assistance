@@ -1,0 +1,39 @@
+﻿.headerDetails {
+    text-align: center;
+}
+
+.underlinedText {
+    border-bottom: 1px solid gray;
+}
+
+.icon {
+    float: right;
+    color: #172547;
+}
+
+input[type="checkbox"] {
+    width: 30px;
+    height: 30px;
+    margin-top: 80px;
+}
+
+.problemType {
+    width: 200px;
+    height: 200px;
+}
+
+.problemLabel {
+    margin-left: 60px;
+    font-family: 'Comic Sans MS';
+    font-size: 18px;
+}
+
+#RequestButton {
+    width: 30%;
+    height: 1.5cm;
+}
+
+.ErrorMessage {
+    display: inline-block;
+    color: red;
+}
