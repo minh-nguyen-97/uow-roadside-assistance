@@ -8,15 +8,25 @@
                 window.history.back();
             }
             else {
-                CustomerService.getSessionRequest(function (res) {
-                    var sessionRequest = JSON.parse(res);
-                    if (sessionRequest == null) {
-                        window.history.back();
-                    } else {
-                        $('#UserNameLabel').text('Welcome, ' + curUser.FullName);
-                        loadAvailableContractors();
-                    }
-                });
+                var refer = window.location.href;
+                var refer1 = refer.replace('BrowseAvailable', 'MakeRequest');
+                var refer2 = refer.replace('BrowseAvailable', 'CustomerHomepage');
+
+                if (document.referrer != refer1 && document.referrer != refer2) {
+                    window.history.back();
+                } else {
+                    $('#UserNameLabel').text('Welcome, ' + curUser.FullName);
+                    loadAvailableContractors();
+                }
+                //CustomerService.getSessionRequest(function (res) {
+                //    var sessionRequest = JSON.parse(res);
+                //    if (sessionRequest == null) {
+                //        window.history.back();
+                //    } else {
+                //        $('#UserNameLabel').text('Welcome, ' + curUser.FullName);
+                //        loadAvailableContractors();
+                //    }
+                //});
             }
         }
     });
@@ -25,13 +35,96 @@
 function loadAvailableContractors() {
     CustomerService.getContratorsResponses(function (res) {
         var responses = JSON.parse(res);
-        alert('YO');
         for (var i = 0; i < responses.length; i++) {
-            console.log(responses[i]);
-            var table = document.getElementById('availableContractorsTable');
+            
+            var contractorID = responses[i].ContractorID;
+            var requestID = responses[i].RequestID;
+            var responseStatus = responses[i].ResponseStatus;
 
+            // Extract data
+            CustomerService.extractContractorData(requestID, contractorID, responseStatus, function (result) {
+                var res = JSON.parse(result);
+                var fullName = res[0];
+
+                var contractorLat = res[1];
+                var contractorLng = res[2];
+                var customerLat = res[3];
+                var customerLng = res[4];
+
+                var distance = distanceInKiloMeters(contractorLat, contractorLng, customerLat, customerLng);
+                distance = Math.round(distance * 100) / 100
+
+                var status = res[5];
+                var contractorID = res[6];
+
+                var fee = Math.round(distance * 50 * 100) / 100;
+                var rating = 3.5;
+                addRow(fullName, fee, distance, rating, status, contractorID);
+            });
+            
+            
         }
     });
+}
+
+function addRow(fullName, fee, distance, rating, status, contractorID) {
+    // Create new row
+    var tr = document.createElement('tr');
+
+    var rowContent = "<th scope='row'>" + fullName + "</th>" +
+        "<td>$" + fee + "</td >" +
+        "<td>" + distance + "</td>" +
+        "<td>" + rating + " <i class='fas fa-star' style = 'color: greenyellow'></i ></td > " +
+        "<td><button class='btn btn-outline-primary'>View Reviews</button></td>";
+
+    if (status == 'Waiting') {
+        rowContent +=
+            "<td>" +
+            "    <button class='btn btn-warning statusButton' type='button' disabled>" +
+            "        <span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span>" +
+            "        Waiting..." +
+            "    </button>" +
+            "</td>";
+    } else if (status == 'Busy') {
+        rowContent +=
+            "<td>" +
+            "<button type='button' class='btn btn-danger statusButton' disabled>" +
+            "    Busy" +
+            "</button>" +
+            "</td >";
+    } else {
+        rowContent +=
+            "<td>" +
+            "    <button type='button' class='btn btn-success statusButton' data-toggle='modal' data-target='#ModalCenter' data-whatever='" + fullName + "@" + fee + "@"+ contractorID +"'>" +
+            "        Accepted" +
+            "    </button>" +
+            "</td >";
+    }
+
+    tr.innerHTML = rowContent;
+
+    document.getElementById('availableContractorsTable').appendChild(tr);
+}
+
+function distanceInKiloMeters(lat1, lon1, lat2, lon2) {
+    if ((lat1 == lat2) && (lon1 == lon2)) {
+        return 0;
+    }
+    else {
+        var radlat1 = Math.PI * lat1 / 180;
+        var radlat2 = Math.PI * lat2 / 180;
+        var theta = lon1 - lon2;
+        var radtheta = Math.PI * theta / 180;
+        var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+        if (dist > 1) {
+            dist = 1;
+        }
+        dist = Math.acos(dist);
+        dist = dist * 180 / Math.PI;
+        dist = dist * 60 * 1.1515;
+        dist = dist * 1609.344 / 1000;
+        return dist;
+    }
 }
 
 $(document).ready(function () {
@@ -39,5 +132,31 @@ $(document).ready(function () {
     $('#CancelRequestButton').click(function (e) {
         CustomerService.cancelRequest();
         window.location.href = './MakeRequest.aspx';
+    });
+
+    $('#ModalCenter').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var contractorData = button.data('whatever') // Extract info from data-* attributes
+        var datas = contractorData.split('@');
+        var fullName = datas[0];
+        var fee = datas[1];
+        var contractorID = datas[2];
+
+        var modal = $(this)
+        modal.find('#confirmContractorName').text(fullName);
+        modal.find('#confirmFee').text(fee);
+        modal.find('.submitButton').attr('id', 'submitButton' + contractorID);
+    });
+
+    $('.submitButton').click(function (e) {
+        var contractorID = $(this).attr('id');
+        contractorID = contractorID.replace('submitButton', '');
+        contractorID = parseInt(contractorID);
+
+        var cost = $('#confirmFee').text();
+        cost = parseFloat(cost);
+
+        CustomerService.acceptPayment(contractorID, cost);
+        window.location.href = './InProgressTransaction.aspx';
     });
 });

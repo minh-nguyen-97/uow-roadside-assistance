@@ -136,6 +136,19 @@ namespace uow_roadside_assistance.WebPages.LoggedOn.Customer
             return null;
         }
 
+        /* Browse Requested Contractors */
+        [OperationContract]
+        public void cancelRequest()
+        {
+            Classes.Customer customer = (Classes.Customer)(HttpContext.Current.Session["New"]);
+            if (RequestDBData.IsExist(customer.UserID))
+            {
+                Request req = RequestDBData.getRequestByCustomerID(customer.UserID);
+                RequestDBData.deleteRequest(req.RequestID);
+                ResponseDBData.deleteResponse(req.RequestID);
+            }
+        }
+
         [OperationContract]
         public String getContratorsResponses()
         {
@@ -150,7 +163,28 @@ namespace uow_roadside_assistance.WebPages.LoggedOn.Customer
         }
 
         [OperationContract]
-        public void cancelRequest()
+        public String extractContractorData(int requestID, int contractorID, String responseStatus)
+        {
+            Classes.Contractor contractor = ContractorDBData.getContractorByID(contractorID);
+            ArrayList res = new ArrayList();
+            res.Add(contractor.FullName);
+
+            Address contractorAddress = AddressDBData.getAddressByUserID(contractorID);
+            res.Add(contractorAddress.Latitude);
+            res.Add(contractorAddress.Longitude);
+
+            Request req = RequestDBData.getRequestByRequestID(requestID);
+            res.Add(req.CustomerLatitude);
+            res.Add(req.CustomerLongitude);
+
+            res.Add(responseStatus);
+            res.Add(contractorID);
+
+            return new JavaScriptSerializer().Serialize(res);
+        }
+
+        [OperationContract]
+        public void acceptPayment(int contractorID, double cost)
         {
             Classes.Customer customer = (Classes.Customer)(HttpContext.Current.Session["New"]);
             if (RequestDBData.IsExist(customer.UserID))
@@ -158,7 +192,48 @@ namespace uow_roadside_assistance.WebPages.LoggedOn.Customer
                 Request req = RequestDBData.getRequestByCustomerID(customer.UserID);
                 RequestDBData.deleteRequest(req.RequestID);
                 ResponseDBData.deleteResponse(req.RequestID);
+
+                TransactionDBData.insertNewTransaction(contractorID, customer.UserID, cost);
             }
         }
+
+        /* In Progress Transaction */
+
+        [OperationContract]
+        public String getCustomerUnfinishedTransaction()
+        {
+            Classes.Customer customer = (Classes.Customer)(HttpContext.Current.Session["New"]);
+            if (TransactionDBData.IsExistUnfinishedCustomerTransaction(customer.UserID))
+            {
+                Transaction transaction = TransactionDBData.GetUnfinishedCustomerTransaction(customer.UserID);
+                return new JavaScriptSerializer().Serialize(transaction);
+            }
+            return null;
+        }
+
+        /* Redirect from Homepage */
+
+        [OperationContract] 
+        public String getTheRightRedirect()
+        {
+            Classes.Customer customer = (Classes.Customer)(HttpContext.Current.Session["New"]);
+
+            String URL = null;
+            if (TransactionDBData.IsExistUnfinishedCustomerTransaction(customer.UserID))
+            {
+                URL = "InProgressTransaction.aspx";
+            }
+            else if (RequestDBData.IsExist(customer.UserID))
+            {
+                URL = "BrowseAvailable.aspx";
+            }
+            else
+            {
+                URL = "MakeRequest.aspx";
+            }
+
+            return URL;
+        }
+        
     }
 }

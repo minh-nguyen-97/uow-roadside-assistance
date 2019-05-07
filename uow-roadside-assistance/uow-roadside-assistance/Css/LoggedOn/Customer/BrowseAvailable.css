@@ -10,3 +10,8 @@
     float: right;
     color: #172547;
 }
+
+.statusButton {
+    width: 90%;
+    height:1cm;
+}

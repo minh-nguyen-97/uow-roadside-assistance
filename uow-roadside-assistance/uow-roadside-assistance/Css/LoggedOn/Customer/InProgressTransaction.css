@@ -1,0 +1,26 @@
+﻿#unfinished {
+    width: 50%;
+    height: 10cm;
+    background-color: whitesmoke;
+    margin-left: 25%;
+    margin-top: 3cm;
+}
+
+.spinnerDiv {
+    width: 3cm;
+    height: 3cm;
+}
+
+#finished {
+    width: 50%;
+    height: 10cm;
+    background-color: whitesmoke;
+    margin-left: 25%;
+    margin-top: 3cm;
+}
+
+#ratingButton {
+    width: 30%;
+    height: 1.5cm;
+    font-size: 20px;
+}
