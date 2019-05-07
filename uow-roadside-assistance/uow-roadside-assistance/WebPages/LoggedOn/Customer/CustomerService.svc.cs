@@ -211,6 +211,17 @@ namespace uow_roadside_assistance.WebPages.LoggedOn.Customer
             return null;
         }
 
+        [OperationContract]
+        public void customerFinishedTransaction()
+        {
+            Classes.Customer customer = (Classes.Customer)(HttpContext.Current.Session["New"]);
+            if (TransactionDBData.IsExistUnfinishedCustomerTransaction(customer.UserID))
+            {
+                Transaction transaction = TransactionDBData.GetUnfinishedCustomerTransaction(customer.UserID);
+                TransactionDBData.customerFinishedTransaction(transaction.TransactionID);
+            }
+        }
+
         /* Redirect from Homepage */
 
         [OperationContract] 
@@ -234,6 +245,8 @@ namespace uow_roadside_assistance.WebPages.LoggedOn.Customer
 
             return URL;
         }
+
+
         
     }
 }

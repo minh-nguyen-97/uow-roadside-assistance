@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -73,11 +74,11 @@ namespace uow_roadside_assistance.WebPages.LoggedOn.Contractor
         [OperationContract]
         public Boolean UpdateContractorPassword(String oldPass, String newPass)
         {
-            Classes.Contractor curCust = (Classes.Contractor)(HttpContext.Current.Session["New"]);
+            Classes.Contractor curContractor = (Classes.Contractor)(HttpContext.Current.Session["New"]);
 
-            if (curCust.Password.Equals(oldPass))
+            if (curContractor.Password.Equals(oldPass))
             {
-                int userID = curCust.UserID;
+                int userID = curContractor.UserID;
                 UserDBData.updateUserPasswordByID(userID, newPass);
                 HttpContext.Current.Session["New"] = ContractorDBData.getContractorByID(userID);
                 return true;
@@ -86,6 +87,68 @@ namespace uow_roadside_assistance.WebPages.LoggedOn.Contractor
             {
                 return false;
             }
+        }
+
+        // Available Customer
+        [OperationContract]
+        public String getRequestedIds()
+        {
+            Classes.Contractor curContractor = (Classes.Contractor)(HttpContext.Current.Session["New"]);
+            ArrayList res = ResponseDBData.getResponseListByContractorID(curContractor.UserID);
+            return new JavaScriptSerializer().Serialize(res);
+        }
+
+        [OperationContract]
+        public String extractCustomerData(int requestID, String responseStatus)
+        {
+            Request req = RequestDBData.getRequestByRequestID(requestID);
+
+            ArrayList res = new ArrayList();
+
+            Classes.Customer customer = CustomerDBData.getCustomerByID(req.CustomerID);
+            res.Add(customer.FullName);
+
+            res.Add(req.CustomerLatitude);
+            res.Add(req.CustomerLongitude);
+
+            Classes.Contractor curContractor = (Classes.Contractor)(HttpContext.Current.Session["New"]);
+            Address address = AddressDBData.getAddressByUserID(curContractor.UserID);
+            res.Add(address.Latitude);
+            res.Add(address.Longitude);
+            
+
+            res.Add(responseStatus);
+            res.Add(req.RequestID);
+
+            return new JavaScriptSerializer().Serialize(res);
+        }
+
+        [OperationContract]
+        public void declineRequest(int requestID)
+        {
+            Classes.Contractor curContractor = (Classes.Contractor)(HttpContext.Current.Session["New"]);
+            ResponseDBData.declineResponse(requestID, curContractor.UserID);
+        }
+
+        [OperationContract]
+        public void acceptRequest(int requestID)
+        {
+            Classes.Contractor curContractor = (Classes.Contractor)(HttpContext.Current.Session["New"]);
+            ResponseDBData.acceptResponse(requestID, curContractor.UserID);
+        }
+
+        [OperationContract]
+        public String getDetailsForCustomer(int requestID)
+        {
+            Request req = RequestDBData.getRequestByRequestID(requestID);
+            ArrayList res = new ArrayList();
+            res.Add(req.TyreProblem);
+            res.Add(req.CarBatteryProblem);
+            res.Add(req.EngineProblem);
+            res.Add(req.GeneralProblem);
+            res.Add(req.ProblemDescription);
+
+            return new JavaScriptSerializer().Serialize(res);
         }
     }
 

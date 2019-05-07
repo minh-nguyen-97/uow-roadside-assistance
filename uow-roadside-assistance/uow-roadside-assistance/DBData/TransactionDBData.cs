@@ -131,5 +131,36 @@ namespace uow_roadside_assistance.DBData
 
             conn.Close();
         }
+
+        // 
+        public static void customerFinishedTransaction(int transactionID)
+        {
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
+            conn.Open();
+            String updateQuery =    "UPDATE dbo.TRANSACTIONS " +
+                                    "SET customerFinished = 1 " +
+                                    "WHERE transactionID = @transactionID";
+            SqlCommand cmd = new SqlCommand(updateQuery, conn);
+
+            cmd.Parameters.AddWithValue("@transactionID", transactionID);
+            cmd.ExecuteNonQuery();
+
+            conn.Close();
+        }
+
+        public static void contractorFinishedTransaction(int transactionID)
+        {
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
+            conn.Open();
+            String updateQuery = "UPDATE dbo.TRANSACTIONS " +
+                                    "SET contractorFinished = 1 " +
+                                    "WHERE transactionID = @transactionID";
+            SqlCommand cmd = new SqlCommand(updateQuery, conn);
+
+            cmd.Parameters.AddWithValue("@transactionID", transactionID);
+            cmd.ExecuteNonQuery();
+
+            conn.Close();
+        }
     }
 }

@@ -63,6 +63,32 @@ namespace uow_roadside_assistance.DBData
 
         }
 
+        public static ArrayList getResponseListByContractorID(int contractorID)
+        {
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
+            conn.Open();
+
+            String getResponseQuery = "SELECT * FROM dbo.RESPONSES WHERE contractorID = @contractorID";
+            SqlCommand cmd = new SqlCommand(getResponseQuery, conn);
+            cmd.Parameters.AddWithValue("@contractorID", contractorID);
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            ArrayList res = new ArrayList();
+            while (reader.Read())
+            {
+                int responseID = Convert.ToInt32(reader["responseID"]);
+                int requestID = Convert.ToInt32(reader["requestID"]);
+                String responseStatus = Convert.ToString(reader["responseStatus"]).TrimEnd();
+
+                res.Add(new Response(responseID, requestID, contractorID, responseStatus));
+            }
+
+            conn.Close();
+
+            return res;
+
+        }
+
         public static void  insertNewResponse(int requestID, int contractorID, String responseStatus)
         {
             SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
@@ -90,6 +116,38 @@ namespace uow_roadside_assistance.DBData
             cmd.ExecuteNonQuery();
 
             conn.Close();
+        }
+
+        public static void declineResponse(int requestID, int contractorID)
+        {
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
+            conn.Open();
+
+            String getResponseQuery = "UPDATE dbo.RESPONSES SET responseStatus = @responseStatus WHERE requestID = @requestID AND contractorID = @contractorID";
+            SqlCommand cmd = new SqlCommand(getResponseQuery, conn);
+            cmd.Parameters.AddWithValue("@responseStatus", "Busy");
+            cmd.Parameters.AddWithValue("@requestID", requestID);
+            cmd.Parameters.AddWithValue("@contractorID", contractorID);
+            cmd.ExecuteNonQuery();
+
+            conn.Close();
+
+        }
+
+        public static void acceptResponse(int requestID, int contractorID)
+        {
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
+            conn.Open();
+
+            String getResponseQuery = "UPDATE dbo.RESPONSES SET responseStatus = @responseStatus WHERE requestID = @requestID AND contractorID = @contractorID";
+            SqlCommand cmd = new SqlCommand(getResponseQuery, conn);
+            cmd.Parameters.AddWithValue("@responseStatus", "Accepted");
+            cmd.Parameters.AddWithValue("@requestID", requestID);
+            cmd.Parameters.AddWithValue("@contractorID", contractorID);
+            cmd.ExecuteNonQuery();
+
+            conn.Close();
+
         }
     }
 }

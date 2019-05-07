@@ -37,5 +37,8 @@ function hideOrShowAppropriateNotification() {
 }
 
 $(document).ready(function () {
-    
+    $('#ratingButton').click(function (e) {
+        CustomerService.customerFinishedTransaction();
+        window.location.href = 'CustomerHomepage.aspx';
+    });
 });
