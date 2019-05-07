@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CustomerHomepage.aspx.cs" Inherits="uow_roadside_assistance.WebPages.LoggedOn.Customer.CustomerHomepage" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="InProgressTransaction.aspx.cs" Inherits="uow_roadside_assistance.WebPages.LoggedOn.Customer.InProgressTransaction" %>
 
 <!DOCTYPE html>
 
@@ -6,7 +6,7 @@
 <head runat="server">
 
     <%--title--%>
-    <title>Customer Homepage</title>
+    <title>Customer In Progress Transaction</title>
     
      <%-- jquery and jquery ui --%>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
@@ -24,15 +24,14 @@
     
     <%--Page CSS--%>
     <link rel="stylesheet" href="../../../Css/LoggedOn/Customer/CustomerNavBar.css" />
-
-    <link rel="stylesheet" href="../../../Css/LoggedOn/Customer/CustomerHomepage.css" />
+    <link rel="stylesheet" href="../../../Css/LoggedOn/Customer/InProgressTransaction.css" />
 
     <%--Nav Bar Scripts--%>
     <script type="text/javascript" src="../../../Scripts/LoggedOn/Customer/CustomerNavBar.js"></script>
 
     <%-- Page Scripts --%>
     <script type="text/javascript" src="../../../Scripts/LoggedOn/Customer/OnLoadCustomer.js"></script>
-    <script type="text/javascript" src="../../../Scripts/LoggedOn/Customer/CustomerHomepage.js"></script>
+    <script type="text/javascript" src="../../../Scripts/LoggedOn/Customer/InProgressTransaction.js"></script>
 </head>
 <body>
 
@@ -82,44 +81,46 @@
     </div>
 
     <%-- Page Content --%>
-    <br />
-    <br />
-    <table style="width: 80%;" border="0" id="topTable">
-        <tbody>
-            <tr>
-                <td id="update-details-image" style="background-color:#172547; cursor:pointer " onclick="window.location.href = './CustomerProfile.aspx'">
-                    <span class="icon"><i class='fas fa-user-edit' style='font-size:55px; color:lightgray;'></i></span>
-                </td>
-                <td style="width:5%; height:50px;"></td>
-                <td id="manage-subscription-image" style=" background-color:#172547; ">
-                <span class="icon"><i class="fas fa-toolbox" style='font-size:55px; color:lightgray;'></i></span>
-                </td>
-            </tr>
-                <tr></tr>
-            <tr>
-                <td id="update-details-text" style="cursor:pointer" onclick="window.location.href = './CustomerProfile.aspx'"> 
-                    <h4>Update My Details</h4>
-                </td>
-                <td style="width:5%"></td>
-                <td id="manage-subscription-text"> 
-                    <h4>Manage Subscription</h4>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table id="middleTable" style="width: 60%; text-align: center" border="0">
-        <tr>
-            <td id="request-service-image" style="cursor:pointer" onclick="redirectToRightPlace()">
-            <span class="icon"><i class="fas fa-tools" style="font-size:55px; color:lightgray;"></i></span>
-            </td>
-        </tr>
-        <tr>
-            <td id="request-service-text" onclick="redirectToRightPlace()" style="width:70%; text-align: center; background-color:lightgray;cursor:pointer">
-                <h4>Request Service</h4> 
-            </td>
-        </tr>
-    </table>
 
+    <div id ="unfinished">
+        <br /><br /><br />
+        <div style="text-align:center;">
+            <div class="spinner-grow text-danger spinnerDiv" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow text-warning spinnerDiv" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow text-success spinnerDiv" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+            <br /><br />
+            <div>
+                <strong id="notificationText" style="font-size: 27px">Our professional is working on your current problem!!!</strong> 
+            </div>
+        </div>
+    </div>
+    <br />
+    <div id="finished">
+        <br /><br />
+        <div style="text-align:center;">
+            <div>
+                <img src="../../../Images/cropped_tick.gif" width="90" height="90"/>
+            </div>
+            <br />
+            <div>
+                <strong id="reviewText" style="font-size: 22px; font-family:'Comic Sans MS'">
+                    Our professional has fixed on your problem. <br />
+                    Thank you very much for using our service!!! <br />
+                    Please let us know about our service by quick rating below. 
+                </strong>
+            </div>
+            <br /><br />
+            <button id="ratingButton" class="btn btn-primary">Review and rating</button>
+        </div>
+    </div>
+
+    <br /><br />
 </body>
 </html>
 

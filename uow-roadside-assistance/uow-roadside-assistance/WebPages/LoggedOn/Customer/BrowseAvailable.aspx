@@ -6,7 +6,7 @@
 <head runat="server">
 
     <%--title--%>
-    <title>Customer Master</title>
+    <title>Customer Browse Contractors</title>
     
      <%-- jquery and jquery ui --%>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
@@ -87,7 +87,7 @@
         <div class="headerDetails">
             <h2>
                 <span class="underlinedText" style="text-align:center">
-                    Available Contractors
+                    Requested Contractors
                 </span>
                 <span class="icon"><i class="fas fa-list-ul" style='font-size:36px'></i></span>
             </h2>
@@ -99,35 +99,87 @@
                 <tr>
                     <th scope="col">Contractor</th>
                     <th scope="col">Consultation Fee</th>
-                    <th scope="col">Distance</th>
+                    <th scope="col">Distance (KM)</th>
                     <th scope="col">Average Rating</th>
                     <th scope="col">Reviews</th>
                     <th scope="col">Status</th>
                 </tr>
             </thead>
             <tbody id="availableContractorsTable">
-                <tr>
-                    <th scope="row">Mark Otto</th>
+
+
+<%--                <tr>
+                    <th scope='row'>Mark Otto</th>
                     <td>$100</td>
-                    <td>500 meters</td>
-                    <td>5 <i class="fas fa-star" style="color: greenyellow"></i></td>
-                    <td><button class="btn btn-primary" data-toggle="popover" title="Popover title" data-content="TESTER">View Reviews</button></td>
-                    <td>Waiting for responses...</td>
+                    <td>500</td>
+                    <td>5 <i class='fas fa-star' style='color: greenyellow'></i></td>
+                    <td><button class='btn btn-outline-primary'>View Reviews</button></td>
+                    <td>
+                        <button class='btn btn-warning statusButton' type='button' disabled>
+                          <span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span>
+                          Waiting...
+                        </button>
+                    </td>
                 </tr>
                 <tr>
-                    <th scope="row">Jacob Thotton</th>
-                    <td>$80</td>
-                    <td>1000 meters</td>
-                    <td>4.5 <i class="fas fa-star" style="color:greenyellow"></i></td>
-                    <td><button class="btn btn-primary">View Reviews</button></td>
-                    <td>Waiting for responses...</td>
+                    <th scope='row'>Fernando Torres</th>
+                    <td>$90</td>
+                    <td>900</td>
+                    <td>4 <i class='fas fa-star' style='color:greenyellow'></i></td>
+                    <td><button class='btn btn-outline-primary'>View Reviews</button></td>
+                    <td>    
+                        <!-- Button trigger modal -->
+                        <button type='button' class='btn btn-danger statusButton' disabled>
+                          Busy
+                        </button>
+                    </td>
                 </tr>
+                <tr>
+                    <th scope='row'>Jacob Thotton</th>
+                    <td>$80</td>
+                    <td>1000</td>
+                    <td>4.5 <i class='fas fa-star' style='color:greenyellow'></i></td>
+                    <td><button class='btn btn-outline-primary'>View Reviews</button></td>
+                    <td>    
+                        <!-- Button trigger modal -->
+                        <button type='button' class='btn btn-success statusButton' data-toggle='modal' data-target='#ModalCenter'>
+                          Accepted
+                        </button>
+                    </td>
+                </tr>--%>
             </tbody>
         </table>
 
         <div style="text-align:center">
             <button id="CancelRequestButton" class="btn btn-danger" style="width:30%; height:1.5cm">Cancel Request</button>
         </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="ModalCenter" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="ModalCenterTitle"><strong>Confirm Payment</strong></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid" style="text-align:center">
+                YOU ARE ABOUT TO PAY: <br /><br />
+                [<strong id="confirmContractorName"></strong>] <br />
+                <strong style="font-size: 18px">$</strong>
+                <strong id="confirmFee" style="font-size: 18px"></strong> <br /><br />
+                <strong>To come and assess your problem!!!</strong> <br /><br />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Decline</button>
+            <button type="button" class="btn btn-primary submitButton">Accept</button>
+          </div>
+        </div>
+      </div>
     </div>
 
 </body>

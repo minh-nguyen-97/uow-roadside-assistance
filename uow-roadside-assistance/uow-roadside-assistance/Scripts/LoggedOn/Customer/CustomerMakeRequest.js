@@ -8,13 +8,20 @@
                 window.history.back();
             }
             else {
-                CustomerService.getSessionRequest(function (res) {
-                    var sessionRequest = JSON.parse(res);
-                    if (sessionRequest != null) {
-                        alert('You have not completed your previouse request!!!');
-                        window.location.href = './BrowseAvailable.aspx';
-                    }
-                });
+
+                var refer = window.location.href;
+                refer = refer.replace('MakeRequest', 'CustomerHomepage');
+                //alert(document.referrer);
+                if (document.referrer != refer) {
+                    window.history.back();
+                }
+                //CustomerService.getSessionRequest(function (res) {
+                //    var sessionRequest = JSON.parse(res);
+                //    if (sessionRequest != null) {
+                //        alert('You have not completed your previouse request!!!');
+                //        window.location.href = './BrowseAvailable.aspx';
+                //    }
+                //});
             }
         }
     });
@@ -266,8 +273,7 @@ $(document).ready(function () {
         CustomerService.MakeRequest(tyreProblem, carBatteryProblem, engineProblem, generalProblem, problemDescription, customerLatitude, customerLongitude, contractorIDs)
 
         window.location.href = './BrowseAvailable.aspx';
-        alert('OK');
-        
+
     });
 
 });

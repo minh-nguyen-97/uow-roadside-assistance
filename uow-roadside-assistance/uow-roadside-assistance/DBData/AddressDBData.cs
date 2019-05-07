@@ -35,5 +35,29 @@ namespace uow_roadside_assistance.DBData
 
             return res;
         }
+
+        public static Address getAddressByUserID(int userID)
+        {
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
+            conn.Open();
+
+            String getUserNameQuery = "SELECT * FROM dbo.ADDRESS WHERE userID = @userID";
+            SqlCommand cmd = new SqlCommand(getUserNameQuery, conn);
+            cmd.Parameters.AddWithValue("@userID", userID);
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            Address res = null;
+            if (reader.Read())
+            {
+                String latitude = Convert.ToString(reader["latitude"]).TrimEnd();
+                String longitude = Convert.ToString(reader["longitude"]).TrimEnd();
+                String userType = Convert.ToString(reader["userType"]).TrimEnd();
+
+                res = new Address(userID, latitude, longitude, userType);
+                
+            }
+
+            return res;
+        }
     }
 }
