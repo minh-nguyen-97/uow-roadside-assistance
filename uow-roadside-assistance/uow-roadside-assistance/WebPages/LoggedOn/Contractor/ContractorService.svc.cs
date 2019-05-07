@@ -150,6 +150,28 @@ namespace uow_roadside_assistance.WebPages.LoggedOn.Contractor
 
             return new JavaScriptSerializer().Serialize(res);
         }
+
+        // Incomplete Transactions
+        [OperationContract]
+        public String contractorUnfinishedTransactions()
+        {
+            Classes.Contractor curContractor = (Classes.Contractor)(HttpContext.Current.Session["New"]);
+            ArrayList res = TransactionDBData.GetUnfinishedContractorTransactions(curContractor.UserID);
+            return new JavaScriptSerializer().Serialize(res);
+        }
+
+        [OperationContract]
+        public String getCustomerFullName(int customerID)
+        {
+            User user = UserDBData.getUserByID(customerID);
+            return user.FullName;
+        }
+
+        [OperationContract]
+        public void finishedContractor(int transactionID)
+        {
+            TransactionDBData.contractorFinishedTransaction(transactionID);
+        }
     }
 
 }

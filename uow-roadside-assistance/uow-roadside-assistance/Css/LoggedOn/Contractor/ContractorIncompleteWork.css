@@ -1,0 +1,12 @@
+﻿.headerDetails {
+    text-align: center;
+}
+
+.underlinedText {
+    border-bottom: 1px solid gray;
+}
+
+.icon {
+    float: right;
+    color: #172547;
+}

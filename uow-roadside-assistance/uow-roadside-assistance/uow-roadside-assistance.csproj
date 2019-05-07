@@ -79,6 +79,7 @@
     <Content Include="Css\LoggedOn\Contractor\AvailableCustomers.css" />
     <Content Include="Css\LoggedOn\Contractor\ContractorChangePassword.css" />
     <Content Include="Css\LoggedOn\Contractor\ContractorHomepage.css" />
+    <Content Include="Css\LoggedOn\Contractor\ContractorIncompleteWork.css" />
     <Content Include="Css\LoggedOn\Contractor\ContractorNavBar.css" />
     <Content Include="Css\LoggedOn\Contractor\ContractorProfile.css" />
     <Content Include="Css\LoggedOn\Customer\BrowseAvailable.css" />
@@ -104,6 +105,7 @@
     <Content Include="Scripts\LoggedOn\Contractor\AvailableCustomers.js" />
     <Content Include="Scripts\LoggedOn\Contractor\ContractorChangePassword.js" />
     <Content Include="Scripts\LoggedOn\Contractor\ContractorHomepage.js" />
+    <Content Include="Scripts\LoggedOn\Contractor\ContractorIncompleteWork.js" />
     <Content Include="Scripts\LoggedOn\Contractor\ContractorNavBar.js" />
     <Content Include="Scripts\LoggedOn\Contractor\ContractorProfile.js" />
     <Content Include="Scripts\LoggedOn\Contractor\OnLoadContractor.js" />
@@ -132,6 +134,7 @@
     <Content Include="WebPages\LoggedOn\Contractor\AvailableCustomer.aspx" />
     <Content Include="WebPages\LoggedOn\Contractor\ContractorChangePassword.aspx" />
     <Content Include="WebPages\LoggedOn\Contractor\ContractorHomepage.aspx" />
+    <Content Include="WebPages\LoggedOn\Contractor\ContractorIncompleteWork.aspx" />
     <Content Include="WebPages\LoggedOn\Contractor\ContractorProfile.aspx" />
     <Content Include="WebPages\LoggedOn\Contractor\ContractorService.svc" />
     <Content Include="WebPages\LoggedOn\Contractor\Master.aspx" />
@@ -226,6 +229,13 @@
     </Compile>
     <Compile Include="WebPages\LoggedOn\Contractor\ContractorHomepage.aspx.designer.cs">
       <DependentUpon>ContractorHomepage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPages\LoggedOn\Contractor\ContractorIncompleteWork.aspx.cs">
+      <DependentUpon>ContractorIncompleteWork.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPages\LoggedOn\Contractor\ContractorIncompleteWork.aspx.designer.cs">
+      <DependentUpon>ContractorIncompleteWork.aspx</DependentUpon>
     </Compile>
     <Compile Include="WebPages\LoggedOn\Contractor\ContractorProfile.aspx.cs">
       <DependentUpon>ContractorProfile.aspx</DependentUpon>

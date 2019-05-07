@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ContractorHomepage.aspx.cs" Inherits="uow_roadside_assistance.WebPages.LoggedOn.Contractor.ContractorHomepage" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ContractorIncompleteWork.aspx.cs" Inherits="uow_roadside_assistance.WebPages.LoggedOn.Contractor.ContractorIncompleteWork" %>
 
 <!DOCTYPE html>
 
@@ -6,7 +6,7 @@
 <head runat="server">
 
     <%--title--%>
-    <title>Contractor Homepage</title>
+    <title>Contractor Master</title>
     
      <%-- jquery and jquery ui --%>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
@@ -24,14 +24,15 @@
     
     <%--Page CSS--%>
     <link rel="stylesheet" href="../../../Css/LoggedOn/Contractor/ContractorNavBar.css" />
-    <link rel="stylesheet" href="../../../Css/LoggedOn/Contractor/ContractorHomepage.css" />
+    <link rel="stylesheet" href="../../../Css/LoggedOn/Contractor/ContractorIncompleteWork.css" />
 
     <%--Nav Bar Scripts--%>
     <script type="text/javascript" src="../../../Scripts/LoggedOn/Contractor/ContractorNavBar.js"></script>
 
     <%-- Page Scripts --%>
     <script type="text/javascript" src="../../../Scripts/LoggedOn/Contractor/OnLoadContractor.js"></script>
-    <script type="text/javascript" src="../../../Scripts/LoggedOn/Contractor/ContractorHomepage.js"></script>
+    <script type="text/javascript" src="../../../Scripts/LoggedOn/Contractor/ContractorIncompleteWork.js"></script>
+
 </head>
 <body>
 
@@ -81,45 +82,41 @@
     </div>
 
     <%-- Page Content --%>
-        <br />
-    <br />
-    <table style="width: 80%;" border="0" id="topTable">
-        <tbody>
-            <tr>
-                <td id="update-details-image" style="background-color:#172547; cursor:pointer " onclick="window.location.href = './ContractorProfile.aspx'">
-                    <span class="icon"><i class='fas fa-user-edit' style='font-size:55px; color:lightgray;'></i></span>
-                </td>
-                <td style="width:5%; height:50px;"></td>
-                <td id="manage-subscription-image" style=" background-color:#172547; cursor:pointer " onclick="goToIncompleteWork()">
-                <span class="icon"><i class="fas fa-toolbox" style='font-size:55px; color:lightgray;'></i></span>
-                </td>
-            </tr>
-                <tr></tr>
-            <tr>
-                <td id="update-details-text" style="cursor:pointer" onclick="window.location.href = './ContractorProfile.aspx'"> 
-                    <h4>Update My Details</h4>
-                </td>
-                <td style="width:5%"></td>
-                <td id="manage-subscription-text" style="cursor:pointer" onclick="goToIncompleteWork()"> 
-                    <h4>Manage Incomplete Work</h4>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table id="middleTable" style="width: 60%; text-align: center" border="0">
-        <tr>
-            <td id="request-service-image" onclick="goToAvailableCustomers()" style="cursor:pointer">
-            <span class="icon"><i class="fas fa-tools" style="font-size:55px; color:lightgray;"></i></span>
-            </td>
-        </tr>
-        <tr>
-            <td id="request-service-text" onclick="goToAvailableCustomers()" style="cursor:pointer; width:70%; text-align: center; background-color:lightgray;">   
-                <h4>Find New Work</h4> 
-            </td>
-        </tr>
-    </table>
+     <div class="container">
+        <br /><br />
+        <div class="headerDetails">
+            <h2>
+                <span class="underlinedText" style="text-align:center">
+                    Incomplete Transactions
+                </span>
+                <span class="icon"><i class="fas fa-list-ul" style='font-size:36px'></i></span>
+            </h2>
+        </div>
+
+        <br /><br />
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col" style="width:33%">Customer</th>
+                    <th scope="col" style="width:33%">Fee</th>
+                    <th scope="col" style="width:33%">Confirm Complete?</th>
+                </tr>
+            </thead>
+            <tbody id="incompleteCustomersTable">
+                <%--<tr>
+                    <th scope='row'>Mark Otto</th>
+                    <td>$100</td>
+                    <td>
+                        <button id='completeButton' class='btn btn-success'>Completed Work</button>
+                    </td>
+                </tr>--%>
+            </tbody>
+        </table>
+
+    </div>
 
 </body>
 </html>
+
 
 

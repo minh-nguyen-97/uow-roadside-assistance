@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
@@ -44,7 +45,7 @@ namespace uow_roadside_assistance.DBData
         }
 
         //
-        public static Transaction GetUnfinishedContractorTransaction(int contractorID)
+        public static ArrayList GetUnfinishedContractorTransactions(int contractorID)
         {
             Boolean contractorFinished = false;
 
@@ -53,21 +54,23 @@ namespace uow_roadside_assistance.DBData
 
             String getTransactionQuery = "SELECT * FROM dbo.TRANSACTIONS WHERE contractorID = @contractorID and contractorFinished = @contractorFinished";
             SqlCommand cmd = new SqlCommand(getTransactionQuery, conn);
-            cmd.Parameters.AddWithValue("@customerID", contractorID);
-            cmd.Parameters.AddWithValue("@customerFinished", contractorFinished);
+            cmd.Parameters.AddWithValue("@contractorID", contractorID);
+            cmd.Parameters.AddWithValue("@contractorFinished", contractorFinished);
             SqlDataReader reader = cmd.ExecuteReader();
 
-            Transaction res = null;
-            if (reader.Read())
+            ArrayList res = new ArrayList();
+            while (reader.Read())
             {
                 int transactionID = Convert.ToInt32(reader["transactionID"]);
                 // contractorID
                 int customerID = Convert.ToInt32(reader["customerID"]);
                 double cost = Convert.ToDouble(reader["cost"]);
-                // customerFinished
+                // contractorFinished
                 Boolean customerFinished = Convert.ToBoolean(reader["customerFinished"]);
 
-                res = new Transaction(transactionID, contractorID, customerID, cost, contractorFinished, customerFinished);
+                Transaction transaction = new Transaction(transactionID, contractorID, customerID, cost, contractorFinished, customerFinished);
+
+                res.Add(transaction);
             }
 
             conn.Close();
