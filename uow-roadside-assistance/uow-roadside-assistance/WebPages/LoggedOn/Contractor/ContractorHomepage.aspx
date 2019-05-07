@@ -31,7 +31,7 @@
 
     <%-- Page Scripts --%>
     <script type="text/javascript" src="../../../Scripts/LoggedOn/Contractor/OnLoadContractor.js"></script>
-
+    <script type="text/javascript" src="../../../Scripts/LoggedOn/Contractor/ContractorHomepage.js"></script>
 </head>
 <body>
 
@@ -101,19 +101,20 @@
                 </td>
                 <td style="width:5%"></td>
                 <td id="manage-subscription-text"> 
-                    <h4>Manage Work Settings</h4>
+                    <h4>Manage Incomplete Work</h4>
                 </td>
             </tr>
         </tbody>
     </table>
     <table id="middleTable" style="width: 60%; text-align: center" border="0">
         <tr>
-            <td id="request-service-image">
+            <td id="request-service-image" onclick="getTheRightPlace()" style="cursor:pointer">
             <span class="icon"><i class="fas fa-tools" style="font-size:55px; color:lightgray;"></i></span>
             </td>
         </tr>
         <tr>
-            <td id="request-service-text" style="width:70%; text-align: center; background-color:lightgray;">   <h4>Find Work</h4> 
+            <td id="request-service-text" onclick="getTheRightPlace()" style="cursor:pointer; width:70%; text-align: center; background-color:lightgray;">   
+                <h4>Find New Work</h4> 
             </td>
         </tr>
     </table>

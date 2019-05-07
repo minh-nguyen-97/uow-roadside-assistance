@@ -76,6 +76,7 @@
     <Content Include="Css\LoggedOff\SignUp\SignUpContractor.css" />
     <Content Include="Css\LoggedOff\SignUp\SignUpCustomer.css" />
     <Content Include="Css\LoggedOff\SlideShow.css" />
+    <Content Include="Css\LoggedOn\Contractor\AvailableCustomers.css" />
     <Content Include="Css\LoggedOn\Contractor\ContractorChangePassword.css" />
     <Content Include="Css\LoggedOn\Contractor\ContractorHomepage.css" />
     <Content Include="Css\LoggedOn\Contractor\ContractorNavBar.css" />
@@ -100,7 +101,9 @@
     <Content Include="Images\slide_show\seventh.jpg" />
     <Content Include="Images\slide_show\sixth.jpg" />
     <Content Include="Images\slide_show\third.jpg" />
+    <Content Include="Scripts\LoggedOn\Contractor\AvailableCustomers.js" />
     <Content Include="Scripts\LoggedOn\Contractor\ContractorChangePassword.js" />
+    <Content Include="Scripts\LoggedOn\Contractor\ContractorHomepage.js" />
     <Content Include="Scripts\LoggedOn\Contractor\ContractorNavBar.js" />
     <Content Include="Scripts\LoggedOn\Contractor\ContractorProfile.js" />
     <Content Include="Scripts\LoggedOn\Contractor\OnLoadContractor.js" />
@@ -126,6 +129,7 @@
     <Content Include="WebPages\LoggedOff\SignUpContractor.aspx" />
     <Content Include="WebPages\LoggedOff\SignUpCustomer.aspx" />
     <Content Include="WebPages\LoggedOff\SuccessfulRegistration.aspx" />
+    <Content Include="WebPages\LoggedOn\Contractor\AvailableCustomer.aspx" />
     <Content Include="WebPages\LoggedOn\Contractor\ContractorChangePassword.aspx" />
     <Content Include="WebPages\LoggedOn\Contractor\ContractorHomepage.aspx" />
     <Content Include="WebPages\LoggedOn\Contractor\ContractorProfile.aspx" />
@@ -201,6 +205,13 @@
     </Compile>
     <Compile Include="WebPages\LoggedOff\SuccessfulRegistration.aspx.designer.cs">
       <DependentUpon>SuccessfulRegistration.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPages\LoggedOn\Contractor\AvailableCustomer.aspx.cs">
+      <DependentUpon>AvailableCustomer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPages\LoggedOn\Contractor\AvailableCustomer.aspx.designer.cs">
+      <DependentUpon>AvailableCustomer.aspx</DependentUpon>
     </Compile>
     <Compile Include="WebPages\LoggedOn\Contractor\ContractorChangePassword.aspx.cs">
       <DependentUpon>ContractorChangePassword.aspx</DependentUpon>

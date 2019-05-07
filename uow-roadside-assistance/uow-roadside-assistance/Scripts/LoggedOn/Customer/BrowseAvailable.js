@@ -131,7 +131,7 @@ $(document).ready(function () {
 
     $('#CancelRequestButton').click(function (e) {
         CustomerService.cancelRequest();
-        window.location.href = './MakeRequest.aspx';
+        window.location.href = './CustomerHomepage.aspx';
     });
 
     $('#ModalCenter').on('show.bs.modal', function (event) {
