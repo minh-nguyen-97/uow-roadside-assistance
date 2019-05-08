@@ -7,8 +7,7 @@
 
     function onLogIn(res) {
         if (res) {
-            var username = $('#Username').val();
-            LoggedOffService.setSession(username);
+
             LoggedOffService.getUserFromSession(function (session) {
                 var curUser = JSON.parse(session);
                 if (curUser.UserType == 'Customer') {
