@@ -74,7 +74,13 @@ namespace uow_roadside_assistance.WebPages.LoggedOff
         [OperationContract]
         public Boolean logIn(String username, String password)
         {
-            return UserDBData.IsExist(username, password);
+            Boolean check = UserDBData.IsExist(username, password);
+            if (check)
+            {
+                setSession(username);
+            }
+
+            return check;
         }
 
         [OperationContract]

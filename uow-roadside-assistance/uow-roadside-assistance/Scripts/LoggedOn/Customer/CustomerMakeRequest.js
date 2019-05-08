@@ -102,6 +102,30 @@ function initMap() {
         }, errorCallBack, { timeout: 10000, enableHighAccuracy: true });
     };
 
+    CustomerService.getAllContractorsAddresses(function (res) {
+        var contractorAddresses = JSON.parse(res);
+        for (var i = 0; i < contractorAddresses.length; i++) {
+
+            var address = {
+                userID: contractorAddresses[i].UserID,
+                latitude: parseFloat(contractorAddresses[i].Latitude),
+                longitude: parseFloat(contractorAddresses[i].Longitude)
+            }
+            contractorInfos.push(address);
+
+            var newMarker = new google.maps.Marker({
+                position: {
+                    lat: address.latitude, lng: address.longitude
+                },
+                map: map,
+                icon: {
+                    url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
+                }
+            });
+            contractorMarkers.push(newMarker);
+        }
+    });
+
 }
 
 function errorCallBack() {
@@ -207,29 +231,29 @@ $(document).ready(function () {
         }
     });
 
-    CustomerService.getAllContractorsAddresses(function (res) {
-        var contractorAddresses = JSON.parse(res);
-        for (var i = 0; i < contractorAddresses.length; i++) {
+    //CustomerService.getAllContractorsAddresses(function (res) {
+    //    var contractorAddresses = JSON.parse(res);
+    //    for (var i = 0; i < contractorAddresses.length; i++) {
 
-            var address = {
-                userID: contractorAddresses[i].UserID,
-                latitude: parseFloat(contractorAddresses[i].Latitude),
-                longitude: parseFloat(contractorAddresses[i].Longitude)
-            }
-            contractorInfos.push(address);
+    //        var address = {
+    //            userID: contractorAddresses[i].UserID,
+    //            latitude: parseFloat(contractorAddresses[i].Latitude),
+    //            longitude: parseFloat(contractorAddresses[i].Longitude)
+    //        }
+    //        contractorInfos.push(address);
 
-            var newMarker = new google.maps.Marker({
-                position: {
-                    lat: address.latitude, lng: address.longitude
-                },
-                map: map,
-                icon: {
-                    url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
-                }
-            });
-            contractorMarkers.push(newMarker);
-        }
-    });
+    //        var newMarker = new google.maps.Marker({
+    //            position: {
+    //                lat: address.latitude, lng: address.longitude
+    //            },
+    //            map: map,
+    //            icon: {
+    //                url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
+    //            }
+    //        });
+    //        contractorMarkers.push(newMarker);
+    //    }
+    //});
 
     $('#RequestButton').click(function (e) {
         var checkbox = $('#TyreCheckBox').prop('checked');
