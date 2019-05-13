@@ -90,38 +90,61 @@ namespace uow_roadside_assistance.WebPages.LoggedOn.Contractor
         }
 
         // Available Customer
-        [OperationContract]
-        public String getRequestedIds()
+
+        public class RequestedCustomer
         {
-            Classes.Contractor curContractor = (Classes.Contractor)(HttpContext.Current.Session["New"]);
-            ArrayList res = ResponseDBData.getResponseListByContractorID(curContractor.UserID);
-            return new JavaScriptSerializer().Serialize(res);
+            public String FullName { get; }
+            public String CusLat { get; }
+            public String CusLng { get; }
+            public String ConLat { get; }
+            public String ConLng { get; }
+            public String ResponseStatus { get; }
+            public int RequestID { get; }
+
+            public RequestedCustomer(String fullName, String cusLat, String cusLng, String conLat, String conLng, String responseStatus, int requestID)
+            {
+                FullName = fullName;
+                CusLat = cusLat;
+                CusLng = cusLng;
+                ConLat = conLat;
+                ConLng = conLng;
+                ResponseStatus = responseStatus;
+                RequestID = requestID;
+            }
+
         }
-
         [OperationContract]
-        public String extractCustomerData(int requestID, String responseStatus)
+        public String getRequestedCustomers()
         {
-            Request req = RequestDBData.getRequestByRequestID(requestID);
-
-            ArrayList res = new ArrayList();
-
-            Classes.Customer customer = CustomerDBData.getCustomerByID(req.CustomerID);
-            res.Add(customer.FullName);
-
-            res.Add(req.CustomerLatitude);
-            res.Add(req.CustomerLongitude);
+            ArrayList result = new ArrayList();
 
             Classes.Contractor curContractor = (Classes.Contractor)(HttpContext.Current.Session["New"]);
+
             Address address = AddressDBData.getAddressByUserID(curContractor.UserID);
-            res.Add(address.Latitude);
-            res.Add(address.Longitude);
-            
+            String conLat = address.Latitude;
+            String conLng = address.Longitude;
 
-            res.Add(responseStatus);
-            res.Add(req.RequestID);
+            ArrayList responses = ResponseDBData.getResponseListByContractorID(curContractor.UserID);
+            foreach (Response response in responses)
+            {
+                int requestID = response.RequestID;
+                String responseStatus = response.ResponseStatus;
 
-            return new JavaScriptSerializer().Serialize(res);
+                Request req = RequestDBData.getRequestByRequestID(response.RequestID);
+                String cusLat = req.CustomerLatitude;
+                String cusLng = req.CustomerLongitude;
+
+                Classes.Customer customer = CustomerDBData.getCustomerByID(req.CustomerID);
+                String fullName = customer.FullName;
+
+                RequestedCustomer requestedCustomer = new RequestedCustomer(fullName, cusLat, cusLng, conLat, conLng, responseStatus, requestID);
+
+                result.Add(requestedCustomer);
+            }
+
+            return new JavaScriptSerializer().Serialize(result);
         }
+
 
         [OperationContract]
         public void declineRequest(int requestID)
@@ -141,14 +164,16 @@ namespace uow_roadside_assistance.WebPages.LoggedOn.Contractor
         public String getDetailsForCustomer(int requestID)
         {
             Request req = RequestDBData.getRequestByRequestID(requestID);
-            ArrayList res = new ArrayList();
-            res.Add(req.TyreProblem);
-            res.Add(req.CarBatteryProblem);
-            res.Add(req.EngineProblem);
-            res.Add(req.GeneralProblem);
-            res.Add(req.ProblemDescription);
 
-            return new JavaScriptSerializer().Serialize(res);
+            return new JavaScriptSerializer().Serialize(req);
+        }
+
+        [OperationContract]
+        public String getCarDetailsOfCustomer(int customerID)
+        {
+            Classes.Customer customer = CustomerDBData.getCustomerByID(customerID);
+
+            return new JavaScriptSerializer().Serialize(customer);
         }
 
         // Incomplete Transactions

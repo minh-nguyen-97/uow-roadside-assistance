@@ -15,36 +15,33 @@
     });
 }
 
+var ContractorLatitude = null;
+var ContractorLongitude = null;
+
 function loadAvailableCustomers() {
-    ContractorService.getRequestedIds(function (res) {
-        var requests = JSON.parse(res);
 
-        for (var i = 0; i < requests.length; i++) {
-            var requestID = requests[i].RequestID;
-            var responseStatus = requests[i].ResponseStatus;
+    ContractorService.getRequestedCustomers(function (res) {
+        var requestedCustomers = JSON.parse(res);
 
-            ContractorService.extractCustomerData(requestID, responseStatus, function (result) {
-                var res = JSON.parse(result);
+        for (var i = 0; i < requestedCustomers.length; i++) {
 
-                var fullName = res[0];
+            var req = requestedCustomers[i];
 
-                var cusLat = res[1];
-                var cusLng = res[2];
-                var conLat = res[3];
-                var conLng = res[4];
-                var distance = distanceInKiloMeters(cusLat, cusLng, conLat, conLng);
-                distance = Math.round(distance * 100) / 100
+            if (ContractorLatitude == null)
+                ContractorLatitude = req.ConLat;
 
-                var fee = Math.round(distance * 50 * 100) / 100;
-                
+            if (ContractorLongitude == null)
+                ContractorLongitude = req.ConLng;
 
-                var responseStatus = res[5];
-                var requestID = res[6];
+            var distance = distanceInKiloMeters(req.CusLat, req.CusLng, req.ConLat, req.ConLng);
+            distance = Math.round(distance * 100) / 100
 
-                addCustomerRow(fullName, fee, distance, responseStatus, requestID);
-            });
+            var fee = Math.round(distance * 50 * 100) / 100;
+
+            addCustomerRow(req.FullName, fee, distance, req.ResponseStatus, req.RequestID);
         }
-    })
+    });
+
 }
 
 function addCustomerRow(fullName, fee, distance, responseStatus, requestID) {
@@ -124,6 +121,59 @@ function acceptRow(requestID) {
 }
 
 $(document).ready(function () {
+
+    var map = null;
+    var conLatLng; 
+
+    function initializeGMap(cusLat, cusLng) {
+
+        var myOptions = {
+            zoom: 12,
+            zoomControl: true,
+            center: conLatLng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+
+        map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+
+        // initialize contractor
+        conLatLng = new google.maps.LatLng(ContractorLatitude, ContractorLongitude);
+        var conMarker = new google.maps.Marker({
+            position: conLatLng,
+            map: map
+        });
+
+        var conInfowindow = new google.maps.InfoWindow({
+            content: 'Your location'
+        });
+
+        conMarker.addListener('click', function () {
+            conInfowindow.open(map, conMarker);
+        });
+
+
+        // initialize customer
+        var cusLatLng = new google.maps.LatLng(cusLat, cusLng);
+        var cusMarker = new google.maps.Marker({
+            position: cusLatLng,
+            map: map,
+            icon: {
+                url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
+            }
+        });
+
+        var cusInfowindow = new google.maps.InfoWindow({
+            content: 'Your customer'
+        });
+
+        cusMarker.addListener('click', function () {
+            cusInfowindow.open(map, cusMarker);
+        });
+
+        
+    }
+
+    //Re - init map before show modal
     $('#ModalCenter').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // Button that triggered the modal
         var requestID = button.data('whatever') // Extract info from data-* attributes
@@ -131,19 +181,32 @@ $(document).ready(function () {
         ContractorService.getDetailsForCustomer(requestID, function (result) {
             var res = JSON.parse(result);
 
-            var tyreProblem = res[0];
-            var carBatteryProblem = res[1];
-            var engineProblem = res[2];
-            var generalProblem = res[3];
-            var problemDescription = res[4];
+            ContractorService.getCarDetailsOfCustomer(res.CustomerID, function (customer) {
+                var cus = JSON.parse(customer);
 
-            $('#TyreCheckBox').prop('checked', tyreProblem);
-            $('#CarBatteryCheckBox').prop('checked', carBatteryProblem);
-            $('#EngineCheckBox').prop('checked', engineProblem);
-            $('#GeneralCheckBox').prop('checked', generalProblem);
+                $('#Make').val(cus.Make);
+                $('#Model').val(cus.Model);
+                $('#Color').val(cus.Color);
+                $('#RegNo').val(cus.RegNo);
+            });
 
-            $('#Description').val(problemDescription);
+            $('#TyreCheckBox').prop('checked', res.TyreProblem);
+            $('#CarBatteryCheckBox').prop('checked', res.CarBatteryProblem);
+            $('#EngineCheckBox').prop('checked', res.EngineProblem);
+            $('#GeneralCheckBox').prop('checked', res.GeneralProblem);
+
+            $('#Description').val(res.ProblemDescription);
+
+            initializeGMap(res.CustomerLatitude, res.CustomerLongitude);
+            $("#location-map").css("width", "100%");
+            $("#map_canvas").css("width", "100%");
         });
-        
+
+    });
+
+    // Trigger map resize event after modal shown
+    $('#ModalCenter').on('shown.bs.modal', function () {
+        google.maps.event.trigger(map, "resize");
+        map.setCenter(conLatLng);
     });
 });

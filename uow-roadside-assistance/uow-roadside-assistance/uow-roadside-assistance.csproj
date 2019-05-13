@@ -138,6 +138,7 @@
     <Content Include="WebPages\LoggedOn\Contractor\ContractorProfile.aspx" />
     <Content Include="WebPages\LoggedOn\Contractor\ContractorService.svc" />
     <Content Include="WebPages\LoggedOn\Contractor\Master.aspx" />
+    <Content Include="WebPages\LoggedOn\Contractor\Test.aspx" />
     <Content Include="WebPages\LoggedOn\Customer\BrowseAvailable.aspx" />
     <Content Include="WebPages\LoggedOn\Customer\CustomerChangePassword.aspx" />
     <Content Include="WebPages\LoggedOn\Customer\CustomerHomepage.aspx" />
@@ -253,6 +254,13 @@
     </Compile>
     <Compile Include="WebPages\LoggedOn\Contractor\Master.aspx.designer.cs">
       <DependentUpon>Master.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPages\LoggedOn\Contractor\Test.aspx.cs">
+      <DependentUpon>Test.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPages\LoggedOn\Contractor\Test.aspx.designer.cs">
+      <DependentUpon>Test.aspx</DependentUpon>
     </Compile>
     <Compile Include="WebPages\LoggedOn\Customer\BrowseAvailable.aspx.cs">
       <DependentUpon>BrowseAvailable.aspx</DependentUpon>
