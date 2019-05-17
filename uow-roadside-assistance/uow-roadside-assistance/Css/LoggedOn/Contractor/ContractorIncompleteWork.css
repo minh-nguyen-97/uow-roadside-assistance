@@ -10,3 +10,20 @@
     float: right;
     color: #172547;
 }
+
+input[type="checkbox"] {
+    width: 30px;
+    height: 30px;
+    margin-top: 80px;
+}
+
+.problemType {
+    width: 150px;
+    height: 150px;
+}
+
+.problemLabel {
+    margin-left: 60px;
+    font-family: 'Comic Sans MS';
+    font-size: 18px;
+}

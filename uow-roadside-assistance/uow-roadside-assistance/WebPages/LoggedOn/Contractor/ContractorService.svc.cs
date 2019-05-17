@@ -91,28 +91,46 @@ namespace uow_roadside_assistance.WebPages.LoggedOn.Contractor
 
         // Available Customer
 
-        public class RequestedCustomer
+        public class Work
         {
             public String FullName { get; }
             public String CusLat { get; }
             public String CusLng { get; }
             public String ConLat { get; }
             public String ConLng { get; }
-            public String ResponseStatus { get; }
-            public int RequestID { get; }
 
-            public RequestedCustomer(String fullName, String cusLat, String cusLng, String conLat, String conLng, String responseStatus, int requestID)
+            public Work(String fullName, String cusLat, String cusLng, String conLat, String conLng)
             {
                 FullName = fullName;
                 CusLat = cusLat;
                 CusLng = cusLng;
                 ConLat = conLat;
                 ConLng = conLng;
-                ResponseStatus = responseStatus;
-                RequestID = requestID;
             }
 
         }
+
+        public class NewWork : Work
+        {
+            public int RequestID;
+            public String ResponseStatus { get; }
+
+            public NewWork(String fullName, String cusLat, String cusLng, String conLat, String conLng, String responseStatus, int requestID) : base(fullName, cusLat, cusLng, conLat, conLng)
+            {
+                RequestID = requestID;
+                ResponseStatus = responseStatus;
+            }
+        }
+
+        public class IncompleteWork : Work
+        {
+            public int TransactionID;
+            public IncompleteWork(String fullName, String cusLat, String cusLng, String conLat, String conLng, int transactionID) : base(fullName, cusLat, cusLng, conLat, conLng)
+            {
+                TransactionID = transactionID;
+            }
+        }
+
         [OperationContract]
         public String getRequestedCustomers()
         {
@@ -137,7 +155,7 @@ namespace uow_roadside_assistance.WebPages.LoggedOn.Contractor
                 Classes.Customer customer = CustomerDBData.getCustomerByID(req.CustomerID);
                 String fullName = customer.FullName;
 
-                RequestedCustomer requestedCustomer = new RequestedCustomer(fullName, cusLat, cusLng, conLat, conLng, responseStatus, requestID);
+                NewWork requestedCustomer = new NewWork(fullName, cusLat, cusLng, conLat, conLng, responseStatus, requestID);
 
                 result.Add(requestedCustomer);
             }
@@ -161,7 +179,7 @@ namespace uow_roadside_assistance.WebPages.LoggedOn.Contractor
         }
 
         [OperationContract]
-        public String getDetailsForCustomer(int requestID)
+        public String getRequestDetails(int requestID)
         {
             Request req = RequestDBData.getRequestByRequestID(requestID);
 
@@ -178,24 +196,48 @@ namespace uow_roadside_assistance.WebPages.LoggedOn.Contractor
 
         // Incomplete Transactions
         [OperationContract]
-        public String contractorUnfinishedTransactions()
+        public String getUnfinishedTransactions()
         {
-            Classes.Contractor curContractor = (Classes.Contractor)(HttpContext.Current.Session["New"]);
-            ArrayList res = TransactionDBData.GetUnfinishedContractorTransactions(curContractor.UserID);
-            return new JavaScriptSerializer().Serialize(res);
-        }
+            ArrayList result = new ArrayList();
 
-        [OperationContract]
-        public String getCustomerFullName(int customerID)
-        {
-            User user = UserDBData.getUserByID(customerID);
-            return user.FullName;
+            Classes.Contractor curContractor = (Classes.Contractor)(HttpContext.Current.Session["New"]);
+
+            Address address = AddressDBData.getAddressByUserID(curContractor.UserID);
+            String conLat = address.Latitude;
+            String conLng = address.Longitude;
+            
+            ArrayList unfinishedTransactions = TransactionDBData.GetUnfinishedContractorTransactions(curContractor.UserID);
+            foreach(Transaction transaction in unfinishedTransactions)
+            {
+                int transactionID = transaction.TransactionID;
+                
+                String cusLat = transaction.CustomerLatitude;
+                String cusLng = transaction.CustomerLongitude;
+
+                Classes.Customer customer = CustomerDBData.getCustomerByID(transaction.CustomerID);
+                String fullName = customer.FullName;
+
+                IncompleteWork incompleteWork = new IncompleteWork(fullName, cusLat, cusLng, conLat, conLng, transactionID);
+
+                result.Add(incompleteWork);
+            }
+
+            return new JavaScriptSerializer().Serialize(result);
         }
+       
 
         [OperationContract]
         public void finishedContractor(int transactionID)
         {
             TransactionDBData.contractorFinishedTransaction(transactionID);
+        }
+        
+        [OperationContract]
+        public String getTransactionDetails(int transactionID)
+        {
+            Transaction transaction = TransactionDBData.GetTransactionByID(transactionID);
+
+            return new JavaScriptSerializer().Serialize(transaction);
         }
     }
 

@@ -193,7 +193,7 @@ namespace uow_roadside_assistance.WebPages.LoggedOn.Customer
                 RequestDBData.deleteRequest(req.RequestID);
                 ResponseDBData.deleteResponse(req.RequestID);
 
-                TransactionDBData.insertNewTransaction(contractorID, customer.UserID, cost);
+                TransactionDBData.insertNewTransaction(contractorID, cost, req);
             }
         }
 

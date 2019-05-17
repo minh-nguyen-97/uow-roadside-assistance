@@ -36,7 +36,18 @@ namespace uow_roadside_assistance.DBData
                 Boolean contractorFinished = Convert.ToBoolean(reader["contractorFinished"]);
                 // customerFinished
 
-                res = new Transaction(transactionID, contractorID, customerID, cost, contractorFinished, customerFinished);
+                Boolean tyreProblem = Convert.ToBoolean(reader["tyreProblem"]);
+                Boolean carBatteryProblem = Convert.ToBoolean(reader["carBatteryProblem"]);
+                Boolean engineProblem = Convert.ToBoolean(reader["engineProblem"]);
+                Boolean generalProblem = Convert.ToBoolean(reader["generalProblem"]);
+
+
+                String problemDescription = Convert.ToString(reader["problemDescription"]).TrimEnd();
+                String customerLatitude = Convert.ToString(reader["customerLatitude"]).TrimEnd();
+                String customerLongitude = Convert.ToString(reader["customerLongitude"]).TrimEnd();
+                DateTime transactionDate = Convert.ToDateTime(reader["transactionDate"]);
+
+                res = new Transaction(transactionID, contractorID, customerID, cost, contractorFinished, customerFinished, tyreProblem, carBatteryProblem, engineProblem, generalProblem, problemDescription, customerLatitude, customerLongitude, transactionDate);
             }
 
             conn.Close();
@@ -68,7 +79,18 @@ namespace uow_roadside_assistance.DBData
                 // contractorFinished
                 Boolean customerFinished = Convert.ToBoolean(reader["customerFinished"]);
 
-                Transaction transaction = new Transaction(transactionID, contractorID, customerID, cost, contractorFinished, customerFinished);
+                Boolean tyreProblem = Convert.ToBoolean(reader["tyreProblem"]);
+                Boolean carBatteryProblem = Convert.ToBoolean(reader["carBatteryProblem"]);
+                Boolean engineProblem = Convert.ToBoolean(reader["engineProblem"]);
+                Boolean generalProblem = Convert.ToBoolean(reader["generalProblem"]);
+
+
+                String problemDescription = Convert.ToString(reader["problemDescription"]).TrimEnd();
+                String customerLatitude = Convert.ToString(reader["customerLatitude"]).TrimEnd();
+                String customerLongitude = Convert.ToString(reader["customerLongitude"]).TrimEnd();
+                DateTime transactionDate = Convert.ToDateTime(reader["transactionDate"]);
+
+                Transaction transaction = new Transaction(transactionID, contractorID, customerID, cost, contractorFinished, customerFinished, tyreProblem, carBatteryProblem, engineProblem, generalProblem, problemDescription, customerLatitude, customerLongitude, transactionDate);
 
                 res.Add(transaction);
             }
@@ -77,6 +99,48 @@ namespace uow_roadside_assistance.DBData
 
             return res;
         }
+
+        public static Transaction GetTransactionByID(int transactionID)
+        {
+
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
+            conn.Open();
+
+            String getTransactionQuery = "SELECT * FROM dbo.TRANSACTIONS WHERE transactionID = @transactionID ";
+            SqlCommand cmd = new SqlCommand(getTransactionQuery, conn);
+            cmd.Parameters.AddWithValue("@transactionID", transactionID);
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            Transaction res = null;
+            if (reader.Read())
+            {
+                int contractorID = Convert.ToInt32(reader["contractorID"]);
+                int customerID = Convert.ToInt32(reader["customerID"]);
+                double cost = Convert.ToDouble(reader["cost"]);
+
+                Boolean contractorFinished = Convert.ToBoolean(reader["contractorFinished"]);
+                Boolean customerFinished = Convert.ToBoolean(reader["customerFinished"]);
+
+                Boolean tyreProblem = Convert.ToBoolean(reader["tyreProblem"]);
+                Boolean carBatteryProblem = Convert.ToBoolean(reader["carBatteryProblem"]);
+                Boolean engineProblem = Convert.ToBoolean(reader["engineProblem"]);
+                Boolean generalProblem = Convert.ToBoolean(reader["generalProblem"]);
+
+
+                String problemDescription = Convert.ToString(reader["problemDescription"]).TrimEnd();
+                String customerLatitude = Convert.ToString(reader["customerLatitude"]).TrimEnd();
+                String customerLongitude = Convert.ToString(reader["customerLongitude"]).TrimEnd();
+                DateTime transactionDate = Convert.ToDateTime(reader["transactionDate"]);
+
+                res = new Transaction(transactionID, contractorID, customerID, cost, contractorFinished, customerFinished, tyreProblem, carBatteryProblem, engineProblem, generalProblem, problemDescription, customerLatitude, customerLongitude, transactionDate);
+                
+            }
+
+            conn.Close();
+
+            return res;
+        }
+
 
 
         //
@@ -117,19 +181,32 @@ namespace uow_roadside_assistance.DBData
         }
 
         //
-        public static void insertNewTransaction(int contractorID, int customerID, double cost)
+        public static void insertNewTransaction(int contractorID, double cost, Request req)
         {
+            DateTime currentDate = DateTime.Now;
+            String transactionDate = currentDate.ToString("yyyy-MM-dd HH:mm:ss.fff");
+
             SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
             conn.Open();
-            String insertQuery = "INSERT INTO dbo.TRANSACTIONS(contractorID, customerID, cost, contractorFinished, customerFinished)" +
-                                    "VALUES (@contractorID, @customerID, @cost, @contractorFinished, @customerFinished)";
+            String insertQuery = "INSERT INTO dbo.TRANSACTIONS(contractorID, customerID, cost, contractorFinished, customerFinished, tyreProblem, carBatteryProblem, engineProblem, generalProblem, problemDescription, customerLatitude, customerLongitude, transactionDate)" +
+                                    "VALUES (@contractorID, @customerID, @cost, @contractorFinished, @customerFinished, @tyreProblem, @carBatteryProblem, @engineProblem, @generalProblem, @problemDescription, @customerLatitude, @customerLongitude, @transactionDate)";
             SqlCommand cmd = new SqlCommand(insertQuery, conn);
 
             cmd.Parameters.AddWithValue("@contractorID", contractorID);
-            cmd.Parameters.AddWithValue("@customerID", customerID);
+            cmd.Parameters.AddWithValue("@customerID", req.CustomerID);
             cmd.Parameters.AddWithValue("@cost", cost);
             cmd.Parameters.AddWithValue("@contractorFinished", false);
             cmd.Parameters.AddWithValue("@customerFinished", false);
+            
+            cmd.Parameters.AddWithValue("@tyreProblem", req.TyreProblem);
+            cmd.Parameters.AddWithValue("@carBatteryProblem", req.CarBatteryProblem);
+            cmd.Parameters.AddWithValue("@engineProblem", req.EngineProblem);
+            cmd.Parameters.AddWithValue("@generalProblem", req.GeneralProblem);
+
+            cmd.Parameters.AddWithValue("@problemDescription", req.ProblemDescription);
+            cmd.Parameters.AddWithValue("@customerLatitude", req.CustomerLatitude);
+            cmd.Parameters.AddWithValue("@customerLongitude", req.CustomerLongitude);
+            cmd.Parameters.AddWithValue("@transactionDate", transactionDate);
             cmd.ExecuteNonQuery();
 
             conn.Close();
