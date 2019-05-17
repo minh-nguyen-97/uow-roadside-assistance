@@ -178,7 +178,7 @@ $(document).ready(function () {
         var button = $(event.relatedTarget) // Button that triggered the modal
         var requestID = button.data('whatever') // Extract info from data-* attributes
 
-        ContractorService.getDetailsForCustomer(requestID, function (result) {
+        ContractorService.getRequestDetails(requestID, function (result) {
             var res = JSON.parse(result);
 
             ContractorService.getCarDetailsOfCustomer(res.CustomerID, function (customer) {
