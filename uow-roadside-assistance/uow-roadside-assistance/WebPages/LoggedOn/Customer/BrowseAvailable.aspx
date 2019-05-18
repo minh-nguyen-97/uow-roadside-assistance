@@ -155,7 +155,7 @@
         </div>
     </div>
 
-    <!-- Modal -->
+    <!-- Payment Modal -->
     <div class="modal fade" id="ModalCenter" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -177,6 +177,39 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Decline</button>
             <button type="button" class="btn btn-primary submitButton">Accept</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <%-- Review Modal --%>
+    <div class="modal fade" id="ReviewModalCenter" tabindex="-1" role="dialog" aria-labelledby="ReviewModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="ReviewModalCenterTitle"><strong>Reviews</strong></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div id="reviews" class="container">
+                <div class='row'>
+                    <div class='col-1'>
+                        <i class='fas fa-user-circle fa-2x'></i>
+                    </div>
+                    <div class='col'>
+                        <span style='color: steelblue; font-size: 20px'>Customer Name</span>
+                    </div>
+                </div>
+                <div class='row'>
+                    <div class='col-1'>
+                    </div>
+                    <div class='col' style='background-color: whitesmoke; border-radius: 10px; padding: 10px;'>
+                        Review goes here
+                    </div>
+                </div>
+            </div>
           </div>
         </div>
       </div>

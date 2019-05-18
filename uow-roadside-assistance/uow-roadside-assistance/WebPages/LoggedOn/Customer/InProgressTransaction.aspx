@@ -116,11 +116,48 @@
                 </strong>
             </div>
             <br /><br />
-            <button id="ratingButton" class="btn btn-primary">Review and rating</button>
+            <button class="btn btn-outline-primary" data-toggle='modal' data-target='#ModalCenter'>Review and rating</button>
         </div>
     </div>
 
     <br /><br />
+
+    <%-- Rating --%>
+
+    <div class="modal fade" id="ModalCenter" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="ModalCenterTitle"><strong>Review and Rating</strong></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <br />
+            <div id="ratingDiv" class="container-fluid" style="text-align:center">
+                <i id="star1" class="far fa-star fa-3x star" style="color: greenyellow"></i>
+                <i id="star2" class="far fa-star fa-3x star" style="color: greenyellow"></i>
+                <i id="star3" class="far fa-star fa-3x star" style="color: greenyellow"></i>
+                <i id="star4" class="far fa-star fa-3x star" style="color: greenyellow"></i>
+                <i id="star5" class="far fa-star fa-3x star" style="color: greenyellow"></i>
+                <div>
+                    <span id="ratingErrMess" style="color:red; display:inline-block; font-size:20px"></span>
+                </div>
+            </div>
+              <br /><br />
+            <div class="container-fluid" style="text-align:center">
+                <textarea id="reviewDesc" class="form-control" rows="9" placeholder="You can let us know how our service was in details (optional)"></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button id="submitButton" type="button" class="btn btn-success mx-auto">SUBMIT</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
 </body>
 </html>
 

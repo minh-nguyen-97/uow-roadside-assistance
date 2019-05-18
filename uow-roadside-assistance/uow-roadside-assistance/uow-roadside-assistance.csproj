@@ -155,6 +155,7 @@
     <Compile Include="Classes\Customer.cs" />
     <Compile Include="Classes\Request.cs" />
     <Compile Include="Classes\Response.cs" />
+    <Compile Include="Classes\Review.cs" />
     <Compile Include="Classes\Transaction.cs" />
     <Compile Include="Classes\User.cs" />
     <Compile Include="DBData\AddressDBData.cs" />
@@ -162,6 +163,7 @@
     <Compile Include="DBData\CustomerDBData.cs" />
     <Compile Include="DBData\RequestDBData.cs" />
     <Compile Include="DBData\ResponseDBData.cs" />
+    <Compile Include="DBData\ReviewDBData.cs" />
     <Compile Include="DBData\TransactionDBData.cs" />
     <Compile Include="DBData\UserDBData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
