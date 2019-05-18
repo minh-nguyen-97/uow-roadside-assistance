@@ -58,7 +58,7 @@ function loadAvailableContractors() {
                 var contractorID = res[6];
 
                 var fee = Math.round(distance * 50 * 100) / 100;
-                var rating = 3.5;
+                var rating = res[7].toFixed(1);
                 addRow(fullName, fee, distance, rating, status, contractorID);
             });
             
@@ -75,7 +75,7 @@ function addRow(fullName, fee, distance, rating, status, contractorID) {
         "<td>$" + fee + "</td >" +
         "<td>" + distance + "</td>" +
         "<td>" + rating + " <i class='fas fa-star' style = 'color: greenyellow'></i ></td > " +
-        "<td><button class='btn btn-outline-primary'>View Reviews</button></td>";
+        "<td><button class='btn btn-outline-primary' data-toggle='modal' data-target='#ReviewModalCenter' data-whatever = '" + contractorID +"' >View Reviews</button></td>";
 
     if (status == 'Waiting') {
         rowContent +=
@@ -158,5 +158,41 @@ $(document).ready(function () {
 
         CustomerService.acceptPayment(contractorID, cost);
         window.location.href = './InProgressTransaction.aspx';
+    });
+
+    $('#ReviewModalCenter').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var contractorID = button.data('whatever') // Extract info from data-* attributes
+
+        var modal = $(this)
+        modal.find('#reviews').html('');
+        CustomerService.getReviews(contractorID, function (result) {
+            var res = JSON.parse(result);
+
+            for (var i = 0; i < res.length; i++) {
+                var firstRow = 
+                    "<div class='row'>" +
+                        "<div class='col-1'>"+
+                            "<i class='fas fa-user-circle fa-2x'></i>" +
+                        "</div>" +
+                        "<div class='col'>" +
+                            "<span style='color: steelblue; font-size: 20px'>" + res[i].CustomerFullName + "</span>" +
+                        "</div>" +
+                    "</div>";
+
+                var secondRow = 
+                    "<div class='row'>" +
+                        "<div class='col-1'>" +
+                        "</div>" +
+                        "<div class='col' style='background-color: whitesmoke; border-radius: 10px; padding: 10px;'>" +
+                            res[i].ReviewDesc +
+                        "</div>" +
+                    "</div> <br />";
+
+                modal.find('#reviews').append(firstRow);
+                modal.find('#reviews').append(secondRow);
+            }
+
+        });
     });
 });

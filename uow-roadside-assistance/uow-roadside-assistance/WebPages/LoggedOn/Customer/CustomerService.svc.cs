@@ -180,6 +180,9 @@ namespace uow_roadside_assistance.WebPages.LoggedOn.Customer
             res.Add(responseStatus);
             res.Add(contractorID);
 
+            double rating = ReviewDBData.getAverageRatingByContractorID(contractorID);
+            res.Add(rating);
+
             return new JavaScriptSerializer().Serialize(res);
         }
 
@@ -246,7 +249,52 @@ namespace uow_roadside_assistance.WebPages.LoggedOn.Customer
             return URL;
         }
 
+        /* Rating */
+        [OperationContract]
+        public void reviewAndRating(String reviewDesc, double rating)
+        {
+            Classes.Customer customer = (Classes.Customer)(HttpContext.Current.Session["New"]);
+            Transaction transaction = TransactionDBData.GetUnfinishedCustomerTransaction(customer.UserID);
+            ReviewDBData.insertNewReview(reviewDesc, rating, transaction.TransactionID);
+        }
 
+        /* get reviews */
+
+        public class ReviewExtractedData
+        {
+            public String CustomerFullName;
+            public String ReviewDesc;
+
+            public ReviewExtractedData (String customerFullName, String reviewDesc)
+            {
+                CustomerFullName = customerFullName;
+                ReviewDesc = reviewDesc;
+            }
+
+
+        }
+
+        [OperationContract] 
+        public String getReviews(int contractorID)
+        {
+            ArrayList reviews = ReviewDBData.getReviewsByContractorID(contractorID);
+
+            ArrayList result = new ArrayList();
+
+            foreach(Review review in reviews)
+            {
+                Classes.Customer customer = CustomerDBData.getCustomerByID(review.CustomerID);
+                String customerFullName = customer.FullName;
+
+                String reviewDesc = review.ReviewDesc;
+
+                ReviewExtractedData extractedData = new ReviewExtractedData(customerFullName, reviewDesc);
+
+                result.Add(extractedData);
+            }
+
+            return new JavaScriptSerializer().Serialize(result);
+        }
         
     }
 }
