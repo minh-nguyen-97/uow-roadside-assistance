@@ -147,7 +147,11 @@
             </div>
               <br /><br />
             <div class="container-fluid" style="text-align:center">
-                <textarea id="reviewDesc" class="form-control" rows="9" placeholder="You can let us know how our service was in details (optional)"></textarea>
+                <textarea id="reviewDesc" class="form-control" rows="9" placeholder="You can let us know how our service was in details (required)"></textarea>
+                <div>
+                    <span id="reviewErrMess" style="color:red; display:inline-block; font-size:20px"></span>
+                </div>
+                <br />
             </div>
           </div>
           <div class="modal-footer">

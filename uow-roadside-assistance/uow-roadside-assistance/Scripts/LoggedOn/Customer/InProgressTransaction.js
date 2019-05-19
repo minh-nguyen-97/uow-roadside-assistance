@@ -103,11 +103,21 @@ $(document).ready(function () {
             } 
         }
 
+        var review = $('#reviewDesc').val()
+
         if (rating < 0) {
             $('#ratingErrMess').text('Rating is required !!!');
         } else {
             $('#ratingErrMess').text('');
+        }
 
+        if (review == '') {
+            $('#reviewErrMess').text('Review is required !!!');
+        } else {
+            $('#reviewErrMess').text('');
+        }
+
+        if (rating > 0 && review != '') {
             var reviewDesc = $('#reviewDesc').val();
 
             CustomerService.reviewAndRating(reviewDesc, rating);

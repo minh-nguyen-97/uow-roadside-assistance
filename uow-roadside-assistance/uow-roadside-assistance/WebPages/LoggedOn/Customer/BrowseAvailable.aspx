@@ -81,7 +81,6 @@
     </div>
 
     <%-- Page Content --%>
-
     <div class="container">
         <br /><br />
         <div class="headerDetails">
@@ -97,12 +96,17 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th scope="col">Contractor</th>
-                    <th scope="col">Consultation Fee</th>
-                    <th scope="col">Distance (KM)</th>
-                    <th scope="col">Average Rating</th>
-                    <th scope="col">Reviews</th>
-                    <th scope="col">Status</th>
+                    <th scope="col" class="sortable">Contractor <i class="fas fa-sort"></i></th>
+                    <th scope="col" class="sortable">Consultation Fee <i class="fas fa-sort"></i></th>
+                    <th scope="col" class="sortable">Distance (KM) <i class="fas fa-sort"></i></th>
+                    <th scope="col" class="sortable">Rating <i class="fas fa-sort"></i></th>
+                    <th scope="col">Reviews </th>
+                    <th id="statusFilter" scope="col" data-toggle='modal' data-target='#FilterModalCenter'>
+                        Status 
+                        <i class="fas fa-filter" style="color: red"></i>
+                        <i class="fas fa-filter" style="color: yellow"></i>
+                        <i class="fas fa-filter" style="color: green"></i>
+                    </th>
                 </tr>
             </thead>
             <tbody id="availableContractorsTable">
@@ -214,6 +218,64 @@
         </div>
       </div>
     </div>
+
+    <%-- Filter Modal --%>
+    <div class="modal fade" id="FilterModalCenter" tabindex="-1" role="dialog" aria-labelledby="FilterModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="FilterModalCenterTitle"><strong>Filter Status</strong></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+             <div class="container">
+                 <br />
+                 <div class="row">
+                     <div class="col col-lg-3 text-right">
+                         <input id="BusyCheckBox" type="checkbox" checked/>
+                     </div>
+                     <div class="col">
+                         <button type='button' class='btn btn-danger statusButton' disabled>Busy</button>
+                     </div>
+                 </div>
+                 <br />
+                 <div class="row">
+                     <div class="col col-lg-3 text-right">
+                         <input id="WaitingCheckBox" type="checkbox" checked />
+                     </div>
+                     <div class="col">
+                         <button class='btn btn-warning statusButton' type='button' disabled>
+                              <span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span>
+                              Waiting...
+                         </button> 
+                     </div>
+                 </div>
+
+                 <br />
+                 <div class="row">
+                     <div class="col col-lg-3 text-right">
+                         <input id="AcceptedCheckBox" type="checkbox" checked/>
+                     </div>
+                     <div class="col">
+                         <button type='button' class='btn btn-success statusButton'>
+                            Accepted
+                        </button>
+                     </div>
+                 </div>
+                 <br />
+             </div>
+          </div>
+            
+          <div class="modal-footer">
+            <button id="applyFilterButton" type="button" class="btn btn-outline-primary mx-auto" style="width: 25%; height: 1.3cm"  data-dismiss="modal">APPLY</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
 
 </body>
 </html>
