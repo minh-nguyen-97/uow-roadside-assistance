@@ -37,7 +37,7 @@ namespace uow_roadside_assistance.DBData
             SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
             conn.Open();
 
-            String getUserNameQuery = "SELECT * FROM dbo.REVIEWS WHERE contractorID = @contractorID;";
+            String getUserNameQuery = "SELECT * FROM dbo.REVIEWS WHERE contractorID = @contractorID ORDER BY reviewDate DESC";
             SqlCommand cmd = new SqlCommand(getUserNameQuery, conn);
             cmd.Parameters.AddWithValue("@contractorID", contractorID);
             SqlDataReader reader = cmd.ExecuteReader();
@@ -51,8 +51,9 @@ namespace uow_roadside_assistance.DBData
                 int transactionID = Convert.ToInt32(reader["transactionID"]);
                 int customerID = Convert.ToInt32(reader["customerID"]);
                 // contractorID
+                DateTime reviewDate = Convert.ToDateTime(reader["reviewDate"]);
 
-                Review review = new Review(reviewID, reviewDesc, rating, transactionID, customerID, contractorID);
+                Review review = new Review(reviewID, reviewDesc, rating, transactionID, customerID, contractorID, reviewDate);
 
                 res.Add(review);
             }
@@ -69,16 +70,20 @@ namespace uow_roadside_assistance.DBData
             int customerID = transaction.CustomerID;
             int contractorID = transaction.ContractorID;
 
+            DateTime currentDate = DateTime.Now;
+            String reviewDate = currentDate.ToString("yyyy-MM-dd HH:mm:ss.fff");
+
             SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
             conn.Open();
-            String insertQuery = "INSERT INTO dbo.REVIEWS(reviewDesc, rating, transactionID, customerID, contractorID) " +
-                                    "VALUES (@reviewDesc, @rating, @transactionID, @customerID, @contractorID)";
+            String insertQuery = "INSERT INTO dbo.REVIEWS(reviewDesc, rating, transactionID, customerID, contractorID, reviewDate) " +
+                                    "VALUES (@reviewDesc, @rating, @transactionID, @customerID, @contractorID, @reviewDate)";
             SqlCommand cmd = new SqlCommand(insertQuery, conn);
             cmd.Parameters.AddWithValue("@reviewDesc", reviewDesc);
             cmd.Parameters.AddWithValue("@rating", rating);
             cmd.Parameters.AddWithValue("@transactionID", transactionID);
             cmd.Parameters.AddWithValue("@customerID", customerID);
             cmd.Parameters.AddWithValue("@contractorID", contractorID);
+            cmd.Parameters.AddWithValue("@reviewDate", reviewDate);
             cmd.ExecuteNonQuery();
 
             conn.Close();

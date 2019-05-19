@@ -43,8 +43,13 @@ namespace uow_roadside_assistance.Classes
             get { return _contractorID; }
         }
 
+        private DateTime _reviewDate;
+        public DateTime ReviewDate
+        {
+            get { return _reviewDate; }
+        }
 
-        public Review(int reviewID, String reviewDesc, double rating, int transactionID, int customerID, int contractorID)
+        public Review(int reviewID, String reviewDesc, double rating, int transactionID, int customerID, int contractorID, DateTime reviewDate)
         {
             _reviewID = reviewID;
             _reviewDesc = reviewDesc;
@@ -52,6 +57,7 @@ namespace uow_roadside_assistance.Classes
             _transactionID = transactionID;
             _customerID = customerID;
             _contractorID = contractorID;
+            _reviewDate = reviewDate;
         }
     }
 }

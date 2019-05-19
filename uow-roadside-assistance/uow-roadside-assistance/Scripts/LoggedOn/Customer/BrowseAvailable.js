@@ -129,6 +129,134 @@ function distanceInKiloMeters(lat1, lon1, lat2, lon2) {
 
 $(document).ready(function () {
 
+    // Filter status
+    $('#applyFilterButton').click(function () {
+
+        var statuses = [];
+        if ($('#BusyCheckBox').prop('checked')) {
+            statuses.push('Busy')
+        }
+
+        if ($('#WaitingCheckBox').prop('checked')) {
+            statuses.push('Waiting')
+        }
+
+        if ($('#AcceptedCheckBox').prop('checked')) {
+            statuses.push('Accepted')
+        }
+
+        console.log(statuses);
+
+        var table = document.getElementById('availableContractorsTable').childNodes;
+
+        for (var i = 1; i < table.length; i++) {
+            var rowStatus = table[i].childNodes[6].textContent;
+
+            var display = false;
+            for (var j = 0; j < statuses.length; j++) {
+                if (rowStatus.includes(statuses[j])) {
+                    display = true;
+                    break;
+                }
+            }
+
+            console.log(i + ' ' + display);
+
+            if (display) {
+                table[i].style.display = 'table-row';
+            } else {
+                table[i].style.display = 'none';
+            }
+        }
+    });
+
+    // Sorting columns
+    var sortingAscOrder = [true, true, true, true]
+
+    $('.sortable').click(function (e) {
+        var columnName = $(this).text();
+        var columnNum = 0;
+
+        if (columnName == 'Contractor ') {
+            columnNum = 0;
+        }
+
+        if (columnName == 'Consultation Fee ') {
+            columnNum = 1;
+        }
+
+        if (columnName == 'Distance (KM) ') {
+            columnNum = 2;
+        }
+
+        if (columnName == 'Rating ') {
+            columnNum = 3;
+        }
+
+        sortingAscOrder[columnNum] = !sortingAscOrder[columnNum];
+
+        sortByColumn(columnNum);
+    });
+
+    function sortByColumn(columnNum) {
+        var table = document.getElementById('availableContractorsTable').childNodes;
+
+        for (var i = 1; i < table.length - 1; i++) {
+
+            if (table[i].style.display != 'none') {
+
+                var valuei = table[i].childNodes[columnNum].textContent;
+                valuei = convertToRightInfo(valuei, columnNum);
+
+                console.log(valuei);
+
+                var bestIdx = i;
+                var valueBestIdx = valuei;
+
+                for (var j = i + 1; j < table.length; j++) {
+
+                    if (table[j].style.display != 'none') {
+                        var valuej = table[j].childNodes[columnNum].textContent;
+                        valuej = convertToRightInfo(valuej, columnNum);
+
+                        if (sortingAscOrder[columnNum]) {
+                            if (valueBestIdx > valuej) {
+                                bestIdx = j;
+                                valueBestIdx = valuej;
+                            }
+                        } else {
+                            if (valueBestIdx < valuej) {
+                                bestIdx = j;
+                                valueBestIdx = valuej;
+                            }
+                        }
+
+                    }
+
+                }
+
+                var tmp = table[i].innerHTML;
+                table[i].innerHTML = table[bestIdx].innerHTML;
+                table[bestIdx].innerHTML = tmp;
+            }
+
+        }
+    }
+
+    function convertToRightInfo(value, columnNum) {
+        if (columnNum == 1) {
+            value = value.replace('$', '');
+            value = parseFloat(value);
+        }
+
+        if (columnNum == 2 || columnNum == 3) {
+            value = parseFloat(value);
+        }
+
+        return value;
+        
+    }
+
     $('#CancelRequestButton').click(function (e) {
         CustomerService.cancelRequest();
         window.location.href = './CustomerHomepage.aspx';
