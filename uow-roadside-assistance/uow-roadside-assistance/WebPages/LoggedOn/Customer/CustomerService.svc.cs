@@ -13,6 +13,7 @@ using System.Web;
 using System.Web.Script.Serialization;
 using uow_roadside_assistance.Classes;
 using uow_roadside_assistance.DBData;
+using uow_roadside_assistance.Helper.Customer;
 
 namespace uow_roadside_assistance.WebPages.LoggedOn.Customer
 {
@@ -150,40 +151,43 @@ namespace uow_roadside_assistance.WebPages.LoggedOn.Customer
         }
 
         [OperationContract]
-        public String getContratorsResponses()
+        public String getAvailableContractors()
         {
             Classes.Customer customer = (Classes.Customer)(HttpContext.Current.Session["New"]);
             if (RequestDBData.IsExist(customer.UserID))
             {
                 Request req = RequestDBData.getRequestByCustomerID(customer.UserID);
+                String cusLat = req.CustomerLatitude;
+                String cusLng = req.CustomerLongitude;
+
+                ArrayList result = new ArrayList();
+
                 ArrayList responses = ResponseDBData.getResponseList(req.RequestID);
-                return new JavaScriptSerializer().Serialize(responses);
+
+                foreach(Response response in responses)
+                {
+                    int contractorID = response.ContractorID;
+
+                    Classes.Contractor contractor = ContractorDBData.getContractorByID(contractorID);
+                    String contractorFullName = contractor.FullName;
+                    
+                    Address contractorAddress = AddressDBData.getAddressByUserID(contractorID);
+                    String conLat = contractorAddress.Latitude;
+                    String conLng = contractorAddress.Longitude;
+
+                    String responseStatus = response.ResponseStatus;
+
+                    double averageRating = ReviewDBData.getAverageRatingByContractorID(contractorID);
+
+                    Helper.Customer.AvailableContractor availableContractor
+                        = new AvailableContractor(contractorID, contractorFullName, conLat, conLng, cusLat, cusLng, responseStatus, averageRating);
+
+                    result.Add(availableContractor);
+                }
+
+                return new JavaScriptSerializer().Serialize(result);
             }
             return null;
-        }
-
-        [OperationContract]
-        public String extractContractorData(int requestID, int contractorID, String responseStatus)
-        {
-            Classes.Contractor contractor = ContractorDBData.getContractorByID(contractorID);
-            ArrayList res = new ArrayList();
-            res.Add(contractor.FullName);
-
-            Address contractorAddress = AddressDBData.getAddressByUserID(contractorID);
-            res.Add(contractorAddress.Latitude);
-            res.Add(contractorAddress.Longitude);
-
-            Request req = RequestDBData.getRequestByRequestID(requestID);
-            res.Add(req.CustomerLatitude);
-            res.Add(req.CustomerLongitude);
-
-            res.Add(responseStatus);
-            res.Add(contractorID);
-
-            double rating = ReviewDBData.getAverageRatingByContractorID(contractorID);
-            res.Add(rating);
-
-            return new JavaScriptSerializer().Serialize(res);
         }
 
         [OperationContract]
@@ -260,20 +264,6 @@ namespace uow_roadside_assistance.WebPages.LoggedOn.Customer
 
         /* get reviews */
 
-        public class ReviewExtractedData
-        {
-            public String CustomerFullName;
-            public String ReviewDesc;
-
-            public ReviewExtractedData (String customerFullName, String reviewDesc)
-            {
-                CustomerFullName = customerFullName;
-                ReviewDesc = reviewDesc;
-            }
-
-
-        }
-
         [OperationContract] 
         public String getReviews(int contractorID)
         {
@@ -288,7 +278,7 @@ namespace uow_roadside_assistance.WebPages.LoggedOn.Customer
 
                 String reviewDesc = review.ReviewDesc;
 
-                ReviewExtractedData extractedData = new ReviewExtractedData(customerFullName, reviewDesc);
+                Helper.Customer.ReviewDetails extractedData = new ReviewDetails(customerFullName, reviewDesc);
 
                 result.Add(extractedData);
             }

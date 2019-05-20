@@ -11,6 +11,7 @@ using System.Web;
 using System.Web.Script.Serialization;
 using uow_roadside_assistance.Classes;
 using uow_roadside_assistance.DBData;
+using uow_roadside_assistance.Helper.Contractor;
 
 namespace uow_roadside_assistance.WebPages.LoggedOn.Contractor
 {
@@ -91,46 +92,6 @@ namespace uow_roadside_assistance.WebPages.LoggedOn.Contractor
 
         // Available Customer
 
-        public class Work
-        {
-            public String FullName { get; }
-            public String CusLat { get; }
-            public String CusLng { get; }
-            public String ConLat { get; }
-            public String ConLng { get; }
-
-            public Work(String fullName, String cusLat, String cusLng, String conLat, String conLng)
-            {
-                FullName = fullName;
-                CusLat = cusLat;
-                CusLng = cusLng;
-                ConLat = conLat;
-                ConLng = conLng;
-            }
-
-        }
-
-        public class NewWork : Work
-        {
-            public int RequestID;
-            public String ResponseStatus { get; }
-
-            public NewWork(String fullName, String cusLat, String cusLng, String conLat, String conLng, String responseStatus, int requestID) : base(fullName, cusLat, cusLng, conLat, conLng)
-            {
-                RequestID = requestID;
-                ResponseStatus = responseStatus;
-            }
-        }
-
-        public class IncompleteWork : Work
-        {
-            public int TransactionID;
-            public IncompleteWork(String fullName, String cusLat, String cusLng, String conLat, String conLng, int transactionID) : base(fullName, cusLat, cusLng, conLat, conLng)
-            {
-                TransactionID = transactionID;
-            }
-        }
-
         [OperationContract]
         public String getRequestedCustomers()
         {
@@ -155,7 +116,7 @@ namespace uow_roadside_assistance.WebPages.LoggedOn.Contractor
                 Classes.Customer customer = CustomerDBData.getCustomerByID(req.CustomerID);
                 String fullName = customer.FullName;
 
-                NewWork requestedCustomer = new NewWork(fullName, cusLat, cusLng, conLat, conLng, responseStatus, requestID);
+                Helper.Contractor.NewWork requestedCustomer = new NewWork(fullName, cusLat, cusLng, conLat, conLng, responseStatus, requestID);
 
                 result.Add(requestedCustomer);
             }
@@ -217,7 +178,7 @@ namespace uow_roadside_assistance.WebPages.LoggedOn.Contractor
                 Classes.Customer customer = CustomerDBData.getCustomerByID(transaction.CustomerID);
                 String fullName = customer.FullName;
 
-                IncompleteWork incompleteWork = new IncompleteWork(fullName, cusLat, cusLng, conLat, conLng, transactionID);
+                Helper.Contractor.IncompleteWork incompleteWork = new IncompleteWork(fullName, cusLat, cusLng, conLat, conLng, transactionID);
 
                 result.Add(incompleteWork);
             }

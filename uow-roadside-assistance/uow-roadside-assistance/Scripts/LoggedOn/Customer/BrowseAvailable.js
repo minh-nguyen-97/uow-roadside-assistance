@@ -18,53 +18,28 @@
                     $('#UserNameLabel').text('Welcome, ' + curUser.FullName);
                     loadAvailableContractors();
                 }
-                //CustomerService.getSessionRequest(function (res) {
-                //    var sessionRequest = JSON.parse(res);
-                //    if (sessionRequest == null) {
-                //        window.history.back();
-                //    } else {
-                //        $('#UserNameLabel').text('Welcome, ' + curUser.FullName);
-                //        loadAvailableContractors();
-                //    }
-                //});
             }
         }
     });
 }
 
 function loadAvailableContractors() {
-    CustomerService.getContratorsResponses(function (res) {
-        var responses = JSON.parse(res);
-        for (var i = 0; i < responses.length; i++) {
+
+    CustomerService.getAvailableContractors(function (availableContractors) {
+        var result = JSON.parse(availableContractors);
+
+        for (var i = 0; i < result.length; i++) {
+            var res = result[i];
+
+            var distance = distanceInKiloMeters(res.ConLat, res.ConLng, res.CusLat, res.CusLng);
+            distance = Math.round(distance * 100) / 100
             
-            var contractorID = responses[i].ContractorID;
-            var requestID = responses[i].RequestID;
-            var responseStatus = responses[i].ResponseStatus;
+            var fee = Math.round(distance * 50 * 100) / 100;
 
-            // Extract data
-            CustomerService.extractContractorData(requestID, contractorID, responseStatus, function (result) {
-                var res = JSON.parse(result);
-                var fullName = res[0];
-
-                var contractorLat = res[1];
-                var contractorLng = res[2];
-                var customerLat = res[3];
-                var customerLng = res[4];
-
-                var distance = distanceInKiloMeters(contractorLat, contractorLng, customerLat, customerLng);
-                distance = Math.round(distance * 100) / 100
-
-                var status = res[5];
-                var contractorID = res[6];
-
-                var fee = Math.round(distance * 50 * 100) / 100;
-                var rating = res[7].toFixed(1);
-                addRow(fullName, fee, distance, rating, status, contractorID);
-            });
-            
-            
+            addRow(res.ContractorFullName, fee, distance, res.AverageRating.toFixed(1), res.ResponseStatus, res.ContractorID);
         }
     });
+
 }
 
 function addRow(fullName, fee, distance, rating, status, contractorID) {
