@@ -1,0 +1,56 @@
+﻿#verticalNavBar {
+    height: 100%;
+    width: 250px;
+    position: fixed;
+}
+
+#logoText {
+    background: red;
+    background: -webkit-linear-gradient(left, orange, yellow, green, cyan, blue, violet);
+    background: -o-linear-gradient(right, orange, yellow, green, cyan, blue, violet);
+    background: -moz-linear-gradient(right, orange, yellow, green, cyan, blue, violet);
+    background: linear-gradient(to right, orange, yellow, green, cyan, blue, violet);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 25px;
+    font-family: 'Courier New';
+    font-weight: 900;
+}
+
+#adminText {
+    font-family: 'Comic Sans MS';
+    font-size: 25px;
+    color: white;
+}
+
+.navBarElement {
+    color: lightgray;
+    height: 60px;
+    border: 1px solid rgba(0,0,0, 0.25);
+    font-size: 18px;
+    vertical-align: middle;
+}
+
+.navBarElement .container {
+    margin-top: 5px;
+}
+
+.navBarElement:hover {
+    background-color: dodgerblue;
+    color: lightgray;
+}
+
+.selectedLi {
+    width: 5px;
+    height: 36px;
+    position: fixed;
+    margin-left: -7px;
+}
+
+.selectedLi:hover {
+    background-color: darkblue;
+}
+
+#verticalNavBar .active .container {
+    color: lightgreen;
+}
