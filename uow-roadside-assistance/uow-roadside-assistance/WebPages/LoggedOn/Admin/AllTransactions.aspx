@@ -88,7 +88,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active navBarElement" href="AllTransaction.aspx">
+                <a class="nav-link active navBarElement" href="AllTransactions.aspx">
                     <div class="selectedLi bg-dark">&nbsp;</div>
                     <div class="container">
                         <div class="row">
@@ -118,7 +118,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link navBarElement" href="#">
+                <a class="nav-link navBarElement" href="AccountStatistics.aspx">
                     <div class="selectedLi bg-dark">&nbsp;</div>
                     <div class="container">
                         <div class="row">
@@ -159,7 +159,7 @@
             <div class="headerDetails">
                 <h2>
                     <span class="underlinedText" style="text-align:center">
-                        All Completed Transactions
+                        Completed Transactions
                     </span>
                     <span class="icon"><i class="fas fa-list-ul" style='font-size:36px'></i></span>
                 </h2>

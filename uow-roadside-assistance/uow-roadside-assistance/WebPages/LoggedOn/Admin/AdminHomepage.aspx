@@ -110,7 +110,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link navBarElement" href="#">
+                <a class="nav-link navBarElement" href="AccountStatistics.aspx">
                     <div class="selectedLi bg-dark">&nbsp;</div>
                     <div class="container">
                         <div class="row">

@@ -1,0 +1,30 @@
+﻿.userInfo {
+    margin-top: 10px;
+}
+
+#FullName {
+    margin-top: 0px;
+    font-weight: 900;
+    font-size: 20px;
+}
+
+#Username {
+    font-style: italic;
+}
+
+#UserType {
+    font-family: 'Comic Sans MS';
+}
+
+.infoLabel {
+    font-weight: 600;
+    float: left;
+}
+
+.infoValue {
+    float: right;
+}
+
+.card {
+    visibility: hidden;
+}
