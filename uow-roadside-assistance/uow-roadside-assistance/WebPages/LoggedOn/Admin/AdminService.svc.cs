@@ -61,12 +61,138 @@ namespace uow_roadside_assistance.WebPages.LoggedOn.Admin
             }
         }
 
-        //
+        // All Transactions
         [OperationContract]
         public String getAllTransactions()
         {
             ArrayList result = TransactionDBData.GetCompletedTransactions();
             return new JavaScriptSerializer().Serialize(result);
+        }
+
+        // Account Statistics
+        [OperationContract] 
+        public Boolean IsExist(int userID)
+        {
+            User user = UserDBData.getUserByID(userID);
+            if (user != null)
+            {
+                if (user.UserType.Equals("Admin"))
+                {
+                    return false;
+                }
+                return true;
+            }
+
+            return false;
+
+        }
+
+        //
+        [OperationContract]
+        public String GetUser(int userID)
+        {
+            User user = UserDBData.getUserByID(userID);
+
+            if (user.UserType.Equals("Contractor"))
+            {
+                user = ContractorDBData.getContractorByID(userID);
+            }
+            else
+            {
+                user = CustomerDBData.getCustomerByID(userID);
+            }
+
+            return new JavaScriptSerializer().Serialize(user);
+        }
+
+        [OperationContract]
+        public String GetRatingsStats(int userID)
+        {
+            User user = UserDBData.getUserByID(userID);
+
+            ArrayList reviews;
+            if (user.UserType.Equals("Contractor"))
+            {
+                reviews = ReviewDBData.getReviewsByContractorID(userID);
+            }
+            else
+            {
+                reviews = ReviewDBData.getReviewsByCustomerID(userID);
+            }
+
+            ArrayList result = new ArrayList();
+
+            result.Add(reviews.Count);
+            int goodRating = 0;
+            foreach(Review review in reviews)
+            {
+                if (review.Rating > 3)
+                {
+                    goodRating++;
+                }
+            }
+
+            result.Add(goodRating);
+
+            return new JavaScriptSerializer().Serialize(result);
+        }
+
+        [OperationContract]
+        public ArrayList GetCompletedTransactions(int userID)
+        {
+            User user = UserDBData.getUserByID(userID);
+
+            ArrayList transactions;
+            if (user.UserType.Equals("Contractor"))
+            {
+                transactions = TransactionDBData.GetCompletedTransactionsByContractorID(userID);
+            }
+            else
+            {
+                transactions = TransactionDBData.GetCompletedTransactionsByCustomerID(userID);
+            }
+
+            return transactions;
+        }
+
+        [OperationContract]
+        public String GetProblemsStats(int userID)
+        {
+            ArrayList transactions = GetCompletedTransactions(userID);
+
+            int tyre = 0;
+            int battery = 0;
+            int engine = 0;
+            int general = 0;
+
+            foreach (Transaction transaction in transactions)
+            {
+                if (transaction.TyreProblem)
+                    tyre++;
+
+                if (transaction.CarBatteryProblem)
+                    battery++;
+
+                if (transaction.EngineProblem)
+                    engine++;
+
+                if (transaction.GeneralProblem)
+                    general++;
+            }
+
+            ArrayList res = new ArrayList();
+            res.Add(tyre);
+            res.Add(battery);
+            res.Add(engine);
+            res.Add(general);
+
+            return new JavaScriptSerializer().Serialize(res);
+        }
+
+        [OperationContract]
+        public String GetTransactionsStats(int userID)
+        {
+            return new JavaScriptSerializer().Serialize(GetCompletedTransactions(userID));
         }
     }
 }

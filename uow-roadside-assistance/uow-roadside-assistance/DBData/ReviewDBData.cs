@@ -63,6 +63,37 @@ namespace uow_roadside_assistance.DBData
             return res;
         }
 
+        public static ArrayList getReviewsByCustomerID(int customerID)
+        {
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
+            conn.Open();
+
+            String getUserNameQuery = "SELECT * FROM dbo.REVIEWS WHERE customerID = @customerID ORDER BY reviewDate DESC";
+            SqlCommand cmd = new SqlCommand(getUserNameQuery, conn);
+            cmd.Parameters.AddWithValue("@customerID", customerID);
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            ArrayList res = new ArrayList();
+            while (reader.Read())
+            {
+                int reviewID = Convert.ToInt32(reader["reviewID"]);
+                String reviewDesc = Convert.ToString(reader["reviewDesc"]).TrimEnd();
+                double rating = Convert.ToInt32(reader["rating"]);
+                int transactionID = Convert.ToInt32(reader["transactionID"]);
+                // customerID 
+                int contractorID = Convert.ToInt32(reader["contractorID"]);
+                DateTime reviewDate = Convert.ToDateTime(reader["reviewDate"]);
+
+                Review review = new Review(reviewID, reviewDesc, rating, transactionID, customerID, contractorID, reviewDate);
+
+                res.Add(review);
+            }
+
+            conn.Close();
+
+            return res;
+        }
+
         //
         public static void insertNewReview(String reviewDesc, double rating, int transactionID)
         {
