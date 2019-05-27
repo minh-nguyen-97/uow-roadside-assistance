@@ -1,0 +1,46 @@
+﻿.headerDetails {
+    text-align: center;
+}
+
+.underlinedText {
+    border-bottom: 1px solid gray;
+}
+
+.icon {
+    float: right;
+    color: #172547;
+}
+
+thead i {
+    float: right;
+}
+
+.filterName {
+    font-size: 30px;
+    line-height: 30px;
+    font-weight: 500;
+}
+
+#searchForID {
+    color: steelblue;
+    cursor: pointer;
+}
+
+.filterHeader {
+    cursor: pointer;
+}
+
+.filterDateTimeLabel {
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 30px;
+}
+
+#clearFilterDiv {
+    text-align: center;
+}
+
+#clearFilterButton {
+    height: 1.3cm;
+    width: 30%;
+}

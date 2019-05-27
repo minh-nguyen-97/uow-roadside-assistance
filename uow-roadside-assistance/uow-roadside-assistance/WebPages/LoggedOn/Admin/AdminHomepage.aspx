@@ -29,6 +29,7 @@
     <script type="text/javascript" src="../../../Scripts/LoggedOn/Admin/AdminNavBar.js"></script>
 
     <%-- Page Scripts --%>
+    <script type="text/javascript" src="../../../Scripts/LoggedOn/Admin/OnLoadAdmin.js"></script>
 
 </head>
 <body>
@@ -37,7 +38,7 @@
     <form id="form1" runat="server">
         <asp:ScriptManager ID="ScriptManager1" runat="server">
             <Services>
-               <asp:ServiceReference Path="~/WebPages/LoggedOn/Contractor/ContractorService.svc" />
+               <asp:ServiceReference Path="~/WebPages/LoggedOn/Admin/AdminService.svc" />
             </Services>
         </asp:ScriptManager>
     </form>
@@ -79,7 +80,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link navBarElement" href="#">
+                <a class="nav-link navBarElement" href="AllTransactions.aspx">
                     <div class="selectedLi bg-dark">&nbsp;</div>
                     <div class="container">
                         <div class="row">
@@ -125,7 +126,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link navBarElement" href="#">
+                <a  id="logOut" class="nav-link navBarElement" href="#">
                     <div class="selectedLi bg-dark">&nbsp;</div>
                     <div class="container">
                         <div class="row">
@@ -143,8 +144,14 @@
     </div>
 
 
-    <%-- Page Content --%>
 
+    <div id="content">
+        <%-- Page Content --%>
+        
+            
+
+        <%-- End of Page Content --%>
+    </div>
 
 </body>
 </html>

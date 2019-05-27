@@ -12,6 +12,52 @@ namespace uow_roadside_assistance.DBData
     public class TransactionDBData
     {
 
+        // 
+        public static ArrayList GetCompletedTransactions()
+        {
+            Boolean customerFinished = true;
+            Boolean contractorFinished = true;
+
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
+            conn.Open();
+
+            String getTransactionQuery = "SELECT * FROM dbo.TRANSACTIONS WHERE customerFinished = @customerFinished and contractorFinished = @contractorFinished";
+            SqlCommand cmd = new SqlCommand(getTransactionQuery, conn);
+            cmd.Parameters.AddWithValue("@customerFinished", customerFinished);
+            cmd.Parameters.AddWithValue("@contractorFinished", contractorFinished);
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            ArrayList res = new ArrayList();
+            while (reader.Read())
+            {
+                int transactionID = Convert.ToInt32(reader["transactionID"]);
+                int contractorID = Convert.ToInt32(reader["contractorID"]);
+                int customerID = Convert.ToInt32(reader["customerID"]);
+                double cost = Convert.ToDouble(reader["cost"]);
+                // contractorFinished
+                // customerFinished
+
+                Boolean tyreProblem = Convert.ToBoolean(reader["tyreProblem"]);
+                Boolean carBatteryProblem = Convert.ToBoolean(reader["carBatteryProblem"]);
+                Boolean engineProblem = Convert.ToBoolean(reader["engineProblem"]);
+                Boolean generalProblem = Convert.ToBoolean(reader["generalProblem"]);
+
+
+                String problemDescription = Convert.ToString(reader["problemDescription"]).TrimEnd();
+                String customerLatitude = Convert.ToString(reader["customerLatitude"]).TrimEnd();
+                String customerLongitude = Convert.ToString(reader["customerLongitude"]).TrimEnd();
+                DateTime transactionDate = Convert.ToDateTime(reader["transactionDate"]);
+
+                Transaction transaction = new Transaction(transactionID, contractorID, customerID, cost, contractorFinished, customerFinished, tyreProblem, carBatteryProblem, engineProblem, generalProblem, problemDescription, customerLatitude, customerLongitude, transactionDate);
+
+                res.Add(transaction);
+            }
+
+            conn.Close();
+
+            return res;
+        }
+
         //
         public static Transaction GetUnfinishedCustomerTransaction(int customerID)
         {

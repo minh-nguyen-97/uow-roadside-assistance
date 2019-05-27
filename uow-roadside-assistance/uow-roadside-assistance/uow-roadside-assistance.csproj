@@ -77,6 +77,7 @@
     <Content Include="Css\LoggedOff\SignUp\SignUpCustomer.css" />
     <Content Include="Css\LoggedOff\SlideShow.css" />
     <Content Include="Css\LoggedOn\Admin\AdminNavBar.css" />
+    <Content Include="Css\LoggedOn\Admin\AllTransactions.css" />
     <Content Include="Css\LoggedOn\Contractor\AvailableCustomers.css" />
     <Content Include="Css\LoggedOn\Contractor\ContractorChangePassword.css" />
     <Content Include="Css\LoggedOn\Contractor\ContractorHomepage.css" />
@@ -104,6 +105,8 @@
     <Content Include="Images\slide_show\sixth.jpg" />
     <Content Include="Images\slide_show\third.jpg" />
     <Content Include="Scripts\LoggedOn\Admin\AdminNavBar.js" />
+    <Content Include="Scripts\LoggedOn\Admin\AllTransactions.js" />
+    <Content Include="Scripts\LoggedOn\Admin\OnLoadAdmin.js" />
     <Content Include="Scripts\LoggedOn\Contractor\AvailableCustomers.js" />
     <Content Include="Scripts\LoggedOn\Contractor\ContractorChangePassword.js" />
     <Content Include="Scripts\LoggedOn\Contractor\ContractorHomepage.js" />
@@ -134,6 +137,8 @@
     <Content Include="WebPages\LoggedOff\SignUpCustomer.aspx" />
     <Content Include="WebPages\LoggedOff\SuccessfulRegistration.aspx" />
     <Content Include="WebPages\LoggedOn\Admin\AdminHomepage.aspx" />
+    <Content Include="WebPages\LoggedOn\Admin\AdminService.svc" />
+    <Content Include="WebPages\LoggedOn\Admin\AllTransactions.aspx" />
     <Content Include="WebPages\LoggedOn\Admin\Master.aspx" />
     <Content Include="WebPages\LoggedOn\Contractor\AvailableCustomer.aspx" />
     <Content Include="WebPages\LoggedOn\Contractor\ContractorChangePassword.aspx" />
@@ -142,7 +147,6 @@
     <Content Include="WebPages\LoggedOn\Contractor\ContractorProfile.aspx" />
     <Content Include="WebPages\LoggedOn\Contractor\ContractorService.svc" />
     <Content Include="WebPages\LoggedOn\Contractor\Master.aspx" />
-    <Content Include="WebPages\LoggedOn\Contractor\Test.aspx" />
     <Content Include="WebPages\LoggedOn\Customer\BrowseAvailable.aspx" />
     <Content Include="WebPages\LoggedOn\Customer\CustomerChangePassword.aspx" />
     <Content Include="WebPages\LoggedOn\Customer\CustomerHomepage.aspx" />
@@ -151,7 +155,6 @@
     <Content Include="WebPages\LoggedOn\Customer\InProgressTransaction.aspx" />
     <Content Include="WebPages\LoggedOn\Customer\MakeRequest.aspx" />
     <Content Include="WebPages\LoggedOn\Customer\Master.aspx" />
-    <Content Include="WebPages\LoggedOn\Customer\Test.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Address.cs" />
@@ -228,6 +231,16 @@
     <Compile Include="WebPages\LoggedOn\Admin\AdminHomepage.aspx.designer.cs">
       <DependentUpon>AdminHomepage.aspx</DependentUpon>
     </Compile>
+    <Compile Include="WebPages\LoggedOn\Admin\AdminService.svc.cs">
+      <DependentUpon>AdminService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="WebPages\LoggedOn\Admin\AllTransactions.aspx.cs">
+      <DependentUpon>AllTransactions.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPages\LoggedOn\Admin\AllTransactions.aspx.designer.cs">
+      <DependentUpon>AllTransactions.aspx</DependentUpon>
+    </Compile>
     <Compile Include="WebPages\LoggedOn\Admin\Master.aspx.cs">
       <DependentUpon>Master.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -280,13 +293,6 @@
     <Compile Include="WebPages\LoggedOn\Contractor\Master.aspx.designer.cs">
       <DependentUpon>Master.aspx</DependentUpon>
     </Compile>
-    <Compile Include="WebPages\LoggedOn\Contractor\Test.aspx.cs">
-      <DependentUpon>Test.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="WebPages\LoggedOn\Contractor\Test.aspx.designer.cs">
-      <DependentUpon>Test.aspx</DependentUpon>
-    </Compile>
     <Compile Include="WebPages\LoggedOn\Customer\BrowseAvailable.aspx.cs">
       <DependentUpon>BrowseAvailable.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -338,13 +344,6 @@
     </Compile>
     <Compile Include="WebPages\LoggedOn\Customer\Master.aspx.designer.cs">
       <DependentUpon>Master.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="WebPages\LoggedOn\Customer\Test.aspx.cs">
-      <DependentUpon>Test.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="WebPages\LoggedOn\Customer\Test.aspx.designer.cs">
-      <DependentUpon>Test.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
