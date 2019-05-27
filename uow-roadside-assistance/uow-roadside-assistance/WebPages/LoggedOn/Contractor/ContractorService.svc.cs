@@ -50,9 +50,13 @@ namespace uow_roadside_assistance.WebPages.LoggedOn.Contractor
                 {
                     curUser = (uow_roadside_assistance.Classes.Customer)(HttpContext.Current.Session["New"]);
                 }
-                else
+                else if (curUser.UserType.Equals("Contractor"))
                 {
                     curUser = (uow_roadside_assistance.Classes.Contractor)(HttpContext.Current.Session["New"]);
+                }
+                else
+                {
+                    curUser = (uow_roadside_assistance.Classes.User)(HttpContext.Current.Session["New"]);
                 }
                 return new JavaScriptSerializer().Serialize(curUser);
             }

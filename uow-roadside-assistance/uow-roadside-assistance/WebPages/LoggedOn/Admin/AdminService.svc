@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="uow_roadside_assistance.WebPages.LoggedOn.Admin.AdminService" CodeBehind="AdminService.svc.cs" %>

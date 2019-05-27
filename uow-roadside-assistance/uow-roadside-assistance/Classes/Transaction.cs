@@ -91,6 +91,11 @@ namespace uow_roadside_assistance.Classes
             get { return _transactionDate; }
         }
 
+        public String TransactionDateToString
+        {
+            get { return _transactionDate.ToString("yyyy/MM/dd HH:mm:ss"); }
+        }
+
         public Transaction(int transactionID, int contractorID, int customerID, double cost, Boolean contractorFinished, Boolean customerFinished, Boolean tyreProblem, Boolean carBatterProblem, Boolean engineProblem, Boolean generalProblem, String problemDescription, String customerLatitude, String customerLongitude, DateTime transactionDate)
         {
             _transactionID = transactionID;

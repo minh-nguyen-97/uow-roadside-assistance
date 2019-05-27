@@ -54,3 +54,8 @@
 #verticalNavBar .active .container {
     color: lightgreen;
 }
+
+#content {
+    padding-top: 50px;
+    margin-left: 300px;
+}

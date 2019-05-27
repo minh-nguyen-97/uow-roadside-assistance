@@ -91,9 +91,12 @@ namespace uow_roadside_assistance.WebPages.LoggedOff
             {
                 HttpContext.Current.Session["New"] = CustomerDBData.getCustomerByID(curUser.UserID);
             }
-            else
+            else if (curUser.UserType.Equals("Contractor"))
             {
                 HttpContext.Current.Session["New"] = ContractorDBData.getContractorByID(curUser.UserID);
+            } else
+            {
+                HttpContext.Current.Session["New"] = UserDBData.getUserByID(curUser.UserID);
             }
         }
 
@@ -109,9 +112,13 @@ namespace uow_roadside_assistance.WebPages.LoggedOff
                 {
                     curUser = (Customer)(HttpContext.Current.Session["New"]);
                 } 
-                else
+                else if (curUser.UserType.Equals("Contractor"))
                 {
                     curUser = (Contractor)(HttpContext.Current.Session["New"]);
+                }
+                else // admin
+                {
+                    curUser = (User)(HttpContext.Current.Session["New"]);
                 }
                 return new JavaScriptSerializer().Serialize(curUser);
             }

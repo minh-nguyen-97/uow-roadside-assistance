@@ -3,4 +3,9 @@
         $('#verticalNavBar .active .selectedLi').removeClass('bg-dark');
         $('#verticalNavBar .active .selectedLi').addClass('bg-success');
     };
+
+    $('#logOut').click(function (e) {
+        AdminService.logOut();
+        window.location.href = '../../LoggedOff/Home.aspx';
+    });
 })
