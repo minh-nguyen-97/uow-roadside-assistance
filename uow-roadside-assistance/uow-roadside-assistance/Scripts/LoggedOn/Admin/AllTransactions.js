@@ -30,8 +30,8 @@ function addRow(transactionID, contractorID, customerID, cost, transactionDateTi
 
     var rowContent =
         "<td>" + transactionID + "</td>" +
-        "<td>" + contractorID + "</td>" +
-        "<td>" + customerID + "</td>" +
+        "<td><a href='AccountStatistics.aspx?uid=" + contractorID + "'>" + contractorID + "</a></td>" +
+        "<td><a href='AccountStatistics.aspx?uid=" + customerID + "'>" + customerID + "</a></td>" +
         "<td>$" + cost + "</td>" +
         "<td>" + transactionDateTime + "</td>";
 
