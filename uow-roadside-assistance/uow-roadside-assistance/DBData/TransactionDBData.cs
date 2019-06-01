@@ -17,7 +17,7 @@ namespace uow_roadside_assistance.DBData
             Boolean customerFinished = true;
             Boolean contractorFinished = true;
 
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
+            SqlConnection conn = Helper.Connection.connectionString;
             conn.Open();
 
             String getTransactionQuery = "SELECT * FROM dbo.TRANSACTIONS WHERE customerFinished = @customerFinished and contractorFinished = @contractorFinished and contractorID = @contractorID";
@@ -64,7 +64,7 @@ namespace uow_roadside_assistance.DBData
             Boolean customerFinished = true;
             Boolean contractorFinished = true;
 
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
+            SqlConnection conn = Helper.Connection.connectionString;
             conn.Open();
 
             String getTransactionQuery = "SELECT * FROM dbo.TRANSACTIONS WHERE customerFinished = @customerFinished and contractorFinished = @contractorFinished and customerID = @customerID";
@@ -111,7 +111,7 @@ namespace uow_roadside_assistance.DBData
             Boolean customerFinished = true;
             Boolean contractorFinished = true;
 
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
+            SqlConnection conn = Helper.Connection.connectionString;
             conn.Open();
 
             String getTransactionQuery = "SELECT * FROM dbo.TRANSACTIONS WHERE customerFinished = @customerFinished and contractorFinished = @contractorFinished";
@@ -156,7 +156,7 @@ namespace uow_roadside_assistance.DBData
         {
             Boolean customerFinished = false;
 
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
+            SqlConnection conn = Helper.Connection.connectionString;
             conn.Open();
 
             String getTransactionQuery = "SELECT * FROM dbo.TRANSACTIONS WHERE customerID = @customerID and customerFinished = @customerFinished";
@@ -199,7 +199,7 @@ namespace uow_roadside_assistance.DBData
         {
             Boolean contractorFinished = false;
 
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
+            SqlConnection conn = Helper.Connection.connectionString;
             conn.Open();
 
             String getTransactionQuery = "SELECT * FROM dbo.TRANSACTIONS WHERE contractorID = @contractorID and contractorFinished = @contractorFinished";
@@ -242,7 +242,7 @@ namespace uow_roadside_assistance.DBData
         public static Transaction GetTransactionByID(int transactionID)
         {
 
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
+            SqlConnection conn = Helper.Connection.connectionString;
             conn.Open();
 
             String getTransactionQuery = "SELECT * FROM dbo.TRANSACTIONS WHERE transactionID = @transactionID ";
@@ -285,7 +285,7 @@ namespace uow_roadside_assistance.DBData
         //
         public static Boolean IsExistUnfinishedCustomerTransaction(int customerID)
         {
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
+            SqlConnection conn = Helper.Connection.connectionString;
             conn.Open();
 
             String getTransactionQuery = "SELECT * FROM dbo.TRANSACTIONS WHERE customerID = @customerID and customerFinished = @customerFinished";
@@ -303,7 +303,7 @@ namespace uow_roadside_assistance.DBData
 
         public static Boolean IsExistUnfinishedContractorTransaction(int contractorID)
         {
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
+            SqlConnection conn = Helper.Connection.connectionString;
             conn.Open();
 
             String getTransactionQuery = "SELECT * FROM dbo.TRANSACTIONS WHERE contractorID = @contractorID and contractorFinished = @contractorFinished";
@@ -325,7 +325,7 @@ namespace uow_roadside_assistance.DBData
             DateTime currentDate = DateTime.Now;
             String transactionDate = currentDate.ToString("yyyy-MM-dd HH:mm:ss.fff");
 
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
+            SqlConnection conn = Helper.Connection.connectionString;
             conn.Open();
             String insertQuery = "INSERT INTO dbo.TRANSACTIONS(contractorID, customerID, cost, contractorFinished, customerFinished, tyreProblem, carBatteryProblem, engineProblem, generalProblem, problemDescription, customerLatitude, customerLongitude, transactionDate)" +
                                     "VALUES (@contractorID, @customerID, @cost, @contractorFinished, @customerFinished, @tyreProblem, @carBatteryProblem, @engineProblem, @generalProblem, @problemDescription, @customerLatitude, @customerLongitude, @transactionDate)";
@@ -354,7 +354,7 @@ namespace uow_roadside_assistance.DBData
         // 
         public static void customerFinishedTransaction(int transactionID)
         {
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
+            SqlConnection conn = Helper.Connection.connectionString;
             conn.Open();
             String updateQuery =    "UPDATE dbo.TRANSACTIONS " +
                                     "SET customerFinished = 1 " +
@@ -369,7 +369,7 @@ namespace uow_roadside_assistance.DBData
 
         public static void contractorFinishedTransaction(int transactionID)
         {
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
+            SqlConnection conn = Helper.Connection.connectionString;
             conn.Open();
             String updateQuery = "UPDATE dbo.TRANSACTIONS " +
                                     "SET contractorFinished = 1 " +

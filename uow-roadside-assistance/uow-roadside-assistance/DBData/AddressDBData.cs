@@ -13,7 +13,7 @@ namespace uow_roadside_assistance.DBData
     {
         public static ArrayList getAddressByUserType(String userType)
         {
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
+            SqlConnection conn = Helper.Connection.connectionString;
             conn.Open();
 
             String getUserNameQuery = "SELECT * FROM dbo.ADDRESS WHERE userType = @userType";
@@ -33,12 +33,14 @@ namespace uow_roadside_assistance.DBData
                 res.Add(address);
             }
 
+            conn.Close();
+
             return res;
         }
 
         public static Address getAddressByUserID(int userID)
         {
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
+            SqlConnection conn = Helper.Connection.connectionString;
             conn.Open();
 
             String getUserNameQuery = "SELECT * FROM dbo.ADDRESS WHERE userID = @userID";
@@ -56,6 +58,8 @@ namespace uow_roadside_assistance.DBData
                 res = new Address(userID, latitude, longitude, userType);
                 
             }
+
+            conn.Close();
 
             return res;
         }

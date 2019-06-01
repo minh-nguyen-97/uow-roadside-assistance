@@ -13,28 +13,38 @@ namespace uow_roadside_assistance.DBData
     {
         public static double getAverageRatingByContractorID(int contractorID)
         {
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
-            conn.Open();
-
-            String getUserNameQuery = "SELECT AVG(rating) AS averageRating FROM dbo.REVIEWS WHERE contractorID = @contractorID;";
-            SqlCommand cmd = new SqlCommand(getUserNameQuery, conn);
-            cmd.Parameters.AddWithValue("@contractorID", contractorID);
-            SqlDataReader reader = cmd.ExecuteReader();
-
+            SqlConnection conn = Helper.Connection.connectionString;
             double averageRating = 0;
-            if (reader.Read())
-            {
-                averageRating = Convert.ToDouble(reader["averageRating"]);
-            }
 
-            conn.Close();
+            try
+            {
+                conn.Open();
+
+                String getUserNameQuery = "SELECT AVG(rating) AS averageRating FROM dbo.REVIEWS WHERE contractorID = @contractorID;";
+                SqlCommand cmd = new SqlCommand(getUserNameQuery, conn);
+                cmd.Parameters.AddWithValue("@contractorID", contractorID);
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    averageRating = Convert.ToDouble(reader["averageRating"]);
+                }
+            }
+            catch(Exception e)
+            {
+
+            } 
+            finally
+            {
+                conn.Close();
+            }
 
             return averageRating;
         }
 
         public static ArrayList getReviewsByContractorID(int contractorID)
         {
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
+            SqlConnection conn = Helper.Connection.connectionString;
             conn.Open();
 
             String getUserNameQuery = "SELECT * FROM dbo.REVIEWS WHERE contractorID = @contractorID ORDER BY reviewDate DESC";
@@ -65,7 +75,7 @@ namespace uow_roadside_assistance.DBData
 
         public static ArrayList getReviewsByCustomerID(int customerID)
         {
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
+            SqlConnection conn = Helper.Connection.connectionString;
             conn.Open();
 
             String getUserNameQuery = "SELECT * FROM dbo.REVIEWS WHERE customerID = @customerID ORDER BY reviewDate DESC";
@@ -104,7 +114,7 @@ namespace uow_roadside_assistance.DBData
             DateTime currentDate = DateTime.Now;
             String reviewDate = currentDate.ToString("yyyy-MM-dd HH:mm:ss.fff");
 
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
+            SqlConnection conn = Helper.Connection.connectionString;
             conn.Open();
             String insertQuery = "INSERT INTO dbo.REVIEWS(reviewDesc, rating, transactionID, customerID, contractorID, reviewDate) " +
                                     "VALUES (@reviewDesc, @rating, @transactionID, @customerID, @contractorID, @reviewDate)";

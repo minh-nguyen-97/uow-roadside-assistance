@@ -13,7 +13,7 @@ namespace uow_roadside_assistance.DBData
     {
         public static Response getResponse(int requestID, int contractorID)
         {
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
+            SqlConnection conn = Helper.Connection.connectionString;
             conn.Open();
 
             String getResponseQuery = "SELECT * FROM dbo.RESPONSES WHERE requestID = @requestID AND contractorID = @contractorID";
@@ -39,7 +39,7 @@ namespace uow_roadside_assistance.DBData
 
         public static ArrayList getResponseList(int requestID)
         {
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
+            SqlConnection conn = Helper.Connection.connectionString;
             conn.Open();
 
             String getResponseQuery = "SELECT * FROM dbo.RESPONSES WHERE requestID = @requestID";
@@ -65,7 +65,7 @@ namespace uow_roadside_assistance.DBData
 
         public static ArrayList getResponseListByContractorID(int contractorID)
         {
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
+            SqlConnection conn = Helper.Connection.connectionString;
             conn.Open();
 
             String getResponseQuery = "SELECT * FROM dbo.RESPONSES WHERE contractorID = @contractorID";
@@ -91,7 +91,7 @@ namespace uow_roadside_assistance.DBData
 
         public static void  insertNewResponse(int requestID, int contractorID, String responseStatus)
         {
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
+            SqlConnection conn = Helper.Connection.connectionString;
             conn.Open();
 
             String insertResponseQuery = "INSERT INTO dbo.RESPONSES(requestID, contractorID, responseStatus)" +
@@ -107,7 +107,7 @@ namespace uow_roadside_assistance.DBData
 
         public static void deleteResponse(int requestID)
         {
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
+            SqlConnection conn = Helper.Connection.connectionString;
             conn.Open();
 
             String deletetRequestQuery = "DELETE FROM dbo.RESPONSES WHERE requestID = @requestID";
@@ -120,7 +120,7 @@ namespace uow_roadside_assistance.DBData
 
         public static void declineResponse(int requestID, int contractorID)
         {
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
+            SqlConnection conn = Helper.Connection.connectionString;
             conn.Open();
 
             String getResponseQuery = "UPDATE dbo.RESPONSES SET responseStatus = @responseStatus WHERE requestID = @requestID AND contractorID = @contractorID";
@@ -136,7 +136,7 @@ namespace uow_roadside_assistance.DBData
 
         public static void acceptResponse(int requestID, int contractorID)
         {
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
+            SqlConnection conn = Helper.Connection.connectionString;
             conn.Open();
 
             String getResponseQuery = "UPDATE dbo.RESPONSES SET responseStatus = @responseStatus WHERE requestID = @requestID AND contractorID = @contractorID";

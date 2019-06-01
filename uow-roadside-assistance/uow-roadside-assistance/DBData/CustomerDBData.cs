@@ -19,7 +19,7 @@ namespace uow_roadside_assistance.DBData
             String userType = getUser.UserType;
             String fullName = getUser.FullName;
 
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
+            SqlConnection conn = Helper.Connection.connectionString;
             conn.Open();
 
             String getUserNameQuery = "SELECT * FROM dbo.CUSTOMERS WHERE userID = @userID";
@@ -51,7 +51,7 @@ namespace uow_roadside_assistance.DBData
 
         public static void insertNewCustomer(int userID, String regNo, String make, String model, String color, String cardHolder, String cardNo, int expMonth, int expYear, int CVV)
         {
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
+            SqlConnection conn = Helper.Connection.connectionString;
             conn.Open();
             String insertQuery = "INSERT INTO dbo.CUSTOMERS(userID, regNo, make, model, color, cardHolder, cardNo, expMonth, expYear, CVV)" +
                                     "VALUES (@userID, @regNo, @make, @model, @color, @cardHolder, @cardNo, @expMonth, @expYear, @CVV)";
@@ -73,7 +73,7 @@ namespace uow_roadside_assistance.DBData
 
         public static void updateCustomer(int userID, String regNo, String make, String model, String color, String cardHolder, String cardNo, int expMonth, int expYear, int CVV)
         {
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
+            SqlConnection conn = Helper.Connection.connectionString;
             conn.Open();
             String updateCustomerQuery = "UPDATE dbo.CUSTOMERS " +
                                      "SET regNo = @regNo, make = @make, model = @model, color = @color, cardHolder = @cardHolder, cardNo = @cardNo, expMonth = @expMonth, expYear = @expYear, CVV =  @CVV " +

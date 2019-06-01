@@ -179,6 +179,7 @@
     <Compile Include="DBData\ReviewDBData.cs" />
     <Compile Include="DBData\TransactionDBData.cs" />
     <Compile Include="DBData\UserDBData.cs" />
+    <Compile Include="Helper\Connection.cs" />
     <Compile Include="Helper\Contractor\IncompleteWork.cs" />
     <Compile Include="Helper\Contractor\NewWork.cs" />
     <Compile Include="Helper\Contractor\Work.cs" />

@@ -39,6 +39,8 @@ var contractorMarkers = [];
 
 var contractorInfos = [];
 
+var contractorWindows = [];
+
 
 
 function initMap() {
@@ -122,8 +124,21 @@ function initMap() {
                     url: "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
                 }
             });
+
             contractorMarkers.push(newMarker);
         }
+
+        //for (var i = 0; i < contractorMarkers.length; i++) {
+        //    var newInfoWindow = new google.maps.InfoWindow({
+        //        content: 'Our Contractor'
+        //    });
+
+        //    contractorWindows.push(newInfoWindow);
+
+        //    contractorMarkers[i].addListener('click', function () {
+        //        contractorWindows[i].open(map, contractorMarkers[i]);
+        //    });
+        //}
     });
 
 }
@@ -222,7 +237,17 @@ $(document).ready(function () {
             map.setZoom(17);  // Why 17? Because it looks good.
         }
         curLocMarker.setPosition(place.geometry.location);
-        console.log(place.geometry.location.toJSON());
+
+        //var testLocLat = place.geometry.location.toJSON().lat;
+        //var testLocLng = place.geometry.location.toJSON().lng;
+
+        //var insertString = "-- " + $('#searchAddressText').val() + "\n";
+        //insertString += "SET @nextUserID = @nextUserID + 1 \n";
+        //insertString += "INSERT INTO dbo.ADDRESS(userID, latitude, longitude, userType) \n";
+        //insertString += "VALUES(@nextUserID, '" + testLocLat + "', '" + testLocLng + "', " + "'Contractor' )\n";
+
+        //console.log(insertString);
+
         curLocMarker.setVisible(true);
 
         for (var i = 0; i < contractorMarkers.length; i++)
