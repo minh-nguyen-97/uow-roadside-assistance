@@ -19,7 +19,7 @@ namespace uow_roadside_assistance.DBData
             String userType = getUser.UserType;
             String fullName = getUser.FullName;
 
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
+            SqlConnection conn = Helper.Connection.connectionString;
             conn.Open();
 
             String getUserNameQuery = "SELECT * FROM dbo.CONTRACTORS WHERE userID = @userID";
@@ -45,7 +45,7 @@ namespace uow_roadside_assistance.DBData
         // Insert 
         public static void insertNewContractor(int userID, String accountName, String accountNumber, int BSB)
         {
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
+            SqlConnection conn = Helper.Connection.connectionString;
             conn.Open();
             String insertQuery = "INSERT INTO dbo.CONTRACTORS(userID, accountName, accountNumber, BSB) " +
                                     "VALUES (@userID, @accountName, @accountNumber, @BSB)";
@@ -61,7 +61,7 @@ namespace uow_roadside_assistance.DBData
 
         public static void updateContractor(int userID, String accountName, String accountNumber, int BSB)
         {
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
+            SqlConnection conn = Helper.Connection.connectionString;
             conn.Open();
             String updateQuery = "UPDATE dbo.CONTRACTORS " +
                                     "SET accountName = @accountName, accountNumber = @accountNumber, BSB = @BSB " +

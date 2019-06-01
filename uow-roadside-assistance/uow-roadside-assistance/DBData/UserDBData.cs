@@ -13,7 +13,7 @@ namespace uow_roadside_assistance.DBData
         // SELECT methods
         public static int getUserIDFromName(String username)
         {
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
+            SqlConnection conn = Helper.Connection.connectionString;
             conn.Open();
 
             String getUserNameQuery = "SELECT * FROM dbo.USERS WHERE username = @username";
@@ -27,12 +27,14 @@ namespace uow_roadside_assistance.DBData
                 userID = Convert.ToInt32(reader["userID"]);
             }
 
+            conn.Close();
+
             return userID;
         }
 
         public static String getUserNameFromID(int userID)
         {
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
+            SqlConnection conn = Helper.Connection.connectionString;
             conn.Open();
 
             String getUserNameQuery = "SELECT * FROM dbo.USERS WHERE userID = @userID";
@@ -46,12 +48,14 @@ namespace uow_roadside_assistance.DBData
                 userName = Convert.ToString(reader["username"]).TrimEnd();
             }
 
+            conn.Close();
+
             return userName;
         }
 
         public static User getUserByName(String username)
         {
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
+            SqlConnection conn = Helper.Connection.connectionString;
             conn.Open();
 
             String getUserNameQuery = "SELECT * FROM dbo.USERS WHERE username = @username";
@@ -79,7 +83,7 @@ namespace uow_roadside_assistance.DBData
 
         public static User getUserByID(int userID)
         {
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
+            SqlConnection conn = Helper.Connection.connectionString;
             conn.Open();
 
             String getUserNameQuery = "SELECT * FROM dbo.USERS WHERE userID = @userID";
@@ -108,7 +112,7 @@ namespace uow_roadside_assistance.DBData
 
         public static Boolean IsExist(String username, String password)
         {
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
+            SqlConnection conn = Helper.Connection.connectionString;
             conn.Open();
 
             String getUserByNameQuery = "SELECT * FROM dbo.USERS WHERE username = @username and password = @password";
@@ -126,7 +130,7 @@ namespace uow_roadside_assistance.DBData
 
         public static Boolean IsExist(String username)
         {
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
+            SqlConnection conn = Helper.Connection.connectionString;
             conn.Open();
 
             String getUserByNameQuery = "SELECT * FROM dbo.USERS WHERE username = @username";
@@ -145,7 +149,7 @@ namespace uow_roadside_assistance.DBData
 
         public static void insertNewUser(String username, String email, String password, String userType, String fullName)
         {
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
+            SqlConnection conn = Helper.Connection.connectionString;
             conn.Open();
             String insertQuery = "INSERT INTO dbo.USERS(username, email, password, userType, fullName)" +
                                     "VALUES (@username, @email, @password, @userType, @fullName)";
@@ -165,7 +169,7 @@ namespace uow_roadside_assistance.DBData
 
         public static void updateUserEmailByID(int userID, String email)
         {
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
+            SqlConnection conn = Helper.Connection.connectionString;
             conn.Open();
 
             String updateUserQuery = "UPDATE dbo.USERS SET email = @email WHERE userID = @userID";
@@ -178,7 +182,7 @@ namespace uow_roadside_assistance.DBData
 
         public static void updateUserPasswordByID(int userID, String password)
         {
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
+            SqlConnection conn = Helper.Connection.connectionString;
             conn.Open();
 
             String updateUserQuery = "UPDATE dbo.USERS SET password = @password WHERE userID = @userID";

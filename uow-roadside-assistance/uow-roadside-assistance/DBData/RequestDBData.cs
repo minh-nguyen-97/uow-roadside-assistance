@@ -12,7 +12,7 @@ namespace uow_roadside_assistance.DBData
     {
         public static Request getRequestByCustomerID(int customerID)
         {
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
+            SqlConnection conn = Helper.Connection.connectionString;
             conn.Open();
 
             String getRequestQuery = "SELECT * FROM dbo.REQUESTS WHERE customerID = @customerID";
@@ -49,7 +49,7 @@ namespace uow_roadside_assistance.DBData
 
         public static Request getRequestByRequestID(int requestID)
         {
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
+            SqlConnection conn = Helper.Connection.connectionString;
             conn.Open();
 
             String getRequestQuery = "SELECT * FROM dbo.REQUESTS WHERE requestID = @requestID";
@@ -86,7 +86,7 @@ namespace uow_roadside_assistance.DBData
         //
         public static Boolean IsExist(int customerID)
         {
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
+            SqlConnection conn = Helper.Connection.connectionString;
             conn.Open();
 
             String getRequestQuery = "SELECT * FROM dbo.REQUESTS WHERE customerID = @customerID";
@@ -109,7 +109,7 @@ namespace uow_roadside_assistance.DBData
             String requestDate = currentDate.ToString("yyyy-MM-dd HH:mm:ss.fff");
 
             // Insert query for REQUESTS
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
+            SqlConnection conn = Helper.Connection.connectionString;
             conn.Open();
             String insertRequestQuery = "INSERT INTO dbo.REQUESTS(customerID, tyreProblem, carBatteryProblem, engineProblem, generalProblem, problemDescription, customerLatitude, customerLongitude, requestStatus, requestDate)" +
                                     "VALUES (@customerID, @tyreProblem, @carBatteryProblem, @engineProblem, @generalProblem, @problemDescription, @customerLatitude, @customerLongitude, @requestStatus, @requestDate)";
@@ -135,7 +135,7 @@ namespace uow_roadside_assistance.DBData
 
         public static void deleteRequest(int requestID)
         {
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["roadside-assistanceConnectionString"].ConnectionString);
+            SqlConnection conn = Helper.Connection.connectionString;
             conn.Open();
 
             String deletetRequestQuery = "DELETE FROM dbo.REQUESTS WHERE requestID = @requestID";
