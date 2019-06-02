@@ -42,6 +42,36 @@ namespace uow_roadside_assistance.DBData
             return averageRating;
         }
 
+        //
+        public static Review getReviewsByTransactionID(int transactionID)
+        {
+            SqlConnection conn = Helper.Connection.connectionString;
+            conn.Open();
+
+            String getUserNameQuery = "SELECT * FROM dbo.REVIEWS WHERE transactionID = @transactionID ORDER BY reviewDate DESC";
+            SqlCommand cmd = new SqlCommand(getUserNameQuery, conn);
+            cmd.Parameters.AddWithValue("@transactionID", transactionID);
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            Review review = null;
+            if (reader.Read())
+            {
+                int reviewID = Convert.ToInt32(reader["reviewID"]);
+                String reviewDesc = Convert.ToString(reader["reviewDesc"]).TrimEnd();
+                double rating = Convert.ToInt32(reader["rating"]);
+                // transactionID
+                int customerID = Convert.ToInt32(reader["customerID"]);
+                int contractorID = Convert.ToInt32(reader["contractorID"]);
+                DateTime reviewDate = Convert.ToDateTime(reader["reviewDate"]);
+
+                review = new Review(reviewID, reviewDesc, rating, transactionID, customerID, contractorID, reviewDate);
+            }
+
+            conn.Close();
+
+            return review;
+        }
+
         public static ArrayList getReviewsByContractorID(int contractorID)
         {
             SqlConnection conn = Helper.Connection.connectionString;
@@ -129,6 +159,22 @@ namespace uow_roadside_assistance.DBData
 
             conn.Close();
         }
-        
+
+        // Update
+        public static void updateReviewAndRating(int transactionID, String reviewDesc, double rating)
+        {
+
+            SqlConnection conn = Helper.Connection.connectionString;
+            conn.Open();
+            String insertQuery = "UPDATE dbo.REVIEWS SET reviewDesc = @reviewDesc, rating = @rating WHERE transactionID = @transactionID" ;
+            SqlCommand cmd = new SqlCommand(insertQuery, conn);
+            cmd.Parameters.AddWithValue("@transactionID", transactionID);
+            cmd.Parameters.AddWithValue("@reviewDesc", reviewDesc);
+            cmd.Parameters.AddWithValue("@rating", rating);
+            cmd.ExecuteNonQuery();
+
+            conn.Close();
+        }
+
     }
 }
