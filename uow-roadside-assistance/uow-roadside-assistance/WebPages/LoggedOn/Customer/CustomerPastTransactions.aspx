@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="BrowseAvailable.aspx.cs" Inherits="uow_roadside_assistance.WebPages.LoggedOn.Customer.BrowseAvailable" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CustomerPastTransactions.aspx.cs" Inherits="uow_roadside_assistance.WebPages.LoggedOn.Customer.CustomerPastTransactions" %>
 
 <!DOCTYPE html>
 
@@ -6,7 +6,7 @@
 <head runat="server">
 
     <%--title--%>
-    <title>Customer Browse Contractors</title>
+    <title>Customer Master</title>
     
      <%-- jquery and jquery ui --%>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
@@ -24,14 +24,12 @@
     
     <%--Page CSS--%>
     <link rel="stylesheet" href="../../../Css/LoggedOn/Customer/CustomerNavBar.css" />
-    <link rel="stylesheet" href="../../../Css/LoggedOn/Customer/BrowseAvailable.css" />
 
     <%--Nav Bar Scripts--%>
     <script type="text/javascript" src="../../../Scripts/LoggedOn/Customer/CustomerNavBar.js"></script>
 
     <%-- Page Scripts --%>
     <script type="text/javascript" src="../../../Scripts/LoggedOn/Customer/OnLoadCustomer.js"></script>
-    <script type="text/javascript" src="../../../Scripts/LoggedOn/Customer/BrowseAvailable.js"></script>
 </head>
 <body>
 
@@ -159,123 +157,6 @@
         </div>
     </div>
 
-    <!-- Payment Modal -->
-    <div class="modal fade" id="ModalCenter" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="ModalCenterTitle"><strong>Confirm Payment</strong></h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div class="container-fluid" style="text-align:center">
-                YOU ARE ABOUT TO PAY: <br /><br />
-                [<strong id="confirmContractorName"></strong>] <br />
-                <strong style="font-size: 18px">$</strong>
-                <strong id="confirmFee" style="font-size: 18px"></strong> <br /><br />
-                <strong>To come and assess your problem!!!</strong> <br /><br />
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Decline</button>
-            <button type="button" class="btn btn-primary submitButton">Accept</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <%-- Review Modal --%>
-    <div class="modal fade" id="ReviewModalCenter" tabindex="-1" role="dialog" aria-labelledby="ReviewModalCenterTitle" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="ReviewModalCenterTitle"><strong>Reviews</strong></h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div id="reviews" class="container">
-                <div class='row'>
-                    <div class='col-1'>
-                        <i class='fas fa-user-circle fa-2x'></i>
-                    </div>
-                    <div class='col'>
-                        <span style='color: steelblue; font-size: 20px'>Customer Name</span>
-                    </div>
-                </div>
-                <div class='row'>
-                    <div class='col-1'>
-                    </div>
-                    <div class='col' style='background-color: whitesmoke; border-radius: 10px; padding: 10px;'>
-                        Review goes here
-                    </div>
-                </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <%-- Filter Modal --%>
-    <div class="modal fade" id="FilterModalCenter" tabindex="-1" role="dialog" aria-labelledby="FilterModalCenterTitle" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="FilterModalCenterTitle"><strong>Filter Status</strong></h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-             <div class="container">
-                 <br />
-                 <div class="row">
-                     <div class="col col-lg-3 text-right">
-                         <input id="BusyCheckBox" type="checkbox" checked/>
-                     </div>
-                     <div class="col">
-                         <button type='button' class='btn btn-danger statusButton' disabled>Busy</button>
-                     </div>
-                 </div>
-                 <br />
-                 <div class="row">
-                     <div class="col col-lg-3 text-right">
-                         <input id="WaitingCheckBox" type="checkbox" checked />
-                     </div>
-                     <div class="col">
-                         <button class='btn btn-warning statusButton' type='button' disabled>
-                              <span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span>
-                              Waiting...
-                         </button> 
-                     </div>
-                 </div>
-
-                 <br />
-                 <div class="row">
-                     <div class="col col-lg-3 text-right">
-                         <input id="AcceptedCheckBox" type="checkbox" checked/>
-                     </div>
-                     <div class="col">
-                         <button type='button' class='btn btn-success statusButton'>
-                            Accepted
-                        </button>
-                     </div>
-                 </div>
-                 <br />
-             </div>
-          </div>
-            
-          <div class="modal-footer">
-            <button id="applyFilterButton" type="button" class="btn btn-outline-primary mx-auto" style="width: 25%; height: 1.3cm"  data-dismiss="modal">APPLY</button>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-
 </body>
 </html>
+

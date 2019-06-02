@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ContractorChangePassword.aspx.cs" Inherits="uow_roadside_assistance.WebPages.LoggedOn.Contractor.ContractorChangePassword" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ContractorPastTransactions.aspx.cs" Inherits="uow_roadside_assistance.WebPages.LoggedOn.Contractor.ContractorPastTransactions" %>
 
 <!DOCTYPE html>
 
@@ -24,14 +24,12 @@
     
     <%--Page CSS--%>
     <link rel="stylesheet" href="../../../Css/LoggedOn/Contractor/ContractorNavBar.css" />
-    <link rel="stylesheet" href="../../../Css/LoggedOn/Contractor/ContractorChangePassword.css" />
 
     <%--Nav Bar Scripts--%>
     <script type="text/javascript" src="../../../Scripts/LoggedOn/Contractor/ContractorNavBar.js"></script>
 
     <%-- Page Scripts --%>
     <script type="text/javascript" src="../../../Scripts/LoggedOn/Contractor/OnLoadContractor.js"></script>
-    <script type="text/javascript" src="../../../Scripts/LoggedOn/Contractor/ContractorChangePassword.js"></script>
 
 </head>
 <body>
@@ -82,46 +80,9 @@
     </div>
 
     <%-- Page Content --%>
-        <div class="container" style="width:50%; margin-left:20%;">
-        <br /><br />
-        <div class="headerDetails">
-            <h2><span class="underlinedText" style="text-align:center">Change Password</span><span class="icon"><i class='far fa-edit' style='font-size:36px'></i></span></h2>
-        </div>
-        <br /><br />
-        <div class="container">
-            <div class="row">
-                <div class="col col-lg-4 text-right">Old Password: </div>
-                <div class="col text-left">
-                    <input id="OldPassword" type="password" class="form-control"/>
-                    <span id="OldPasswordErrMess" class="ErrorMessage"></span>
-                </div>
-            </div>
-            <br />
-            <div class="row">
-                <div class="col col-lg-4 text-right">New Password:</div>
-                <div class="col text-left">
-                    <input id="NewPassword" type="password" class="form-control"/>
-                    <span id="NewPasswordErrMess" class="ErrorMessage"></span>
-                </div>
-            </div>
-            <br />
-            <div class="row">
-                <div class="col col-lg-4 text-right">Confirm Password:</div>
-                <div class="col text-left">
-                    <input id="ConfirmedPassword" type="password" class="form-control" />
-                    <span id="ConfirmedPasswordErrMess" class="ErrorMessage"></span>
-                </div>
-            </div>
-            <br />
-        </div>
-        <br />
-        <div class="container" style="text-align:center">
-            <button id="SaveChanges" class="btn btn-primary">Save Changes</button>
-        </div>
-    </div>
+
 
 </body>
 </html>
-
 
 

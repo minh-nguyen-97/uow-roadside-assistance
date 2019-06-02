@@ -71,7 +71,7 @@
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="CustomerProfile.aspx">Profile</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Past transactions</a>
+                            <a class="dropdown-item" href="CustomerPastTransactions.aspx">Past transactions</a>
                             <div class="dropdown-divider"></div>
                             <a id="logOutLink" class="dropdown-item">Logout <i class='fas fa-sign-out-alt'></i></a> 
                         </div>
@@ -101,7 +101,7 @@
                     <h4>Update My Details</h4>
                 </td>
                 <td style="width:5%"></td>
-                <td id="manage-subscription-text"> 
+                <td id="manage-subscription-text" style="cursor:pointer" onclick="window.location.href = './ManageSubscription.aspx'"> 
                     <h4>Manage Subscription</h4>
                 </td>
             </tr>
