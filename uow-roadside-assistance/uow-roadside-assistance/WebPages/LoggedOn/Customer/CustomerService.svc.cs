@@ -289,6 +289,61 @@ namespace uow_roadside_assistance.WebPages.LoggedOn.Customer
 
             return new JavaScriptSerializer().Serialize(result);
         }
-        
+
+        /* Membership */
+
+        // Monthly
+        [OperationContract]
+        public void subscribeMonthly()
+        {
+            Classes.Customer customer = (Classes.Customer)(HttpContext.Current.Session["New"]);
+
+            CustomerDBData.updateMemberStatus(customer.UserID, "monthly");
+
+            DateTime expDate = DateTime.Now.AddMonths(1);
+            CustomerDBData.updateSubscriptionExpireDate(customer.UserID, expDate);
+
+            CustomerDBData.updateSubscriptionCancellation(customer.UserID, false);
+
+            HttpContext.Current.Session["New"] = CustomerDBData.getCustomerByID(customer.UserID);
+        }
+
+        [OperationContract]
+        public void cancelMonthly()
+        {
+            Classes.Customer customer = (Classes.Customer)(HttpContext.Current.Session["New"]);
+
+            CustomerDBData.updateSubscriptionCancellation(customer.UserID, true);
+
+            HttpContext.Current.Session["New"] = CustomerDBData.getCustomerByID(customer.UserID);
+        }
+
+
+        // Yearly
+        [OperationContract]
+        public void subscribeYearly()
+        {
+            Classes.Customer customer = (Classes.Customer)(HttpContext.Current.Session["New"]);
+
+            CustomerDBData.updateMemberStatus(customer.UserID, "yearly");
+
+            DateTime expDate = DateTime.Now.AddYears(1);
+            CustomerDBData.updateSubscriptionExpireDate(customer.UserID, expDate);
+
+            CustomerDBData.updateSubscriptionCancellation(customer.UserID, false);
+
+            HttpContext.Current.Session["New"] = CustomerDBData.getCustomerByID(customer.UserID);
+        }
+
+        [OperationContract]
+        public void cancelYearly()
+        {
+            Classes.Customer customer = (Classes.Customer)(HttpContext.Current.Session["New"]);
+
+            CustomerDBData.updateSubscriptionCancellation(customer.UserID, true);
+
+            HttpContext.Current.Session["New"] = CustomerDBData.getCustomerByID(customer.UserID);
+        }
+
     }
 }

@@ -92,6 +92,7 @@
     <Content Include="Css\LoggedOn\Customer\CustomerNavBar.css" />
     <Content Include="Css\LoggedOn\Customer\CustomerProfile.css" />
     <Content Include="Css\LoggedOn\Customer\InProgressTransaction.css" />
+    <Content Include="Css\LoggedOn\Customer\ManageSubscription.css" />
     <Content Include="Images\cropped_tick.gif" />
     <Content Include="Images\Customer\ProblemType\carBattery.png" />
     <Content Include="Images\Customer\ProblemType\engine.png" />
@@ -126,6 +127,7 @@
     <Content Include="Scripts\LoggedOn\Customer\CustomerNavBar.js" />
     <Content Include="Scripts\LoggedOn\Customer\CustomerProfile.js" />
     <Content Include="Scripts\LoggedOn\Customer\InProgressTransaction.js" />
+    <Content Include="Scripts\LoggedOn\Customer\ManageSubscription.js" />
     <Content Include="Scripts\LoggedOn\Customer\OnLoadCustomer.js" />
     <Content Include="Scripts\OnLoadLoggedOff.js" />
     <Content Include="Scripts\SignIn.js" />
@@ -160,6 +162,7 @@
     <Content Include="WebPages\LoggedOn\Customer\CustomerService.svc" />
     <Content Include="WebPages\LoggedOn\Customer\InProgressTransaction.aspx" />
     <Content Include="WebPages\LoggedOn\Customer\MakeRequest.aspx" />
+    <Content Include="WebPages\LoggedOn\Customer\ManageSubscription.aspx" />
     <Content Include="WebPages\LoggedOn\Customer\Master.aspx" />
   </ItemGroup>
   <ItemGroup>
@@ -351,6 +354,13 @@
     </Compile>
     <Compile Include="WebPages\LoggedOn\Customer\MakeRequest.aspx.designer.cs">
       <DependentUpon>MakeRequest.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPages\LoggedOn\Customer\ManageSubscription.aspx.cs">
+      <DependentUpon>ManageSubscription.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPages\LoggedOn\Customer\ManageSubscription.aspx.designer.cs">
+      <DependentUpon>ManageSubscription.aspx</DependentUpon>
     </Compile>
     <Compile Include="WebPages\LoggedOn\Customer\Master.aspx.cs">
       <DependentUpon>Master.aspx</DependentUpon>

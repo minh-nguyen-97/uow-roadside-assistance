@@ -8,7 +8,7 @@
                 window.history.back();
             }
             else {
-
+                $('#UserNameLabel').text('Welcome, ' + curUser.FullName);
                 var refer = window.location.href;
                 refer = refer.replace('MakeRequest', 'CustomerHomepage');
                 //alert(document.referrer);

@@ -54,7 +54,7 @@
             <div id="navbarNavDropdown" class="navbar-collapse collapse">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="navbar-brand" href="#">
+                        <a class="navbar-brand" href="CustomerHomepage.aspx">
                             <img src="../../../Images/official_logo.gif" width="60" height="60"/><span id="logoText">Daedalus Customer</span>
                         </a>
                     </li>
@@ -91,7 +91,7 @@
                     <span class="icon"><i class='fas fa-user-edit' style='font-size:55px; color:lightgray;'></i></span>
                 </td>
                 <td style="width:5%; height:50px;"></td>
-                <td id="manage-subscription-image" style=" background-color:#172547; ">
+                <td id="manage-subscription-image" style=" background-color:#172547; cursor:pointer " onclick="window.location.href = './ManageSubscription.aspx'">
                 <span class="icon"><i class="fas fa-toolbox" style='font-size:55px; color:lightgray;'></i></span>
                 </td>
             </tr>

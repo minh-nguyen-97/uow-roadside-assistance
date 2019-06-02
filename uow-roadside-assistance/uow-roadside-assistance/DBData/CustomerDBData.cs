@@ -39,8 +39,11 @@ namespace uow_roadside_assistance.DBData
                 int expMonth = Convert.ToInt32(reader["expMonth"]);
                 int expYear = Convert.ToInt32(reader["expYear"]);
                 int CVV = Convert.ToInt32(reader["CVV"]);
+                String memberStatus = Convert.ToString(reader["memberStatus"]).TrimEnd();
+                DateTime subExpDate = Convert.ToDateTime(reader["subExpDate"]);
+                Boolean subCancelled = Convert.ToBoolean(reader["subCancelled"]);
 
-                res = new Customer(userID, username, email, password, userType, fullName, regNo, make, model, color, cardHolder, cardNo, expMonth, expYear, CVV);
+                res = new Customer(userID, username, email, password, userType, fullName, regNo, make, model, color, cardHolder, cardNo, expMonth, expYear, CVV, memberStatus, subExpDate, subCancelled);
             }
 
             conn.Close();
@@ -51,10 +54,17 @@ namespace uow_roadside_assistance.DBData
 
         public static void insertNewCustomer(int userID, String regNo, String make, String model, String color, String cardHolder, String cardNo, int expMonth, int expYear, int CVV)
         {
+            String memberStatus = "nonmember";
+
+            DateTime currentDate = DateTime.Now;
+            String subExpDate = currentDate.ToString("yyyy-MM-dd");
+
+            Boolean subCancelled = false;
+
             SqlConnection conn = Helper.Connection.connectionString;
             conn.Open();
-            String insertQuery = "INSERT INTO dbo.CUSTOMERS(userID, regNo, make, model, color, cardHolder, cardNo, expMonth, expYear, CVV)" +
-                                    "VALUES (@userID, @regNo, @make, @model, @color, @cardHolder, @cardNo, @expMonth, @expYear, @CVV)";
+            String insertQuery = "INSERT INTO dbo.CUSTOMERS(userID, regNo, make, model, color, cardHolder, cardNo, expMonth, expYear, CVV, memberStatus, subExpDate, subCancelled)" +
+                                    "VALUES (@userID, @regNo, @make, @model, @color, @cardHolder, @cardNo, @expMonth, @expYear, @CVV, @memberStatus, @subExpDate, @subCancelled)";
             SqlCommand cmd = new SqlCommand(insertQuery, conn);
             cmd.Parameters.AddWithValue("@userID", userID);
             cmd.Parameters.AddWithValue("@regNo", regNo);
@@ -66,6 +76,9 @@ namespace uow_roadside_assistance.DBData
             cmd.Parameters.AddWithValue("@expMonth", expMonth);
             cmd.Parameters.AddWithValue("@expYear", expYear);
             cmd.Parameters.AddWithValue("@CVV", CVV);
+            cmd.Parameters.AddWithValue("@memberStatus", memberStatus);
+            cmd.Parameters.AddWithValue("@subExpDate", subExpDate);
+            cmd.Parameters.AddWithValue("@subCancelled", subCancelled);
             cmd.ExecuteNonQuery();
 
             conn.Close();
@@ -88,6 +101,53 @@ namespace uow_roadside_assistance.DBData
             cmd.Parameters.AddWithValue("@expMonth", expMonth);
             cmd.Parameters.AddWithValue("@expYear", expYear);
             cmd.Parameters.AddWithValue("@CVV", CVV);
+            cmd.Parameters.AddWithValue("@userID", userID);
+            cmd.ExecuteNonQuery();
+
+            conn.Close();
+        }
+
+        public static void updateMemberStatus(int userID, String memberStatus)
+        {
+            SqlConnection conn = Helper.Connection.connectionString;
+            conn.Open();
+            String updateCustomerQuery = "UPDATE dbo.CUSTOMERS " +
+                                     "SET memberStatus = @memberStatus " +
+                                     "WHERE userID = @userID";
+            SqlCommand cmd = new SqlCommand(updateCustomerQuery, conn);
+            cmd.Parameters.AddWithValue("@memberStatus", memberStatus);
+            cmd.Parameters.AddWithValue("@userID", userID);
+            cmd.ExecuteNonQuery();
+
+            conn.Close();
+        }
+
+        public static void updateSubscriptionExpireDate(int userID, DateTime subExpDate)
+        {
+            String subExpDateStr = subExpDate.ToString("yyyy/MM/dd");
+
+            SqlConnection conn = Helper.Connection.connectionString;
+            conn.Open();
+            String updateCustomerQuery = "UPDATE dbo.CUSTOMERS " +
+                                     "SET subExpDate = @subExpDate " +
+                                     "WHERE userID = @userID";
+            SqlCommand cmd = new SqlCommand(updateCustomerQuery, conn);
+            cmd.Parameters.AddWithValue("@subExpDate", subExpDateStr);
+            cmd.Parameters.AddWithValue("@userID", userID);
+            cmd.ExecuteNonQuery();
+
+            conn.Close();
+        }
+
+        public static void updateSubscriptionCancellation(int userID, Boolean subCancelled)
+        {
+            SqlConnection conn = Helper.Connection.connectionString;
+            conn.Open();
+            String updateCustomerQuery = "UPDATE dbo.CUSTOMERS " +
+                                     "SET subCancelled = @subCancelled " +
+                                     "WHERE userID = @userID";
+            SqlCommand cmd = new SqlCommand(updateCustomerQuery, conn);
+            cmd.Parameters.AddWithValue("@subCancelled", subCancelled);
             cmd.Parameters.AddWithValue("@userID", userID);
             cmd.ExecuteNonQuery();
 
