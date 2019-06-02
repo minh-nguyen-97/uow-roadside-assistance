@@ -152,12 +152,14 @@
     <Content Include="WebPages\LoggedOn\Contractor\ContractorChangePassword.aspx" />
     <Content Include="WebPages\LoggedOn\Contractor\ContractorHomepage.aspx" />
     <Content Include="WebPages\LoggedOn\Contractor\ContractorIncompleteWork.aspx" />
+    <Content Include="WebPages\LoggedOn\Contractor\ContractorPastTransactions.aspx" />
     <Content Include="WebPages\LoggedOn\Contractor\ContractorProfile.aspx" />
     <Content Include="WebPages\LoggedOn\Contractor\ContractorService.svc" />
     <Content Include="WebPages\LoggedOn\Contractor\Master.aspx" />
     <Content Include="WebPages\LoggedOn\Customer\BrowseAvailable.aspx" />
     <Content Include="WebPages\LoggedOn\Customer\CustomerChangePassword.aspx" />
     <Content Include="WebPages\LoggedOn\Customer\CustomerHomepage.aspx" />
+    <Content Include="WebPages\LoggedOn\Customer\CustomerPastTransactions.aspx" />
     <Content Include="WebPages\LoggedOn\Customer\CustomerProfile.aspx" />
     <Content Include="WebPages\LoggedOn\Customer\CustomerService.svc" />
     <Content Include="WebPages\LoggedOn\Customer\InProgressTransaction.aspx" />
@@ -293,6 +295,13 @@
     <Compile Include="WebPages\LoggedOn\Contractor\ContractorIncompleteWork.aspx.designer.cs">
       <DependentUpon>ContractorIncompleteWork.aspx</DependentUpon>
     </Compile>
+    <Compile Include="WebPages\LoggedOn\Contractor\ContractorPastTransactions.aspx.cs">
+      <DependentUpon>ContractorPastTransactions.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPages\LoggedOn\Contractor\ContractorPastTransactions.aspx.designer.cs">
+      <DependentUpon>ContractorPastTransactions.aspx</DependentUpon>
+    </Compile>
     <Compile Include="WebPages\LoggedOn\Contractor\ContractorProfile.aspx.cs">
       <DependentUpon>ContractorProfile.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -330,6 +339,13 @@
     </Compile>
     <Compile Include="WebPages\LoggedOn\Customer\CustomerHomepage.aspx.designer.cs">
       <DependentUpon>CustomerHomepage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPages\LoggedOn\Customer\CustomerPastTransactions.aspx.cs">
+      <DependentUpon>CustomerPastTransactions.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPages\LoggedOn\Customer\CustomerPastTransactions.aspx.designer.cs">
+      <DependentUpon>CustomerPastTransactions.aspx</DependentUpon>
     </Compile>
     <Compile Include="WebPages\LoggedOn\Customer\CustomerProfile.aspx.cs">
       <DependentUpon>CustomerProfile.aspx</DependentUpon>

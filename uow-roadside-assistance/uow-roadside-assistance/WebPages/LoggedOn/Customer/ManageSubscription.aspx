@@ -70,7 +70,7 @@
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="CustomerProfile.aspx">Profile</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Past transactions</a>
+                            <a class="dropdown-item" href="CustomerPastTransactions.aspx">Past transactions</a>
                             <div class="dropdown-divider"></div>
                             <a id="logOutLink" class="dropdown-item">Logout <i class='fas fa-sign-out-alt'></i></a> 
                         </div>

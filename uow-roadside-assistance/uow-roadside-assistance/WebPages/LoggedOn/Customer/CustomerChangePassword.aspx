@@ -53,7 +53,7 @@
             <div id="navbarNavDropdown" class="navbar-collapse collapse">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="navbar-brand" href="#">
+                        <a class="navbar-brand" href="CustomerHomepage.aspx">
                             <img src="../../../Images/official_logo.gif" width="60" height="60"/><span id="logoText">Daedalus Customer</span>
                         </a>
                     </li>
@@ -70,7 +70,7 @@
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="CustomerProfile.aspx">Profile</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Past transactions</a>
+                            <a class="dropdown-item" href="CustomerPastTransactions.aspx">Past transactions</a>
                             <div class="dropdown-divider"></div>
                             <a id="logOutLink" class="dropdown-item">Logout <i class='fas fa-sign-out-alt'></i></a> 
                         </div>
