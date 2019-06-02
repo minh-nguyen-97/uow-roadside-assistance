@@ -24,12 +24,15 @@
     
     <%--Page CSS--%>
     <link rel="stylesheet" href="../../../Css/LoggedOn/Customer/CustomerNavBar.css" />
+    <link rel="stylesheet" href="../../../Css/LoggedOn/Customer/CustomerPastTransactions.css" />
 
     <%--Nav Bar Scripts--%>
     <script type="text/javascript" src="../../../Scripts/LoggedOn/Customer/CustomerNavBar.js"></script>
 
     <%-- Page Scripts --%>
     <script type="text/javascript" src="../../../Scripts/LoggedOn/Customer/OnLoadCustomer.js"></script>
+    <script type="text/javascript" src="../../../Scripts/LoggedOn/Customer/CustomerPastTransactions.js"></script>
+
 </head>
 <body>
 
@@ -84,77 +87,78 @@
         <div class="headerDetails">
             <h2>
                 <span class="underlinedText" style="text-align:center">
-                    Requested Contractors
+                    Past Completed Transactions
                 </span>
                 <span class="icon"><i class="fas fa-list-ul" style='font-size:36px'></i></span>
             </h2>
         </div>
 
         <br /><br />
-        <table class="table table-striped">
-            <thead>
+        <table class="table table-hover">
+            <thead class="thead-light">
                 <tr>
-                    <th scope="col" class="sortable">Contractor <i class="fas fa-sort"></i></th>
-                    <th scope="col" class="sortable">Consultation Fee <i class="fas fa-sort"></i></th>
-                    <th scope="col" class="sortable">Distance (KM) <i class="fas fa-sort"></i></th>
-                    <th scope="col" class="sortable">Rating <i class="fas fa-sort"></i></th>
-                    <th scope="col">Reviews </th>
-                    <th id="statusFilter" scope="col" data-toggle='modal' data-target='#FilterModalCenter'>
-                        Status 
-                        <i class="fas fa-filter" style="color: red"></i>
-                        <i class="fas fa-filter" style="color: yellow"></i>
-                        <i class="fas fa-filter" style="color: green"></i>
-                    </th>
+                    <th scope="col" style="width: 25%" class="sortable">Contractor <i class="fas fa-sort"></i></th>
+                    <th scope="col" style="width: 25%" class="sortable">Cost <i class="fas fa-sort"></i></th>
+                    <th scope="col" style="width: 25%" class="sortable">Transaction Date Time <i class="fas fa-sort"></i></th>
+                    <th scope="col" style="width: 25%" >Review & Rating </th>
                 </tr>
             </thead>
-            <tbody id="availableContractorsTable">
-
-
-<%--                <tr>
+            <tbody id="pastCompletedTransactionTable">
+                <%--<tr>
                     <th scope='row'>Mark Otto</th>
                     <td>$100</td>
                     <td>500</td>
-                    <td>5 <i class='fas fa-star' style='color: greenyellow'></i></td>
-                    <td><button class='btn btn-outline-primary'>View Reviews</button></td>
-                    <td>
-                        <button class='btn btn-warning statusButton' type='button' disabled>
-                          <span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span>
-                          Waiting...
-                        </button>
-                    </td>
+                    <td><button class='btn btn-outline-primary'>View / Modify</button></td>
                 </tr>
                 <tr>
                     <th scope='row'>Fernando Torres</th>
                     <td>$90</td>
                     <td>900</td>
-                    <td>4 <i class='fas fa-star' style='color:greenyellow'></i></td>
-                    <td><button class='btn btn-outline-primary'>View Reviews</button></td>
-                    <td>    
-                        <!-- Button trigger modal -->
-                        <button type='button' class='btn btn-danger statusButton' disabled>
-                          Busy
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope='row'>Jacob Thotton</th>
-                    <td>$80</td>
-                    <td>1000</td>
-                    <td>4.5 <i class='fas fa-star' style='color:greenyellow'></i></td>
-                    <td><button class='btn btn-outline-primary'>View Reviews</button></td>
-                    <td>    
-                        <!-- Button trigger modal -->
-                        <button type='button' class='btn btn-success statusButton' data-toggle='modal' data-target='#ModalCenter'>
-                          Accepted
-                        </button>
-                    </td>
+                    <td><button class='btn btn-outline-primary'>View / Modify</button></td>
                 </tr>--%>
+
             </tbody>
         </table>
 
-        <div style="text-align:center">
-            <button id="CancelRequestButton" class="btn btn-danger" style="width:30%; height:1.5cm">Cancel Request</button>
+    </div>
+
+    <%-- Rating Modal --%>
+
+    <div class="modal fade" id="ModalCenter" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="ModalCenterTitle"><strong>Review and Rating</strong></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <br />
+            <div id="ratingDiv" class="container-fluid" style="text-align:center">
+                <i id="star1" class="far fa-star fa-3x star" style="color: greenyellow"></i>
+                <i id="star2" class="far fa-star fa-3x star" style="color: greenyellow"></i>
+                <i id="star3" class="far fa-star fa-3x star" style="color: greenyellow"></i>
+                <i id="star4" class="far fa-star fa-3x star" style="color: greenyellow"></i>
+                <i id="star5" class="far fa-star fa-3x star" style="color: greenyellow"></i>
+                <div>
+                    <span id="ratingErrMess" style="color:red; display:inline-block; font-size:20px"></span>
+                </div>
+            </div>
+              <br /><br />
+            <div class="container-fluid" style="text-align:center">
+                <textarea id="reviewDesc" class="form-control" rows="9" placeholder="You can let us know how our service was in details (required)"></textarea>
+                <div>
+                    <span id="reviewErrMess" style="color:red; display:inline-block; font-size:20px"></span>
+                </div>
+                <br />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button id="submitReviewButton" type="button" class="btn btn-success mx-auto submitButton">SUBMIT</button>
+          </div>
         </div>
+      </div>
     </div>
 
 </body>

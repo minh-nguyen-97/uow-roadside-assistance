@@ -90,6 +90,7 @@
     <Content Include="Css\LoggedOn\Customer\CustomerHomepage.css" />
     <Content Include="Css\LoggedOn\Customer\CustomerMakeRequest.css" />
     <Content Include="Css\LoggedOn\Customer\CustomerNavBar.css" />
+    <Content Include="Css\LoggedOn\Customer\CustomerPastTransactions.css" />
     <Content Include="Css\LoggedOn\Customer\CustomerProfile.css" />
     <Content Include="Css\LoggedOn\Customer\InProgressTransaction.css" />
     <Content Include="Css\LoggedOn\Customer\ManageSubscription.css" />
@@ -125,6 +126,7 @@
     <Content Include="Scripts\LoggedOn\Customer\CustomerHomepage.js" />
     <Content Include="Scripts\LoggedOn\Customer\CustomerMakeRequest.js" />
     <Content Include="Scripts\LoggedOn\Customer\CustomerNavBar.js" />
+    <Content Include="Scripts\LoggedOn\Customer\CustomerPastTransactions.js" />
     <Content Include="Scripts\LoggedOn\Customer\CustomerProfile.js" />
     <Content Include="Scripts\LoggedOn\Customer\InProgressTransaction.js" />
     <Content Include="Scripts\LoggedOn\Customer\ManageSubscription.js" />
@@ -189,6 +191,7 @@
     <Compile Include="Helper\Contractor\NewWork.cs" />
     <Compile Include="Helper\Contractor\Work.cs" />
     <Compile Include="Helper\Customer\AvailableContractor.cs" />
+    <Compile Include="Helper\Customer\CustomerCompletedTransaction.cs" />
     <Compile Include="Helper\Customer\ReviewDetails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebPages\LoggedOff\Home.aspx.cs">
