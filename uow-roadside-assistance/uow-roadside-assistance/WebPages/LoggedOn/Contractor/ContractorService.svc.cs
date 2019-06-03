@@ -204,6 +204,36 @@ namespace uow_roadside_assistance.WebPages.LoggedOn.Contractor
 
             return new JavaScriptSerializer().Serialize(transaction);
         }
+
+        //Past Transactions
+        [OperationContract]
+        public String getAllPastCompletedTransactions()
+        {
+            Classes.Contractor contractor = (Classes.Contractor)(HttpContext.Current.Session["New"]);
+
+            ArrayList transactions = TransactionDBData.GetCompletedTransactionsByContractorID(contractor.UserID);
+
+            ArrayList result = new ArrayList();
+
+            foreach (Transaction transaction in transactions)
+            {
+                Classes.Customer customer = CustomerDBData.getCustomerByID(transaction.CustomerID);
+
+                Helper.Contractor.ContractorCompletedTransaction completedTransaction = new ContractorCompletedTransaction(customer.FullName, transaction.Cost, transaction.TransactionDate, transaction.TransactionID);
+
+                result.Add(completedTransaction);
+            }
+
+            return new JavaScriptSerializer().Serialize(result);
+        }
+
+        [OperationContract]
+        public String getReviewAndRating(int transactionID)
+        {
+            Review review = ReviewDBData.getReviewsByTransactionID(transactionID);
+
+            return new JavaScriptSerializer().Serialize(review);
+        }
     }
 
 }

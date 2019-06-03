@@ -84,6 +84,7 @@
     <Content Include="Css\LoggedOn\Contractor\ContractorHomepage.css" />
     <Content Include="Css\LoggedOn\Contractor\ContractorIncompleteWork.css" />
     <Content Include="Css\LoggedOn\Contractor\ContractorNavBar.css" />
+    <Content Include="Css\LoggedOn\Contractor\ContractorPastTransactions.css" />
     <Content Include="Css\LoggedOn\Contractor\ContractorProfile.css" />
     <Content Include="Css\LoggedOn\Customer\BrowseAvailable.css" />
     <Content Include="Css\LoggedOn\Customer\CustomerChangePassword.css" />
@@ -119,6 +120,7 @@
     <Content Include="Scripts\LoggedOn\Contractor\ContractorHomepage.js" />
     <Content Include="Scripts\LoggedOn\Contractor\ContractorIncompleteWork.js" />
     <Content Include="Scripts\LoggedOn\Contractor\ContractorNavBar.js" />
+    <Content Include="Scripts\LoggedOn\Contractor\ContractorPastTransactions.js" />
     <Content Include="Scripts\LoggedOn\Contractor\ContractorProfile.js" />
     <Content Include="Scripts\LoggedOn\Contractor\OnLoadContractor.js" />
     <Content Include="Scripts\LoggedOn\Customer\BrowseAvailable.js" />
@@ -187,6 +189,7 @@
     <Compile Include="DBData\TransactionDBData.cs" />
     <Compile Include="DBData\UserDBData.cs" />
     <Compile Include="Helper\Connection.cs" />
+    <Compile Include="Helper\Contractor\ContractorCompletedTransaction.cs" />
     <Compile Include="Helper\Contractor\IncompleteWork.cs" />
     <Compile Include="Helper\Contractor\NewWork.cs" />
     <Compile Include="Helper\Contractor\Work.cs" />
