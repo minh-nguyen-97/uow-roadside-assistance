@@ -10,3 +10,7 @@
     float: right;
     color: #172547;
 }
+
+.sortable {
+    cursor: pointer;
+}

@@ -126,6 +126,22 @@
             </li>
 
             <li class="nav-item">
+                <a class="nav-link navBarElement" href="AppealReviews.aspx">
+                    <div class="selectedLi bg-dark">&nbsp;</div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-2">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="col">
+                                Appeal Reviews
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </li>
+
+            <li class="nav-item">
                 <a  id="logOut" class="nav-link navBarElement" href="#">
                     <div class="selectedLi bg-dark">&nbsp;</div>
                     <div class="container">

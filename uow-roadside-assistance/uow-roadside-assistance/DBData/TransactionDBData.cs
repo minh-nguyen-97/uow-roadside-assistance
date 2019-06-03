@@ -20,7 +20,7 @@ namespace uow_roadside_assistance.DBData
             SqlConnection conn = Helper.Connection.connectionString;
             conn.Open();
 
-            String getTransactionQuery = "SELECT * FROM dbo.TRANSACTIONS WHERE customerFinished = @customerFinished and contractorFinished = @contractorFinished and contractorID = @contractorID";
+            String getTransactionQuery = "SELECT * FROM dbo.TRANSACTIONS WHERE customerFinished = @customerFinished and contractorFinished = @contractorFinished and contractorID = @contractorID ORDER BY transactionDate DESC";
             SqlCommand cmd = new SqlCommand(getTransactionQuery, conn);
             cmd.Parameters.AddWithValue("@customerFinished", customerFinished);
             cmd.Parameters.AddWithValue("@contractorFinished", contractorFinished);
@@ -67,7 +67,7 @@ namespace uow_roadside_assistance.DBData
             SqlConnection conn = Helper.Connection.connectionString;
             conn.Open();
 
-            String getTransactionQuery = "SELECT * FROM dbo.TRANSACTIONS WHERE customerFinished = @customerFinished and contractorFinished = @contractorFinished and customerID = @customerID";
+            String getTransactionQuery = "SELECT * FROM dbo.TRANSACTIONS WHERE customerFinished = @customerFinished and contractorFinished = @contractorFinished and customerID = @customerID ORDER BY transactionDate DESC";
             SqlCommand cmd = new SqlCommand(getTransactionQuery, conn);
             cmd.Parameters.AddWithValue("@customerFinished", customerFinished);
             cmd.Parameters.AddWithValue("@contractorFinished", contractorFinished);

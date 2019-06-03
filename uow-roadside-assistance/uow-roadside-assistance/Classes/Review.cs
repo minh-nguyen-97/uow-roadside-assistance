@@ -49,6 +49,18 @@ namespace uow_roadside_assistance.Classes
             get { return _reviewDate; }
         }
 
+        private Boolean _appeal;
+        public Boolean Appeal
+        {
+            get { return _appeal; }
+        }
+
+        private String _reason;
+        public String Reason
+        {
+            get { return _reason; }
+        }
+
         public Review(int reviewID, String reviewDesc, double rating, int transactionID, int customerID, int contractorID, DateTime reviewDate)
         {
             _reviewID = reviewID;
@@ -58,6 +70,19 @@ namespace uow_roadside_assistance.Classes
             _customerID = customerID;
             _contractorID = contractorID;
             _reviewDate = reviewDate;
+        }
+
+        public Review(int reviewID, String reviewDesc, double rating, int transactionID, int customerID, int contractorID, DateTime reviewDate, Boolean appeal, String reason)
+        {
+            _reviewID = reviewID;
+            _reviewDesc = reviewDesc;
+            _rating = rating;
+            _transactionID = transactionID;
+            _customerID = customerID;
+            _contractorID = contractorID;
+            _reviewDate = reviewDate;
+            _appeal = appeal;
+            _reason = reason;
         }
     }
 }
