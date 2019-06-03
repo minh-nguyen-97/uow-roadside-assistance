@@ -79,6 +79,7 @@
     <Content Include="Css\LoggedOn\Admin\AccountStatistics.css" />
     <Content Include="Css\LoggedOn\Admin\AdminNavBar.css" />
     <Content Include="Css\LoggedOn\Admin\AllTransactions.css" />
+    <Content Include="Css\LoggedOn\Admin\AppealReviews.css" />
     <Content Include="Css\LoggedOn\Contractor\AvailableCustomers.css" />
     <Content Include="Css\LoggedOn\Contractor\ContractorChangePassword.css" />
     <Content Include="Css\LoggedOn\Contractor\ContractorHomepage.css" />
@@ -114,6 +115,7 @@
     <Content Include="Scripts\LoggedOn\Admin\AccountStatistics\TransactionLineChart.js" />
     <Content Include="Scripts\LoggedOn\Admin\AdminNavBar.js" />
     <Content Include="Scripts\LoggedOn\Admin\AllTransactions.js" />
+    <Content Include="Scripts\LoggedOn\Admin\AppealReviews.js" />
     <Content Include="Scripts\LoggedOn\Admin\OnLoadAdmin.js" />
     <Content Include="Scripts\LoggedOn\Contractor\AvailableCustomers.js" />
     <Content Include="Scripts\LoggedOn\Contractor\ContractorChangePassword.js" />
@@ -151,6 +153,7 @@
     <Content Include="WebPages\LoggedOn\Admin\AdminHomepage.aspx" />
     <Content Include="WebPages\LoggedOn\Admin\AdminService.svc" />
     <Content Include="WebPages\LoggedOn\Admin\AllTransactions.aspx" />
+    <Content Include="WebPages\LoggedOn\Admin\AppealReviews.aspx" />
     <Content Include="WebPages\LoggedOn\Admin\Master.aspx" />
     <Content Include="WebPages\LoggedOn\Contractor\AvailableCustomer.aspx" />
     <Content Include="WebPages\LoggedOn\Contractor\ContractorChangePassword.aspx" />
@@ -265,6 +268,13 @@
     </Compile>
     <Compile Include="WebPages\LoggedOn\Admin\AllTransactions.aspx.designer.cs">
       <DependentUpon>AllTransactions.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPages\LoggedOn\Admin\AppealReviews.aspx.cs">
+      <DependentUpon>AppealReviews.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPages\LoggedOn\Admin\AppealReviews.aspx.designer.cs">
+      <DependentUpon>AppealReviews.aspx</DependentUpon>
     </Compile>
     <Compile Include="WebPages\LoggedOn\Admin\Master.aspx.cs">
       <DependentUpon>Master.aspx</DependentUpon>

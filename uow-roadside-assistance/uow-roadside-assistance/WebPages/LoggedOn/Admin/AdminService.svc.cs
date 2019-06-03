@@ -105,6 +105,7 @@ namespace uow_roadside_assistance.WebPages.LoggedOn.Admin
             return new JavaScriptSerializer().Serialize(user);
         }
 
+        // Statistics
         [OperationContract]
         public String GetRatingsStats(int userID)
         {
@@ -193,6 +194,35 @@ namespace uow_roadside_assistance.WebPages.LoggedOn.Admin
         public String GetTransactionsStats(int userID)
         {
             return new JavaScriptSerializer().Serialize(GetCompletedTransactions(userID));
+        }
+
+
+        // Appeal Review
+        [OperationContract]
+        public String getReviewAndRating(int transactionID)
+        {
+            Review review = ReviewDBData.getReviewsByTransactionID(transactionID);
+
+            return new JavaScriptSerializer().Serialize(review);
+        }
+
+        [OperationContract]
+        public String getAppealedReviews()
+        {
+            ArrayList appealedReviews = ReviewDBData.getAppealedReviews();
+            return new JavaScriptSerializer().Serialize(appealedReviews);
+        }
+
+        [OperationContract]
+        public void rejectAppeal(int transactionID)
+        {
+            ReviewDBData.updateAppealAndReason(transactionID, false, "");
+        }
+
+        [OperationContract]
+        public void acceptAppeal(int transactionID)
+        {
+            ReviewDBData.deleteReviewByTransactionID(transactionID);
         }
     }
 }

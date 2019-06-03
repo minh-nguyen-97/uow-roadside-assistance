@@ -234,6 +234,15 @@ namespace uow_roadside_assistance.WebPages.LoggedOn.Contractor
 
             return new JavaScriptSerializer().Serialize(review);
         }
+
+
+        //Appeal Review
+        [OperationContract]
+        public void appealReview(int transactionID, String reason)
+        {
+            ReviewDBData.updateAppealAndReason(transactionID, true, reason);
+        }
+
     }
 
 }

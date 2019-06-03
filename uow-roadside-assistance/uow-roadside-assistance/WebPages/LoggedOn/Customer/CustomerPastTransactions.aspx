@@ -6,7 +6,7 @@
 <head runat="server">
 
     <%--title--%>
-    <title>Customer Master</title>
+    <title>Customer Past Transactions</title>
     
      <%-- jquery and jquery ui --%>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
@@ -97,10 +97,10 @@
         <table class="table table-hover">
             <thead class="thead-light">
                 <tr>
-                    <th scope="col" style="width: 25%" class="sortable">Contractor <i class="fas fa-sort"></i></th>
-                    <th scope="col" style="width: 25%" class="sortable">Cost <i class="fas fa-sort"></i></th>
-                    <th scope="col" style="width: 25%" class="sortable">Transaction Date Time <i class="fas fa-sort"></i></th>
-                    <th scope="col" style="width: 25%" >Review & Rating </th>
+                    <th scope="col" style="width: 20%" class="sortable">Contractor <i class="fas fa-sort"></i></th>
+                    <th scope="col" style="width: 10%" class="sortable">Cost <i class="fas fa-sort"></i></th>
+                    <th scope="col" style="width: 20%" class="sortable">Transaction Date Time <i class="fas fa-sort"></i></th>
+                    <th scope="col" style="width: 30%" >Review & Rating </th>
                 </tr>
             </thead>
             <tbody id="pastCompletedTransactionTable">

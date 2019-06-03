@@ -42,6 +42,44 @@ namespace uow_roadside_assistance.DBData
             return averageRating;
         }
 
+        // Appeal Review
+        public static ArrayList getAppealedReviews()
+        {
+            Boolean appeal = true;
+
+            SqlConnection conn = Helper.Connection.connectionString;
+            conn.Open();
+
+            String getUserNameQuery = "SELECT * FROM dbo.REVIEWS WHERE appeal = @appeal ORDER BY reviewDate DESC";
+            SqlCommand cmd = new SqlCommand(getUserNameQuery, conn);
+            cmd.Parameters.AddWithValue("@appeal", appeal);
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            ArrayList appealedReviews = new ArrayList();
+
+            while (reader.Read())
+            {
+                int reviewID = Convert.ToInt32(reader["reviewID"]);
+                String reviewDesc = Convert.ToString(reader["reviewDesc"]).TrimEnd();
+                double rating = Convert.ToInt32(reader["rating"]);
+                int transactionID = Convert.ToInt32(reader["transactionID"]);
+                int customerID = Convert.ToInt32(reader["customerID"]);
+                int contractorID = Convert.ToInt32(reader["contractorID"]);
+                DateTime reviewDate = Convert.ToDateTime(reader["reviewDate"]);
+
+                // appeal
+                String reason = Convert.ToString(reader["reason"]).TrimEnd();
+
+                Review review = new Review(reviewID, reviewDesc, rating, transactionID, customerID, contractorID, reviewDate, appeal, reason);
+
+                appealedReviews.Add(review);
+            }
+
+            conn.Close();
+
+            return appealedReviews;
+        }
+
         //
         public static Review getReviewsByTransactionID(int transactionID)
         {
@@ -64,7 +102,10 @@ namespace uow_roadside_assistance.DBData
                 int contractorID = Convert.ToInt32(reader["contractorID"]);
                 DateTime reviewDate = Convert.ToDateTime(reader["reviewDate"]);
 
-                review = new Review(reviewID, reviewDesc, rating, transactionID, customerID, contractorID, reviewDate);
+                Boolean appeal = Convert.ToBoolean(reader["appeal"]);
+                String reason = Convert.ToString(reader["reason"]).TrimEnd();
+
+                review = new Review(reviewID, reviewDesc, rating, transactionID, customerID, contractorID, reviewDate, appeal, reason);
             }
 
             conn.Close();
@@ -144,10 +185,13 @@ namespace uow_roadside_assistance.DBData
             DateTime currentDate = DateTime.Now;
             String reviewDate = currentDate.ToString("yyyy-MM-dd HH:mm:ss.fff");
 
+            Boolean appeal = false;
+            String reason = "";
+
             SqlConnection conn = Helper.Connection.connectionString;
             conn.Open();
-            String insertQuery = "INSERT INTO dbo.REVIEWS(reviewDesc, rating, transactionID, customerID, contractorID, reviewDate) " +
-                                    "VALUES (@reviewDesc, @rating, @transactionID, @customerID, @contractorID, @reviewDate)";
+            String insertQuery = "INSERT INTO dbo.REVIEWS(reviewDesc, rating, transactionID, customerID, contractorID, reviewDate, appeal, reason) " +
+                                    "VALUES (@reviewDesc, @rating, @transactionID, @customerID, @contractorID, @reviewDate, @appeal, @reason)";
             SqlCommand cmd = new SqlCommand(insertQuery, conn);
             cmd.Parameters.AddWithValue("@reviewDesc", reviewDesc);
             cmd.Parameters.AddWithValue("@rating", rating);
@@ -155,6 +199,8 @@ namespace uow_roadside_assistance.DBData
             cmd.Parameters.AddWithValue("@customerID", customerID);
             cmd.Parameters.AddWithValue("@contractorID", contractorID);
             cmd.Parameters.AddWithValue("@reviewDate", reviewDate);
+            cmd.Parameters.AddWithValue("@appeal", appeal);
+            cmd.Parameters.AddWithValue("@reason", reason);
             cmd.ExecuteNonQuery();
 
             conn.Close();
@@ -171,6 +217,35 @@ namespace uow_roadside_assistance.DBData
             cmd.Parameters.AddWithValue("@transactionID", transactionID);
             cmd.Parameters.AddWithValue("@reviewDesc", reviewDesc);
             cmd.Parameters.AddWithValue("@rating", rating);
+            cmd.ExecuteNonQuery();
+
+            conn.Close();
+        }
+
+        public static void updateAppealAndReason(int transactionID, Boolean appeal, String reason)
+        {
+
+            SqlConnection conn = Helper.Connection.connectionString;
+            conn.Open();
+            String insertQuery = "UPDATE dbo.REVIEWS SET appeal = @appeal, reason = @reason WHERE transactionID = @transactionID";
+            SqlCommand cmd = new SqlCommand(insertQuery, conn);
+            cmd.Parameters.AddWithValue("@transactionID", transactionID);
+            cmd.Parameters.AddWithValue("@appeal", appeal);
+            cmd.Parameters.AddWithValue("@reason", reason);
+            cmd.ExecuteNonQuery();
+
+            conn.Close();
+        }
+
+        // DELETE
+        public static void deleteReviewByTransactionID(int transactionID)
+        {
+
+            SqlConnection conn = Helper.Connection.connectionString;
+            conn.Open();
+            String insertQuery = "DELETE FROM dbo.REVIEWS WHERE transactionID = @transactionID";
+            SqlCommand cmd = new SqlCommand(insertQuery, conn);
+            cmd.Parameters.AddWithValue("@transactionID", transactionID);
             cmd.ExecuteNonQuery();
 
             conn.Close();

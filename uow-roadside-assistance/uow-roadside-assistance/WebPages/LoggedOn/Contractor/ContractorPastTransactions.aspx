@@ -6,7 +6,7 @@
 <head runat="server">
 
     <%--title--%>
-    <title>Contractor Master</title>
+    <title>Contractor Past Transactions</title>
     
      <%-- jquery and jquery ui --%>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
@@ -97,10 +97,10 @@
         <table class="table table-hover">
             <thead class="thead-light">
                 <tr>
-                    <th scope="col" style="width: 25%" class="sortable">Contractor <i class="fas fa-sort"></i></th>
-                    <th scope="col" style="width: 25%" class="sortable">Cost <i class="fas fa-sort"></i></th>
-                    <th scope="col" style="width: 25%" class="sortable">Transaction Date Time <i class="fas fa-sort"></i></th>
-                    <th scope="col" style="width: 25%" >Review & Rating </th>
+                    <th scope="col" style="width: 15%" class="sortable">Customer <i class="fas fa-sort"></i></th>
+                    <th scope="col" style="width: 10%" class="sortable">Cost <i class="fas fa-sort"></i></th>
+                    <th scope="col" style="width: 30%" class="sortable">Transaction Date Time <i class="fas fa-sort"></i></th>
+                    <th scope="col" style="width: 40%" >Review & Rating </th>
                 </tr>
             </thead>
             <tbody id="pastCompletedTransactionTable">
@@ -155,6 +155,35 @@
             </div>
           </div>
 
+        </div>
+      </div>
+    </div>
+
+     <%-- Appeal Modal --%>
+
+    <div class="modal fade" id="AppealModalCenter" tabindex="-1" role="dialog" aria-labelledby="AppealModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="AppealModalCenterTitle"><strong>APPEAL REASON</strong></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <br /><br />
+            <div class="container-fluid" style="text-align:center">
+                <textarea id="appealReason" class="form-control" rows="9" placeholder="Please enter your reason(s) for appealing this transaction review (required)" ></textarea>
+                <div>
+                    <span id="appealReasonErrMess" style="color:red; display:inline-block; font-size:20px"></span>
+                </div>
+                <br /><br />
+                <button id="submitAppealButton" class="btn btn-success submitAppealButton" style="width:8cm; height:1.3cm">SUBMIT APPEAL REQUEST</button>
+                <br /><br />
+            </div>
+          </div>
+
+            
         </div>
       </div>
     </div>
