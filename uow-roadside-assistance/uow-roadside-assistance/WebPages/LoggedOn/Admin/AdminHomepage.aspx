@@ -24,12 +24,17 @@
     
     <%--Page CSS--%>
     <link rel="stylesheet" href="../../../Css/LoggedOn/Admin/AdminNavBar.css" />
+    <link rel="stylesheet" href="../../../Css/LoggedOn/Admin/AdminHomepage.css" />
 
     <%--Nav Bar Scripts--%>
     <script type="text/javascript" src="../../../Scripts/LoggedOn/Admin/AdminNavBar.js"></script>
 
     <%-- Page Scripts --%>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
     <script type="text/javascript" src="../../../Scripts/LoggedOn/Admin/OnLoadAdmin.js"></script>
+
+    
 
 </head>
 <body>
@@ -164,10 +169,71 @@
     <div id="content">
         <%-- Page Content --%>
         
-            
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-header">
+                            <span id="6MonthsTransactions"></span> transactions over last 6 months
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container" style="position: relative; height:400px; width:400px; margin-left:50px">
+                                <canvas id="transactionBarChart" width="300" height="300"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br /> <br />
+                    <div class="card">
+                        <div class="card-header">
+                            Completed Transactions
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <span class="infoLabel">Total Completed Transactions</span>
+                                <span id="TotalTransactions" class="infoValue"></span>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="infoLabel">Rated Transactions</span>
+                                <span id="RatedTransactions" class="infoValue"></span>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="infoLabel">Good Rating (greater than 3 <i class="fas fa-star" style="color: yellowgreen"></i> )</span>
+                                <span id="GoodRating" class="infoValue"></span>
+                            </li>
+                        </ul>
+                        
+                        <div class="card-body" >
+                            <div class="chart-container" style="position: relative; height:400px; width:400px; margin-left:50px">
+                                <canvas id="ratingPieChart" width="300" height="300"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <div class="card-header">
+                            Average ratings over last 6 months
+                        </div>
+                        <div class="card-body" >
+                            <div class="chart-container" style="position: relative; height:450px; width:450px; margin-top: 2cm; margin-bottom: 2cm; margin-left: 1cm">
+                                <canvas id="avgRatingLineChart" width="300" height="300"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <%-- End of Page Content --%>
     </div>
+
+    <br /><br />
+
+    <script type="text/javascript" src="../../../Scripts/LoggedOn/Admin/AdminHomepage.js"></script>
+    <script type="text/javascript" src="../../../Scripts/LoggedOn/Admin/AdminHomepageStats/TransactionsBarChart.js"></script>
+    <script type="text/javascript" src="../../../Scripts/LoggedOn/Admin/AdminHomepageStats/RatingPieChart.js"></script>
+    <script type="text/javascript" src="../../../Scripts/LoggedOn/Admin/AdminHomepageStats/RatingLineChart.js"></script>
 
 </body>
 </html>

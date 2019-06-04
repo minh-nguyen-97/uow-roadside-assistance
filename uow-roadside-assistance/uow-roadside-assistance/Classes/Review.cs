@@ -49,6 +49,11 @@ namespace uow_roadside_assistance.Classes
             get { return _reviewDate; }
         }
 
+        public String ReviewDateToString
+        {
+            get { return _reviewDate.ToString("yyyy/MM/dd HH:mm:ss"); }
+        }
+
         private Boolean _appeal;
         public Boolean Appeal
         {

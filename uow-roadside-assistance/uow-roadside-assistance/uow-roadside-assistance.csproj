@@ -77,6 +77,7 @@
     <Content Include="Css\LoggedOff\SignUp\SignUpCustomer.css" />
     <Content Include="Css\LoggedOff\SlideShow.css" />
     <Content Include="Css\LoggedOn\Admin\AccountStatistics.css" />
+    <Content Include="Css\LoggedOn\Admin\AdminHomepage.css" />
     <Content Include="Css\LoggedOn\Admin\AdminNavBar.css" />
     <Content Include="Css\LoggedOn\Admin\AllTransactions.css" />
     <Content Include="Css\LoggedOn\Admin\AppealReviews.css" />
@@ -113,6 +114,10 @@
     <Content Include="Scripts\LoggedOn\Admin\AccountStatistics\DoughnutRating.js" />
     <Content Include="Scripts\LoggedOn\Admin\AccountStatistics\ProblemBarChart.js" />
     <Content Include="Scripts\LoggedOn\Admin\AccountStatistics\TransactionLineChart.js" />
+    <Content Include="Scripts\LoggedOn\Admin\AdminHomepage.js" />
+    <Content Include="Scripts\LoggedOn\Admin\AdminHomepageStats\RatingLineChart.js" />
+    <Content Include="Scripts\LoggedOn\Admin\AdminHomepageStats\RatingPieChart.js" />
+    <Content Include="Scripts\LoggedOn\Admin\AdminHomepageStats\TransactionsBarChart.js" />
     <Content Include="Scripts\LoggedOn\Admin\AdminNavBar.js" />
     <Content Include="Scripts\LoggedOn\Admin\AllTransactions.js" />
     <Content Include="Scripts\LoggedOn\Admin\AppealReviews.js" />

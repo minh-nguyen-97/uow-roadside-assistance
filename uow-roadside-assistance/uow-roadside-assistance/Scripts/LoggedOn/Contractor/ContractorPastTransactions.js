@@ -129,6 +129,10 @@ function sortByColumn(columnNum) {
 
             }
 
+            var tmpID = table[i].id;
+            table[i].id = table[bestIdx].id;
+            table[bestIdx].id = tmpID;
+
             var tmp = table[i].innerHTML;
             table[i].innerHTML = table[bestIdx].innerHTML;
             table[bestIdx].innerHTML = tmp;
