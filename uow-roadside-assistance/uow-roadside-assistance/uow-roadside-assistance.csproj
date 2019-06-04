@@ -115,6 +115,7 @@
     <Content Include="Scripts\LoggedOn\Admin\AccountStatistics\ProblemBarChart.js" />
     <Content Include="Scripts\LoggedOn\Admin\AccountStatistics\TransactionLineChart.js" />
     <Content Include="Scripts\LoggedOn\Admin\AdminHomepage.js" />
+    <Content Include="Scripts\LoggedOn\Admin\AdminHomepageStats\CostHorizontalBarChart.js" />
     <Content Include="Scripts\LoggedOn\Admin\AdminHomepageStats\RatingLineChart.js" />
     <Content Include="Scripts\LoggedOn\Admin\AdminHomepageStats\RatingPieChart.js" />
     <Content Include="Scripts\LoggedOn\Admin\AdminHomepageStats\TransactionsBarChart.js" />
