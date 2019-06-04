@@ -53,11 +53,11 @@ namespace uow_roadside_assistance.WebPages.LoggedOff
 
         //
         [OperationContract]
-        public Boolean createNewContractor(String username, String email, String password, String fullName, String accountName, String accountNumber, String bsb)
+        public String createNewContractor(String username, String email, String password, String fullName, String accountName, String accountNumber, String bsb)
         {
             if (UserDBData.IsExist(username))
             {
-                return false;
+                return "Existed";
             }
 
             UserDBData.insertNewUser(username, email, password, "Contractor", fullName);
@@ -67,7 +67,16 @@ namespace uow_roadside_assistance.WebPages.LoggedOff
 
             ContractorDBData.insertNewContractor(userID, accountName, accountNumber, BSB);
 
-            return true;
+            Boolean addressForNewContractor = AddressDBData.findContractorAddress(userID);
+
+            if (addressForNewContractor == false)
+            {
+                UserDBData.deleteUserByUserID(userID);
+                ContractorDBData.deleteContractorByUserID(userID);
+                return "Overlimit";
+            }
+
+            return "OK";
         }
 
         //

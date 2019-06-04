@@ -42,6 +42,28 @@ namespace uow_roadside_assistance.DBData
             return res;
         }
 
+        // 
+        public static int getNumberOfContractors()
+        {
+
+            SqlConnection conn = Helper.Connection.connectionString;
+            conn.Open();
+
+            String countContractorsQuery = "SELECT COUNT(*) AS total FROM dbo.CONTRACTORS";
+            SqlCommand cmd = new SqlCommand(countContractorsQuery, conn);
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            int res = 0;
+            if (reader.Read())
+            {
+                res = Convert.ToInt32(reader["total"]);
+            }
+
+            conn.Close();
+
+            return res;
+        }
+
         // Insert 
         public static void insertNewContractor(int userID, String accountName, String accountNumber, int BSB)
         {
@@ -74,6 +96,19 @@ namespace uow_roadside_assistance.DBData
             cmd.Parameters.AddWithValue("@BSB", BSB);
             cmd.ExecuteNonQuery();
 
+            conn.Close();
+        }
+
+        // DELETE
+        public static void deleteContractorByUserID(int userID)
+        {
+            SqlConnection conn = Helper.Connection.connectionString;
+            conn.Open();
+
+            String updateUserQuery = "DELETE FROM dbo.CONTRACTORS WHERE userID = @userID";
+            SqlCommand cmd = new SqlCommand(updateUserQuery, conn);
+            cmd.Parameters.AddWithValue("@userID", userID);
+            cmd.ExecuteNonQuery();
             conn.Close();
         }
 

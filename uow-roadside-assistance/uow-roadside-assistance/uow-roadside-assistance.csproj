@@ -160,6 +160,7 @@
     <Content Include="WebPages\LoggedOn\Admin\AdminService.svc" />
     <Content Include="WebPages\LoggedOn\Admin\AllTransactions.aspx" />
     <Content Include="WebPages\LoggedOn\Admin\AppealReviews.aspx" />
+    <Content Include="WebPages\LoggedOn\Admin\ManageContractors.aspx" />
     <Content Include="WebPages\LoggedOn\Admin\Master.aspx" />
     <Content Include="WebPages\LoggedOn\Contractor\AvailableCustomer.aspx" />
     <Content Include="WebPages\LoggedOn\Contractor\ContractorChangePassword.aspx" />
@@ -281,6 +282,13 @@
     </Compile>
     <Compile Include="WebPages\LoggedOn\Admin\AppealReviews.aspx.designer.cs">
       <DependentUpon>AppealReviews.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPages\LoggedOn\Admin\ManageContractors.aspx.cs">
+      <DependentUpon>ManageContractors.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPages\LoggedOn\Admin\ManageContractors.aspx.designer.cs">
+      <DependentUpon>ManageContractors.aspx</DependentUpon>
     </Compile>
     <Compile Include="WebPages\LoggedOn\Admin\Master.aspx.cs">
       <DependentUpon>Master.aspx</DependentUpon>

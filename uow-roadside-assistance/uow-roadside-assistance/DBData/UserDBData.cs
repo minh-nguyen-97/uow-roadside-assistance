@@ -193,5 +193,18 @@ namespace uow_roadside_assistance.DBData
             conn.Close();
         }
 
+        // DELETE
+        public static void deleteUserByUserID(int userID)
+        {
+            SqlConnection conn = Helper.Connection.connectionString;
+            conn.Open();
+
+            String updateUserQuery = "DELETE FROM dbo.USERS WHERE userID = @userID";
+            SqlCommand cmd = new SqlCommand(updateUserQuery, conn);
+            cmd.Parameters.AddWithValue("@userID", userID);
+            cmd.ExecuteNonQuery();
+            conn.Close();
+        }
+
     }
 }
