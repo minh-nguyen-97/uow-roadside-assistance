@@ -13,6 +13,12 @@ namespace uow_roadside_assistance.DBData
         public static Contractor getContractorByID(int userID)
         {
             User getUser = UserDBData.getUserByID(userID);
+
+            if (getUser == null)
+            {
+                return null;
+            }
+
             String username = getUser.UserName;
             String email = getUser.Email;
             String password = getUser.Password;
