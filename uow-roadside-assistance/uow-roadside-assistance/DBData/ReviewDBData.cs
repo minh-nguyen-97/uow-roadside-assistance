@@ -11,6 +11,89 @@ namespace uow_roadside_assistance.DBData
 {
     public class ReviewDBData
     {
+        //
+        public static ArrayList getAllReviews()
+        {
+
+            SqlConnection conn = Helper.Connection.connectionString;
+            conn.Open();
+
+            String getUserNameQuery = "SELECT * FROM dbo.REVIEWS";
+            SqlCommand cmd = new SqlCommand(getUserNameQuery, conn);
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            ArrayList reviews = new ArrayList();
+
+            while (reader.Read())
+            {
+                int reviewID = Convert.ToInt32(reader["reviewID"]);
+                String reviewDesc = Convert.ToString(reader["reviewDesc"]).TrimEnd();
+                double rating = Convert.ToInt32(reader["rating"]);
+                int transactionID = Convert.ToInt32(reader["transactionID"]);
+                int customerID = Convert.ToInt32(reader["customerID"]);
+                int contractorID = Convert.ToInt32(reader["contractorID"]);
+                DateTime reviewDate = Convert.ToDateTime(reader["reviewDate"]);
+
+                Boolean appeal = Convert.ToBoolean(reader["appeal"]);
+                String reason = Convert.ToString(reader["reason"]).TrimEnd();
+
+                Review review = new Review(reviewID, reviewDesc, rating, transactionID, customerID, contractorID, reviewDate, appeal, reason);
+
+                reviews.Add(review);
+            }
+
+            conn.Close();
+
+            return reviews;
+        }
+
+        // 
+        public static int getTotalNumberOfReviews()
+        {
+            SqlConnection conn = Helper.Connection.connectionString;
+
+            conn.Open();
+
+            String getUserNameQuery = "SELECT COUNT(*) AS totalReviews FROM dbo.REVIEWS";
+            SqlCommand cmd = new SqlCommand(getUserNameQuery, conn);
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            int res = 0;
+
+            if (reader.Read())
+            {
+                res = Convert.ToInt32(reader["totalReviews"]);
+            }
+
+            conn.Close();
+
+            return res;
+        }
+
+        //
+        public static int getNumberOfGoodRatings()
+        {
+            SqlConnection conn = Helper.Connection.connectionString;
+
+            conn.Open();
+
+            String getUserNameQuery = "SELECT COUNT(*) AS numOfGoodRatings FROM dbo.REVIEWS WHERE rating > 3";
+            SqlCommand cmd = new SqlCommand(getUserNameQuery, conn);
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            int res = 0;
+
+            if (reader.Read())
+            {
+                res = Convert.ToInt32(reader["numOfGoodRatings"]);
+            }
+
+            conn.Close();
+
+            return res;
+        }
+
+        // 
         public static double getAverageRatingByContractorID(int contractorID)
         {
             SqlConnection conn = Helper.Connection.connectionString;

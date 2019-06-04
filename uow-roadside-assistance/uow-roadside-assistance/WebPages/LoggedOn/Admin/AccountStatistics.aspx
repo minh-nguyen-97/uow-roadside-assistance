@@ -302,7 +302,7 @@
 
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
-                                <span class="infoLabel">Completed Transactions</span>
+                                <span class="infoLabel">Rated Transactions</span>
                                 <span id="TotalTransactions" class="infoValue"></span>
                             </li>
                             <li class="list-group-item">

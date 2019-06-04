@@ -224,5 +224,28 @@ namespace uow_roadside_assistance.WebPages.LoggedOn.Admin
         {
             ReviewDBData.deleteReviewByTransactionID(transactionID);
         }
+
+        // Homepage Report
+        [OperationContract]
+        public String GetRatingsStatsReport()
+        {
+            ArrayList res = new ArrayList();
+
+            ArrayList completedTransactions = TransactionDBData.GetCompletedTransactions();
+            res.Add(completedTransactions.Count);
+
+            res.Add(ReviewDBData.getTotalNumberOfReviews());
+            res.Add(ReviewDBData.getNumberOfGoodRatings());
+
+            return new JavaScriptSerializer().Serialize(res);
+        }
+
+        [OperationContract]
+        public String GetAllRatings()
+        {
+            ArrayList allReviews = ReviewDBData.getAllReviews();
+            return new JavaScriptSerializer().Serialize(allReviews);
+        }
+
     }
 }
