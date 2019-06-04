@@ -44,3 +44,10 @@ thead i {
     height: 1.3cm;
     width: 30%;
 }
+
+.scrollableTable {
+    position: relative;
+    height: 400px;
+    overflow: auto;
+    display: block;
+}

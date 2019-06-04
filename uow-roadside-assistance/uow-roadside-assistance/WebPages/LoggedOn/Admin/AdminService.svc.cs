@@ -247,5 +247,20 @@ namespace uow_roadside_assistance.WebPages.LoggedOn.Admin
             return new JavaScriptSerializer().Serialize(allReviews);
         }
 
+        // Manage Contractors
+        [OperationContract]
+        public String GetAllContractorUsers()
+        {
+            ArrayList contractors = UserDBData.getUsersByUserType("Contractor");
+            return new JavaScriptSerializer().Serialize(contractors);
+        }
+
+        [OperationContract]
+        public void deleteContractor(int contractorID)
+        {
+            UserDBData.deleteUserByUserID(contractorID);
+            ContractorDBData.deleteContractorByUserID(contractorID);
+            ResponseDBData.deleteResponseByContractorID(contractorID);
+        }
     }
 }

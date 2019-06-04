@@ -1,0 +1,19 @@
+﻿.headerDetails {
+    text-align: center;
+}
+
+.underlinedText {
+    border-bottom: 1px solid gray;
+}
+
+.icon {
+    float: right;
+    color: #172547;
+}
+
+.scrollableTable {
+    position: relative;
+    height: 400px;
+    overflow: auto;
+    display: block;
+}

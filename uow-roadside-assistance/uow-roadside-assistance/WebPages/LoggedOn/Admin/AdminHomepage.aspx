@@ -100,7 +100,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link navBarElement" href="#">
+                <a class="nav-link navBarElement" href="ManageContractors.aspx">
                     <div class="selectedLi bg-dark">&nbsp;</div>
                     <div class="container">
                         <div class="row">
@@ -108,7 +108,7 @@
                                 <i class="fas fa-users-cog"></i>
                             </div>
                             <div class="col">
-                                Manage Accounts
+                                Manage Contractors
                             </div>
                         </div>
                     </div>
