@@ -104,7 +104,19 @@ namespace uow_roadside_assistance.WebPages.LoggedOn.Customer
         public String getAllContractorsAddresses()
         {
             ArrayList contractorsAddresses = AddressDBData.getAddressByUserType("Contractor");
-            return new JavaScriptSerializer().Serialize(contractorsAddresses);
+
+            ArrayList validContractorAddresses = new ArrayList();
+
+            foreach (Address address in contractorsAddresses)
+            {
+                User user = UserDBData.getUserByID(address.UserID);
+                if (user != null && user.UserType.Equals("Contractor"))
+                {
+                    validContractorAddresses.Add(address);
+                }
+            }
+
+            return new JavaScriptSerializer().Serialize(validContractorAddresses);
         }
 
         [OperationContract]

@@ -63,5 +63,90 @@ namespace uow_roadside_assistance.DBData
 
             return res;
         }
+
+        // find hardcode address for contractor
+        public static int getNumberOfContractorAddresses()
+        {
+
+            SqlConnection conn = Helper.Connection.connectionString;
+            conn.Open();
+
+            String countAddressQuery = "SELECT COUNT(*) AS total FROM dbo.ADDRESS";
+            SqlCommand cmd = new SqlCommand(countAddressQuery, conn);
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            int res = 0;
+            if (reader.Read())
+            {
+                res = Convert.ToInt32(reader["total"]);
+            }
+
+            conn.Close();
+
+            return res;
+        }
+
+        public static int getOneUnassignedAddress()
+        {
+            SqlConnection conn = Helper.Connection.connectionString;
+            conn.Open();
+
+            String getOneUnassignedAddressQuery = "SELECT TOP 1 userID from ADDRESS WHERE userID NOT IN ( select userID from CONTRACTORS)";
+            SqlCommand cmd = new SqlCommand(getOneUnassignedAddressQuery, conn);
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            int unassignedAddressOldUserID = 0;
+            if (reader.Read())
+            {
+                unassignedAddressOldUserID = Convert.ToInt32(reader["userID"]);
+            }
+
+            conn.Close();
+
+            return unassignedAddressOldUserID;
+
+            
+        }
+
+
+        public static Boolean findContractorAddress(int newContractorID)
+        {
+            int maxContractorLimit = getNumberOfContractorAddresses();
+
+            int numOfContractors = ContractorDBData.getNumberOfContractors();
+            int numOfContractorsBeforeInsertion = numOfContractors - 1;
+
+            if (numOfContractorsBeforeInsertion + 1 > maxContractorLimit)
+            {
+                return false;
+            }
+
+            Address newContractorIDExistedInAddress = AddressDBData.getAddressByUserID(newContractorID);
+
+            if (newContractorIDExistedInAddress == null)
+            {
+                int oldUserID = getOneUnassignedAddress();
+
+                updateUserIDForNewContractor(newContractorID, oldUserID);
+            }
+
+            return true;
+        }
+
+        //
+        public static void updateUserIDForNewContractor(int newContractorID, int oldUserID)
+        {
+            SqlConnection conn = Helper.Connection.connectionString;
+            conn.Open();
+
+            String updateQuery = "UPDATE dbo.ADDRESS SET userID = @newContractorID WHERE userID = @oldUserID";
+            SqlCommand cmd = new SqlCommand(updateQuery, conn);
+            cmd.Parameters.AddWithValue("@newContractorID", newContractorID);
+            cmd.Parameters.AddWithValue("@oldUserID", oldUserID);
+            cmd.ExecuteNonQuery();
+
+            conn.Close();
+          
+        }
     }
 }

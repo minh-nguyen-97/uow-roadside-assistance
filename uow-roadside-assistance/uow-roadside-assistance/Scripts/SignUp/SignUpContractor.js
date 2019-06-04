@@ -29,10 +29,17 @@
     });
 
     function onContractorRegister(res) {
-        if (res)
+        if (res == 'OK') {
             window.location.href = './SuccessfulRegistration.aspx';
-        else
-            alert('Username has been used. Please choose another !!!');
+        }
+        else {
+            if (res == 'Existed') {
+                alert('Username has been used. Please choose another !!!');
+
+            } else {
+                alert('We are sorry that number of our contractor has reach the limit !!!');
+            }
+        }
     }
     
 });
