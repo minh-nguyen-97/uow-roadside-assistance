@@ -20,6 +20,37 @@ function loadAllInformation() {
     loadTransactionsBarChart();
     loadAvgRatingsLineChart();
     loadRatingPieChart();
+    loadCostHorizontalBarChart();
+}
+
+function loadCostHorizontalBarChart() {
+    AdminService.getAllTransactions(function (result) {
+        var res = JSON.parse(result);
+
+        var jan = 0;
+        var feb = 0;
+        var mar = 0;
+        var apr = 0;
+        var may = 0;
+        var jun = 0;
+
+        for (var i = 0; i < res.length; i++) {
+            if (res[i].TransactionDateToString.includes('2019/01'))
+                jan += res[i].Cost;
+            if (res[i].TransactionDateToString.includes('2019/02'))
+                feb += res[i].Cost;
+            if (res[i].TransactionDateToString.includes('2019/03'))
+                mar += res[i].Cost;
+            if (res[i].TransactionDateToString.includes('2019/04'))
+                apr += res[i].Cost;
+            if (res[i].TransactionDateToString.includes('2019/05'))
+                may += res[i].Cost;
+            if (res[i].TransactionDateToString.includes('2019/06'))
+                jun += res[i].Cost;
+        }
+
+        plotCostHorizontalBarChart([jan, feb, mar, apr, may, jun]);
+    });
 }
 
 function loadTransactionsBarChart() {
@@ -52,7 +83,7 @@ function loadTransactionsBarChart() {
         $('#6MonthsTransactions').text(total);
 
         plotTransactionsBarChart([jan, feb, mar, apr, may, jun]);
-    })
+    });
 }
 
 function loadAvgRatingsLineChart() {
@@ -128,3 +159,34 @@ function loadRatingPieChart() {
 
     });
 }
+
+function isScrolledIntoView(elem) {
+    var docViewTop = $(window).scrollTop();
+    var docViewBottom = docViewTop + $(window).height();
+
+    var elemTop = $(elem).offset().top;
+    var elemBottom = elemTop + $(elem).height();
+
+    return ((elemTop <= docViewBottom) && (elemBottom >= docViewTop));
+}
+
+var pieInView = false;
+var costInView = false;
+
+$(window).scroll(function () {
+    if (isScrolledIntoView('#ratingPieChart')) {
+        if (pieInView) { return; }
+        pieInView = true;
+        loadRatingPieChart();
+    } else {
+        pieInView = false;
+    }
+
+    if (isScrolledIntoView('#costHorizonalBarChart')) {
+        if (costInView) { return; }
+        costInView = true;
+        loadCostHorizontalBarChart();
+    } else {
+        costInView = false;
+    }
+});

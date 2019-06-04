@@ -221,6 +221,17 @@
                             </div>
                         </div>
                     </div>
+                    <br />
+                    <div class="card">
+                        <div class="card-header">
+                            Transaction costs over last 6 months
+                        </div>
+                        <div class="card-body" >
+                            <div class="chart-container" style="position: relative; height:450px; width:450px; margin-left: 10px">
+                                <canvas id="costHorizonalBarChart" width="300" height="300"></canvas>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -228,12 +239,13 @@
         <%-- End of Page Content --%>
     </div>
 
-    <br /><br />
+    <br /><br /><br />
 
     <script type="text/javascript" src="../../../Scripts/LoggedOn/Admin/AdminHomepage.js"></script>
     <script type="text/javascript" src="../../../Scripts/LoggedOn/Admin/AdminHomepageStats/TransactionsBarChart.js"></script>
-    <script type="text/javascript" src="../../../Scripts/LoggedOn/Admin/AdminHomepageStats/RatingPieChart.js"></script>
     <script type="text/javascript" src="../../../Scripts/LoggedOn/Admin/AdminHomepageStats/RatingLineChart.js"></script>
+    <script type="text/javascript" src="../../../Scripts/LoggedOn/Admin/AdminHomepageStats/RatingPieChart.js"></script>
+    <script type="text/javascript" src="../../../Scripts/LoggedOn/Admin/AdminHomepageStats/CostHorizontalBarChart.js"></script>
 
 </body>
 </html>
