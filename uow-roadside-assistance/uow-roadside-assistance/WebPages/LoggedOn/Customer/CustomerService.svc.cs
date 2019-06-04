@@ -369,11 +369,15 @@ namespace uow_roadside_assistance.WebPages.LoggedOn.Customer
 
             foreach(Transaction transaction in transactions)
             {
-                Classes.Contractor contractor = ContractorDBData.getContractorByID(transaction.ContractorID);
+                Classes.Contractor contractor = ContractorDBData.getContractorByID(transaction.ContractorID);                
 
-                Helper.Customer.CustomerCompletedTransaction completedTransaction = new CustomerCompletedTransaction(contractor.FullName, transaction.Cost, transaction.TransactionDate, transaction.TransactionID);
+                if (contractor != null)
+                {
+                    Helper.Customer.CustomerCompletedTransaction completedTransaction = new CustomerCompletedTransaction(contractor.FullName, transaction.Cost, transaction.TransactionDate, transaction.TransactionID);
+                    result.Add(completedTransaction);
+                }
 
-                result.Add(completedTransaction);
+
             }
 
             return new JavaScriptSerializer().Serialize(result);
