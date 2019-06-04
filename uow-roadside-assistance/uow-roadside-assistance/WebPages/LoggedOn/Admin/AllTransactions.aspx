@@ -103,7 +103,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link navBarElement" href="#">
+                <a class="nav-link navBarElement" href="ManageContractors.aspx">
                     <div class="selectedLi bg-dark">&nbsp;</div>
                     <div class="container">
                         <div class="row">
@@ -111,7 +111,7 @@
                                 <i class="fas fa-users-cog"></i>
                             </div>
                             <div class="col">
-                                Manage Accounts
+                                Manage Contractors
                             </div>
                         </div>
                     </div>
@@ -183,34 +183,37 @@
 
             <br /><br />
 
-            <table class="table table-hover table-bordered">
-                <thead class="thead-dark">
-                <tr>
-                    <th scope="col" class="filterHeader" style="width:17%" data-toggle='modal' data-target='#FilterModalCenter' data-filtertype="Transaction">
-                        Transaction ID <i class="fas fa-filter"></i>
-                    </th>
-                    <th scope="col" class="filterHeader" style="width:17%" data-toggle='modal' data-target='#FilterModalCenter' data-filtertype="Contractor">
-                        Contractor ID <i class="fas fa-filter"></i>
-                    </th>
-                    <th scope="col" class="filterHeader" style="width:17%" data-toggle='modal' data-target='#FilterModalCenter' data-filtertype="Customer">
-                        Customer ID <i class="fas fa-filter"></i>
-                    </th>
-                    <th scope="col" style="width:17%">Cost</th>
-                    <th scope="col" class="filterHeader" style="width:32%" data-toggle='modal' data-target='#FilterDateModalCenter'>
-                        Transaction Date & Time <i class="fas fa-calendar-alt"></i>
-                    </th>
-                </tr>
-                </thead>
-                <tbody id="allTransactionsTable">
-                    <%--<tr>
-                        <td>1</td>
-                        <td>2</td>
-                        <td>3</td>
-                        <td>$3.5</td>
-                        <td>2019-05-16 01:21:23.990</td>
-                    </tr>--%>
-                </tbody>
-            </table>
+            <div class="scrollableTable">
+                <table class="table table-hover table-bordered">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col" class="filterHeader" style="width:17%" data-toggle='modal' data-target='#FilterModalCenter' data-filtertype="Transaction">
+                            Transaction ID <i class="fas fa-filter"></i>
+                        </th>
+                        <th scope="col" class="filterHeader" style="width:17%" data-toggle='modal' data-target='#FilterModalCenter' data-filtertype="Contractor">
+                            Contractor ID <i class="fas fa-filter"></i>
+                        </th>
+                        <th scope="col" class="filterHeader" style="width:17%" data-toggle='modal' data-target='#FilterModalCenter' data-filtertype="Customer">
+                            Customer ID <i class="fas fa-filter"></i>
+                        </th>
+                        <th scope="col" style="width:17%">Cost</th>
+                        <th scope="col" class="filterHeader" style="width:32%" data-toggle='modal' data-target='#FilterDateModalCenter'>
+                            Transaction Date & Time <i class="fas fa-calendar-alt"></i>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody id="allTransactionsTable">
+                        <%--<tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>$3.5</td>
+                            <td>2019-05-16 01:21:23.990</td>
+                        </tr>--%>
+                    </tbody>
+                </table>
+            </div>
+            
 
         </div>
 

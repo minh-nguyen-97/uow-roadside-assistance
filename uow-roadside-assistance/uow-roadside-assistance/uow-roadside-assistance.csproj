@@ -81,6 +81,7 @@
     <Content Include="Css\LoggedOn\Admin\AdminNavBar.css" />
     <Content Include="Css\LoggedOn\Admin\AllTransactions.css" />
     <Content Include="Css\LoggedOn\Admin\AppealReviews.css" />
+    <Content Include="Css\LoggedOn\Admin\ManageContractors.css" />
     <Content Include="Css\LoggedOn\Contractor\AvailableCustomers.css" />
     <Content Include="Css\LoggedOn\Contractor\ContractorChangePassword.css" />
     <Content Include="Css\LoggedOn\Contractor\ContractorHomepage.css" />
@@ -122,6 +123,7 @@
     <Content Include="Scripts\LoggedOn\Admin\AdminNavBar.js" />
     <Content Include="Scripts\LoggedOn\Admin\AllTransactions.js" />
     <Content Include="Scripts\LoggedOn\Admin\AppealReviews.js" />
+    <Content Include="Scripts\LoggedOn\Admin\ManageContractors.js" />
     <Content Include="Scripts\LoggedOn\Admin\OnLoadAdmin.js" />
     <Content Include="Scripts\LoggedOn\Contractor\AvailableCustomers.js" />
     <Content Include="Scripts\LoggedOn\Contractor\ContractorChangePassword.js" />

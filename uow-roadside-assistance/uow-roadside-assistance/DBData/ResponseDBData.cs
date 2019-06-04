@@ -118,6 +118,19 @@ namespace uow_roadside_assistance.DBData
             conn.Close();
         }
 
+        public static void deleteResponseByContractorID(int contractorID)
+        {
+            SqlConnection conn = Helper.Connection.connectionString;
+            conn.Open();
+
+            String deletetRequestQuery = "DELETE FROM dbo.RESPONSES WHERE contractorID = @contractorID  ";
+            SqlCommand cmd = new SqlCommand(deletetRequestQuery, conn);
+            cmd.Parameters.AddWithValue("@contractorID", contractorID);
+            cmd.ExecuteNonQuery();
+
+            conn.Close();
+        }
+
         public static void declineResponse(int requestID, int contractorID)
         {
             SqlConnection conn = Helper.Connection.connectionString;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
@@ -101,6 +102,36 @@ namespace uow_roadside_assistance.DBData
                 String fullName = Convert.ToString(reader["fullName"]).TrimEnd();
 
                 res = new User(userID, userName, email, password, userType, fullName);
+            }
+
+            conn.Close();
+
+            return res;
+        }
+
+        //
+        public static ArrayList getUsersByUserType(String userType)
+        {
+            SqlConnection conn = Helper.Connection.connectionString;
+            conn.Open();
+
+            String getUsersByUserTypeQuery = "SELECT * FROM dbo.USERS WHERE userType = @userType";
+            SqlCommand cmd = new SqlCommand(getUsersByUserTypeQuery, conn);
+            cmd.Parameters.AddWithValue("@userType", userType);
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            ArrayList res = new ArrayList();
+            while (reader.Read())
+            {
+                int userID = Convert.ToInt32(reader["userID"]);
+                String userName = Convert.ToString(reader["username"]).TrimEnd();
+                String email = Convert.ToString(reader["email"]).TrimEnd();
+                String password = Convert.ToString(reader["password"]).TrimEnd();
+                // userType
+                String fullName = Convert.ToString(reader["fullName"]).TrimEnd();
+
+                User user = new User(userID, userName, email, password, userType, fullName);
+                res.Add(user);
             }
 
             conn.Close();
